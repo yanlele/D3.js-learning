@@ -12,6 +12,7 @@
         "sourceMap": true,
         "outDir": "dist",
         "baseUrl": ".",
+        "types" : ["node"],
         "lib": ["es2017", "dom", "es2016"]
     },
     "include": [
