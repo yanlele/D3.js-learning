@@ -1,0 +1,22 @@
+{
+  "name": "d3.js-learning",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yanlele/D3.js-learning.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yanlele/D3.js-learning/issues"
+  },
+  "homepage": "https://github.com/yanlele/D3.js-learning#readme",
+  "dependencies": {
+    "d3": "3"
+  }
+}

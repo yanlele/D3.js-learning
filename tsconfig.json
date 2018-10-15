@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "module": "es6",
+        "target": "es5",
+        "experimentalDecorators": true,
+        "typeRoots": [
+            "/node_modules/@type",
+            "typings/modules"
+        ],
+        "allowJs": true,
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "outDir": "dist",
+        "baseUrl": ".",
+        "lib": ["es2017", "dom", "es2016"]
+    },
+    "include": [
+        "app/**/*"
+    ],
+    "exclude": [
+        "/node_modules"
+    ]
+}
