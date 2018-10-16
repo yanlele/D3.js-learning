@@ -156,16 +156,65 @@ exit.remove();
 
 
 #### 排序 sort
-升序如下：
+降序如下， 反之升序：
 ```typescript
-select.sort(function(a,b) {
-    return b-a;
-})
+let p = this.d3.select('body').selectAll('p');
+let persons: Array<any> = [
+    {
+        id: 6,
+        name: '张三'
+    },
+    {
+        id: 9,
+        name: '李四'
+    },
+    {
+        id: 3,
+        name: '王五'
+    }
+];
+p.data(persons)
+    .sort(function (a, b) {
+        return b.id-a.id
+    })
+    .text(function (data) {
+        return data.id + ': ' + data.name
+    })
 ```
 
 #### 遍历each 
+```typescript
+let persons: Array<object> = [
+    {
+        id: 1001,
+        name: '张三'
+    },
+    {
+        id: 1002,
+        name: '李四'
+    }
+];
 
+let p = this.d3.select('body').selectAll('p');
 
+p
+    .data(persons)
+    .each(function (d, i) {
+        d.age = 20;
+    })
+    .text(function (d, i) {
+        return `${d.id} - ${d.name} - ${d.age}`;
+    })
+```
+
+### 传递call 
+call() 允许选择集可以讲自身作为参数传递给某一个函数；
+```typescript
+function myfun(selection) {
+    // 这里做selection 的相关操作
+}
+this.d3.selectAll('p').call(myfun);
+```
 
 
 

@@ -7,6 +7,20 @@ import Main from "./Main.js";
 
 class Index {
     protected d3;
+    protected persons: Array<any> = [
+        {
+            id: 6,
+            name: '张三'
+        },
+        {
+            id: 9,
+            name: '李四'
+        },
+        {
+            id: 3,
+            name: '王五'
+        }
+    ];
 
     constructor() {
         this.d3 = (<any>window).d3;
@@ -50,7 +64,11 @@ class Index {
             }
         ];
 
-        p.data(persons)
+        p
+            .data(persons)
+            .sort(function (a, b) {
+                return b.id-a.id
+            })
             .text(function (data) {
                 return data.id + ': ' + data.name
             })
@@ -130,10 +148,18 @@ class Index {
                 return `${d.id} - ${d.name} - ${d.age}`;
             })
     }
+
+    /*传递call*/
+    demo10() {
+        function myfun(selection) {
+            // 这里做selection 的相关操作
+        }
+        this.d3.selectAll('p').call(myfun);
+    }
 }
 
 let index: Index = new Index();
-index.demo8();
+index.demo9();
 
 export default Index
 
