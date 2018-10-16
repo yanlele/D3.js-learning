@@ -270,6 +270,40 @@ console.log(mean);
 ```
 
 
+#### 生成与操作
+太过于简单了，示例就算了， 简单的示例看demo12: 
+```typescript
+let a: Array<number> = this.d3.range(10);
+console.log(a); // 输出 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+#### map
+其实跟es6的map没有多大区别，实例看demo13
+```typescript
+// 以数组对象persons作为数据源，设定id为主键
+let map = this.d3.map(this.persons, function(d) {
+    return d.id;
+});
+
+console.log(map.has(3));    // true
+console.log(map.has(4));    // false
+console.log(map.get(3));    // {id: 3, name: "王五"}
+console.log(map.get(5));    // undefined
+map.set(12, {id: 12, name: '王麻子'});
+map.set(3, {id: 3, name: '王小二'});
+map.remove(6);
+console.log(map.keys());
+console.log(map.values());
+console.log(map.entries());
+console.log('------------');
+
+map.each(function(value, key) {
+    console.log(key);
+    console.log(value);
+});
+console.log(map.empty());
+console.log(map.size());
+```
 
 
 
