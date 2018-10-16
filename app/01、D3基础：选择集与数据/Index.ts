@@ -67,7 +67,7 @@ class Index {
         p
             .data(persons)
             .sort(function (a, b) {
-                return b.id-a.id
+                return b.id - a.id
             })
             .text(function (data) {
                 return data.id + ': ' + data.name
@@ -83,7 +83,7 @@ class Index {
         let enter = update.enter();
         let exit = update.exit();
 
-        update.text(function(d) {
+        update.text(function (d) {
             return d;
         });
 
@@ -106,15 +106,15 @@ class Index {
 
         update
             .filter(function (d, i) {
-                if(d> 0) {
+                if (d > 0) {
                     return true
                 } else {
                     return false
                 }
             })
-            .text(function(d) {
-            return d;
-        });
+            .text(function (d) {
+                return d;
+            });
 
         enter.append('p')
             .text(function (d) {
@@ -154,12 +154,13 @@ class Index {
         function myfun(selection) {
             // 这里做selection 的相关操作
         }
+
         this.d3.selectAll('p').call(myfun);
     }
 
     /*求值的示例*/
     demo11() {
-        let number:Array<number> = [30, 20, 10, 50, 40];
+        let number: Array<number> = [30, 20, 10, 50, 40];
         let min: number = this.d3.min(number);
         let max: number = this.d3.max(number);
         let extent: Array<number> = this.d3.extent(number);
@@ -168,13 +169,19 @@ class Index {
         console.log(extent);
 
 
-        let minAcc: number = this.d3.min(number, function(d) {return d*3});
-        let maxAcc: number = this.d3.max(number, function(d) {return d - 5});
+        let minAcc: number = this.d3.min(number, function (d) {
+            return d * 3
+        });
+        let maxAcc: number = this.d3.max(number, function (d) {
+            return d - 5
+        });
         console.log(minAcc);
         console.log(maxAcc);
 
         let numbers: Array<number> = [69, 11, undefined, 53, 27, 82, 65, 34, NaN];
-        let sum:number = this.d3.sum(numbers, function(d) {return d/3});
+        let sum: number = this.d3.sum(numbers, function (d) {
+            return d / 3
+        });
         let mean: number = this.d3.mean(numbers);
         console.log(sum);
         console.log(mean);
@@ -189,7 +196,7 @@ class Index {
     /*map*/
     demo13() {
         // 以数组对象persons作为数据源，设定id为主键
-        let map = this.d3.map(this.persons, function(d) {
+        let map = this.d3.map(this.persons, function (d) {
             return d.id;
         });
 
@@ -205,7 +212,7 @@ class Index {
         console.log(map.entries());
         console.log('------------');
 
-        map.each(function(value, key) {
+        map.each(function (value, key) {
             console.log(key);
             console.log(value);
         });
@@ -219,7 +226,7 @@ class Index {
         let dataset: Array<number> = [50, 43, 120, 87, 99, 167, 142];
 
         // 创建svg 画布的宽高
-        let width:number = 400;
+        let width: number = 400;
         let height: number = 400;
 
         let svg = this.d3.select('body').append('svg');
@@ -249,9 +256,9 @@ class Index {
             .attr('x', function (d, i) {                // 设置x 坐标
                 return padding.left + i * rectStep;
             })
-            .attr('y', function(d) {                    // 谁知y 坐标
+            .attr('y', function (d) {                    // 谁知y 坐标
                 console.log(d);
-                return height-d;
+                return height - d - padding.bottom;
             })
             .attr('width', rectWidth)                       // 设置矩形宽度
             .attr('height', function (d) {            // 设置矩形高度
