@@ -156,10 +156,33 @@ class Index {
         }
         this.d3.selectAll('p').call(myfun);
     }
+
+    /*求值的示例*/
+    demo11() {
+        let number:Array<number> = [30, 20, 10, 50, 40];
+        let min: number = this.d3.min(number);
+        let max: number = this.d3.max(number);
+        let extent = this.d3.extent(number);
+        console.log(min);
+        console.log(max);
+        console.log(extent);
+
+
+        let minAcc: number = this.d3.min(number, function(d) {return d*3});
+        let maxAcc: number = this.d3.max(number, function(d) {return d - 5});
+        console.log(minAcc);
+        console.log(maxAcc);
+
+        let numbers: Array<number> = [69, 11, undefined, 53, 27, 82, 65, 34, NaN];
+        let sum:number = this.d3.sum(numbers, function(d) {return d/3});
+        let mean: number = this.d3.mean(numbers);
+        console.log(sum);
+        console.log(mean);
+    }
 }
 
 let index: Index = new Index();
-index.demo9();
+index.demo11();
 
 export default Index
 

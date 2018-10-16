@@ -225,7 +225,7 @@ d3.ascending(a,b) | 排序：如果a<b, 返回-1；如果a>b, 返回1； 如果a
 d3.descending(a,b) | 排序：如果a>b， 返回-1；如果a<b， 返回1；如果1=b, 返回0。
 d3.min(array [, accessor]) | 返回数组最小值， accessor是求值前的预处理函数。
 d3.max(array [, accessor]) | 返回数组最大值， accessor是求值前的预处理函数。
-d3.extend(array [, accessor]) | 返回数组， 最小值和最大值 ， accessor是求值前的预处理函数。
+d3.extent(array [, accessor]) | 返回数组， 最小值和最大值 ， accessor是求值前的预处理函数。
 d3.sum(array [, accessor]) | 求和
 d3.mean(array [, accessor]) | 求平均数
 d3.range([start, ] stop [, step]) | 返回等差数列
@@ -243,6 +243,34 @@ map.forEach(function) | 三版本
 map.each(function) | 四版本
 map.empty() | 返回布尔，是否为空
 map.size() | 返回映射的大小
+
+
+#### 求值的示例
+请见demo11:               
+```typescript
+let number:Array<number> = [30, 20, 10, 50, 40];
+let min: number = this.d3.min(number);
+let max: number = this.d3.max(number);
+let extent = this.d3.extent(number);
+console.log(min);
+console.log(max);
+console.log(extent);
+
+
+let minAcc: number = this.d3.min(number, function(d) {return d*3});
+let maxAcc: number = this.d3.max(number, function(d) {return d - 5});
+console.log(minAcc);
+console.log(maxAcc);
+
+let numbers: Array<number> = [69, 11, undefined, 53, 27, 82, 65, 34, NaN];
+let sum:number = this.d3.sum(numbers, function(d) {return d/3});
+let mean: number = this.d3.mean(numbers);
+console.log(sum);
+console.log(mean);
+```
+
+
+
 
 
 
