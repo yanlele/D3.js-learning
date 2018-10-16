@@ -231,7 +231,18 @@ d3.mean(array [, accessor]) | 求平均数
 d3.range([start, ] stop [, step]) | 返回等差数列
 d3.shuffle(array) | 随机排列数组
 d3.merge(arrays) | arrays 就是数组里面的数组，这个是合并数组操作
-
+`d3.map([object] [, key])` | 构建map， 第一个是源数组， 第二个参数是用于映射的key
+map.has(key) | 返回布尔
+map.get(key) | 返回对应key的value
+map.set(key, value) | 存
+map.remove(key) | 删除
+map.keys() | 数组形式返回所有map的key
+map.values() | 数组形式返回所有map的value
+map.entries() | 数组形式返回所有的key 和 value
+map.forEach(function) | 三版本
+map.each(function) | 四版本
+map.empty() | 返回布尔，是否为空
+map.size() | 返回映射的大小
 
 
 
