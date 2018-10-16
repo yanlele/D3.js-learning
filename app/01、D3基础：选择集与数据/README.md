@@ -217,6 +217,23 @@ this.d3.selectAll('p').call(myfun);
 ```
 
 
+### <div id="class01-07">07、常用数组方法</div>
+
+api | 说明
+:- | :-
+d3.ascending(a,b) | 排序：如果a<b, 返回-1；如果a>b, 返回1； 如果a=b， 返回0.
+d3.descending(a,b) | 排序：如果a>b， 返回-1；如果a<b， 返回1；如果1=b, 返回0。
+d3.min(array [, accessor]) | 返回数组最小值， accessor是求值前的预处理函数。
+d3.max(array [, accessor]) | 返回数组最大值， accessor是求值前的预处理函数。
+d3.extend(array [, accessor]) | 返回数组， 最小值和最大值 ， accessor是求值前的预处理函数。
+d3.sum(array [, accessor]) | 求和
+d3.mean(array [, accessor]) | 求平均数
+d3.range([start, ] stop [, step]) | 返回等差数列
+d3.shuffle(array) | 随机排列数组
+d3.merge(arrays) | arrays 就是数组里面的数组，这个是合并数组操作
+
+
+
 
 
 
