@@ -263,6 +263,26 @@ class Index {
             .attr('width', rectWidth)                       // 设置矩形宽度
             .attr('height', function (d) {            // 设置矩形高度
                 return d
+            });
+
+        // 给矩形添加文字
+        let text = svg.selectAll('text')
+            .data(dataset)
+            .enter()
+            .append('text')
+            .attr('fill', 'white')
+            .attr('font-size', '14px')
+            .attr('text-anchor', 'middle')
+            .attr('x', function (d, i) {
+                return padding.left + i * rectStep;
+            })
+            .attr('y', function (d) {
+                return height - d - padding.bottom;
+            })
+            .attr('dx', rectWidth/2)
+            .attr('dy', '1em')
+            .text(function(d) {
+                return d
             })
     }
 }
