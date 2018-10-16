@@ -17,8 +17,8 @@
   },
   "homepage": "https://github.com/yanlele/D3.js-learning#readme",
   "dependencies": {
-    "@types/d3": "3",
+    "@types/d3": "4",
     "@types/node": "8",
-    "d3": "3"
+    "d3": "4"
   }
 }

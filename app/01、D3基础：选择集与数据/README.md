@@ -94,6 +94,80 @@ data() 第一个参数是一个数组，这个数组的的元素分别对应选�
 
 #### 绑定顺序问题
 data() 接受第一个参数是数据数组， 第二个参数是主键函数，使用组件函数可以更改绑定的顺序或者规则。但是前提条件是必须选择集已经绑定有数据才行。
+这个地方有BUG 我也不知道是怎么回事儿，所以直接略过。
+
+
+### <div id="class01-05">05、update/enter/exit</div>
+这三个概念太过于简单略过
+
+给一个综合的示例 - demo7：
+```typescript
+let dataset: Array<number> = [10, 20, 30];
+let p = this.d3.select('body').selectAll('p');
+
+let update = p.data(dataset);
+let enter = update.enter();
+let exit = update.exit();
+
+update.text(function(d) {
+    return d;
+});
+
+enter.append('p')
+    .text(function (d) {
+        return d;
+    });
+
+exit.remove();
+```
+
+
+### <div id="class01-06">06、选择集的常用方法</div>
+
+#### filter 过滤
+```typescript
+let dataset: Array<number> = [10, 20, 30];
+let p = this.d3.select('body').selectAll('p');
+
+let update = p.data(dataset);
+let enter = update.enter();
+let exit = update.exit();
+
+update
+    .filter(function (d, i) {
+        if(d> 0) {
+            return true
+        } else {
+            return false
+        }
+    })
+    .text(function(d) {
+    return d;
+});
+
+enter.append('p')
+    .text(function (d) {
+        return d;
+    });
+
+exit.remove();
+```
+满足调教的数据才会做后续的处理
+
+
+#### 排序 sort
+升序如下：
+```typescript
+select.sort(function(a,b) {
+    return b-a;
+})
+```
+
+#### 遍历each 
+
+
+
+
 
 
 
