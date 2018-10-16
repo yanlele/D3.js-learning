@@ -212,10 +212,56 @@ class Index {
         console.log(map.empty());
         console.log(map.size());
     }
+
+    /*柱形图*/
+    demo14() {
+        // 矩形的高度
+        let dataset: Array<number> = [50, 43, 120, 87, 99, 167, 142];
+
+        // 创建svg 画布的宽高
+        let width:number = 400;
+        let height: number = 400;
+
+        let svg = this.d3.select('body').append('svg');
+        svg.attr('width', width)
+            .attr('height', height);
+
+        // 定义上下边距
+        let padding: any = {
+            top: 20,
+            bottom: 20,
+            right: 20,
+            left: 20
+        };
+
+        // 矩形所占据的宽度， 包括空白，单位为像素
+        let rectStep: number = 35;
+
+        // 矩形所餐具的宽度， 不包括空白， 单位像素
+        let rectWidth: number = 30;
+
+        // 通过dataset给SVG 添加矩形和文字。
+        let rect = svg.selectAll('rect');
+        rect.data(dataset)                                          // 绑定数据
+            .enter()
+            .append('rect')                                         // 添加元素
+            .attr('fill', 'steelblue')                 // 设置颜色
+            .attr('x', function (d, i) {                // 设置x 坐标
+                return padding.left + i * rectStep;
+            })
+            .attr('y', function(d) {                    // 谁知y 坐标
+                console.log(d);
+                return height-d;
+            })
+            .attr('width', rectWidth)                       // 设置矩形宽度
+            .attr('height', function (d) {            // 设置矩形高度
+                return d
+            })
+    }
 }
 
 let index: Index = new Index();
-index.demo13();
+index.demo14();
 
 export default Index
 
