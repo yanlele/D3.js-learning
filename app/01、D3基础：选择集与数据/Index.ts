@@ -19,6 +19,7 @@ class Index {
         })
     }
 
+    /*数据相关*/
     demo5() {
         let p = this.d3.select('body').selectAll('p');
         p.datum('Thunder')
@@ -30,10 +31,34 @@ class Index {
                 return ' ' + d;
             })
     }
+
+    /*绑定顺序问题*/
+    demo6() {
+        let p = this.d3.select('body').selectAll('p');
+        let persons:Array<any> = [
+            {
+                id: 6,
+                name: '张三'
+            },
+            {
+                id: 9,
+                name: '李四'
+            },
+            {
+                id: 3,
+                name: '王五'
+            }
+        ];
+
+        p.data(persons)
+            .text(function(data) {
+                return data.id + ': ' + data.name
+            })
+    }
 }
 
 let index: Index = new Index();
-index.demo5();
+index.demo6();
 
 export default Index
 
