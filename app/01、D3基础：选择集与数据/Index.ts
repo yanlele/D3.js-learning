@@ -4,6 +4,7 @@
  * create time 2018-10-15 23:29
  */
 import Main from "./Main.js";
+// import {select} from 'd3-selection'
 
 class Index {
     protected d3;
@@ -283,6 +284,50 @@ class Index {
             .attr('dy', '1em')
             .text(function(d) {
                 return d
+            })
+    }
+
+    /*ts中使用D3， 画出柱形图*/
+    demo15() {
+        // 矩形的高度
+        let dataset: Array<number> = [50, 43, 120, 87, 99, 167, 142];
+
+        // 创建svg 画布的宽高
+        let width: number = 400;
+        let height: number = 400;
+
+        let svg = this.d3.select('body').append('svg');
+        svg.attr('width', width);
+        svg.attr('height', width);
+
+        // 定义上下边距
+        let padding: any = {
+            top: 20,
+            bottom: 20,
+            right: 20,
+            left: 20
+        };
+
+        // 矩形所占据的宽度， 包括空白，单位为像素
+        let rectStep: number = 35;
+
+        // 矩形所餐具的宽度， 不包括空白， 单位像素
+        let rectWidth: number = 30;
+
+        // 通过dataset给SVG 添加矩形和文字。
+        let rect = svg.selectAll('rect');
+        rect.data(dataset)
+            .enter()
+            .attr('fill', 'red')
+            .attr('x', function(d, i) {
+                return padding.left + i * rectStep;
+            })
+            .attr('y', function (d) {
+                return height - d - padding.bottom
+            })
+            .attr('width', rectWidth)
+            .attr('height', function (d) {
+                return d;
             })
     }
 }
