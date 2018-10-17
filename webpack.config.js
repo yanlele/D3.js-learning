@@ -6,10 +6,6 @@ const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
 const baseConfig = {
-    entry: {
-        d3: 'd3'
-    },
-
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'js/[name].[chunkhash].js'
@@ -56,7 +52,7 @@ const baseConfig = {
 
         new CleanWebpack(path.resolve(__dirname, 'dist')),
 
-        new webpack.optimize.CommonsChunkPlugin({
+        new webpack.optimize.CommonsChunkPlugin({               // 提取三方生成的代码, 包括模块代码
             name: 'd3',
             minChunks: Infinity
         })
@@ -90,7 +86,7 @@ const pages = [
             main: './app/Main.ts'
         },
         name: 'Main',
-        chunks: ['d3', 'Main'],         // 这个地方的chunks 就是自己的代码加上公用的代码
+        chunks: ['main', 'd3'],         // 这个地方的chunks 就是自己的代码加上公用的代码
     })
 ];
 
