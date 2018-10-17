@@ -3,8 +3,9 @@
  * connect me 331393627@qq.com
  * create time 2018-10-15 23:29
  */
-import Main from "./Main.js";
-import {descending, select} from 'd3'
+
+import {ascending, descending} from "d3-array";
+import {select} from "d3-selection";
 
 class Index {
     protected d3;
