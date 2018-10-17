@@ -18,6 +18,12 @@ const baseConfig = {
     module: {
         rules: [
             {
+                test: /\.ts$/,
+                use: {
+                    loader: 'ts-loader'
+                }
+            },
+            {
                 test: /\.less$/,
                 use: ExtractTextWebpackPlugin.extract({
                     fallback: {
@@ -79,30 +85,13 @@ const generatePage = function({
 
 const pages = [
     generatePage({
-        title: 'page A',
+        title: 'Main',
         entry: {
-            a: './src/pages/a'
+            main: './app/Main.ts'
         },
-        name: 'a',
-        chunks: ['react', 'a'],         // 这个地方的chunks 就是自己的代码加上公用的代码
-    }),
-    generatePage({
-        title: 'page B',
-        entry: {
-            b: './src/pages/b'
-        },
-        name: 'b',
-        chunks: ['react', 'b'],         // 这个地方的chunks 就是自己的代码加上公用的代码
-    }),
-    generatePage({
-        title: 'page C',
-        entry: {
-            c: './src/pages/c'
-        },
-        name: 'c',
-        chunks: ['react', 'c'],         // 这个地方的chunks 就是自己的代码加上公用的代码
+        name: 'Main',
+        chunks: ['d3', 'Main'],         // 这个地方的chunks 就是自己的代码加上公用的代码
     })
 ];
 
-console.log(merge([baseConfig].concat(pages)));
 module.exports = merge([baseConfig].concat(pages));

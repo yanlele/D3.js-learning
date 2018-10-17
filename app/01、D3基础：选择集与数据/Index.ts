@@ -314,26 +314,27 @@ class Index {
         // 矩形所餐具的宽度， 不包括空白， 单位像素
         let rectWidth: number = 30;
 
-        // 通过dataset给SVG 添加矩形和文字。
-        let rect = svg.selectAll('rect');
-        rect.data(dataset)
+        let rect = svg.selectAll('rect')
+            .data(dataset)
             .enter()
-            .attr('fill', 'red')
-            .attr('x', function(d, i) {
+            .append('rect')
+            .sort(this.d3.descending)
+            .attr('fill', 'SlateBlue')
+            .attr('x', function (d, i) {
                 return padding.left + i * rectStep;
             })
-            .attr('y', function (d) {
-                return height - d - padding.bottom
+            .attr('y', function(d) {
+                return height - d -padding.bottom
             })
             .attr('width', rectWidth)
-            .attr('height', function (d) {
-                return d;
+            .attr('height', function(d) {
+                return d
             })
     }
 }
 
 let index: Index = new Index();
-index.demo14();
+index.demo15();
 
 export default Index
 
