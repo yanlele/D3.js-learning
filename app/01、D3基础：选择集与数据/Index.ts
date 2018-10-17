@@ -4,8 +4,9 @@
  * create time 2018-10-15 23:29
  */
 
-import {ascending, descending, extent, max, mean, min, sum} from "d3-array";
+import {ascending, descending, extent, max, mean, min, range, sum} from "d3-array";
 import {select, selectAll} from "d3-selection";
+import {map} from "d3-collection";
 
 class Index {
 
@@ -187,35 +188,35 @@ class Index {
 
     /*生成与操作*/
     demo12() {
-        let a: Array<number> = this.d3.range(10);
+        let a: Array<number> = range(10);
         console.log(a); // 输出 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     }
 
     /*map*/
     demo13() {
         // 以数组对象persons作为数据源，设定id为主键
-        let map = this.d3.map(this.persons, function (d) {
+        let myMap = map(this.persons, function (d) {
             return d.id;
         });
 
-        console.log(map.has(3));    // true
-        console.log(map.has(4));    // false
-        console.log(map.get(3));    // {id: 3, name: "王五"}
-        console.log(map.get(5));    // undefined
-        map.set(12, {id: 12, name: '王麻子'});
-        map.set(3, {id: 3, name: '王小二'});
-        map.remove(6);
-        console.log(map.keys());
-        console.log(map.values());
-        console.log(map.entries());
+        console.log(myMap.has(3));    // true
+        console.log(myMap.has(4));    // false
+        console.log(myMap.get(3));    // {id: 3, name: "王五"}
+        console.log(myMap.get(5));    // undefined
+        myMap.set(12, {id: 12, name: '王麻子'});
+        myMap.set(3, {id: 3, name: '王小二'});
+        myMap.remove(6);
+        console.log(myMap.keys());
+        console.log(myMap.values());
+        console.log(myMap.entries());
         console.log('------------');
 
-        map.each(function (value, key) {
+        myMap.each(function (value, key) {
             console.log(key);
             console.log(value);
         });
-        console.log(map.empty());
-        console.log(map.size());
+        console.log(myMap.empty());
+        console.log(myMap.size());
     }
 
     /*柱形图*/
