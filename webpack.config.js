@@ -7,7 +7,8 @@ const path = require('path');
 
 const baseConfig = {
     entry: {
-        vendor: ['d3']
+        vendor: ['d3'],
+        common: './app/common.ts'
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -91,7 +92,7 @@ const pages = [
             main: './app/Main.ts'
         },
         name: 'Main',
-        chunks: ['main', 'vendor'],         // 这个地方的chunks 就是自己的代码加上公用的代码
+        chunks: ['main', 'vendor', 'common'],         // 这个地方的chunks 就是自己的代码加上公用的代码
     }),
 
     generatePage({
@@ -100,7 +101,7 @@ const pages = [
             '01、D3基础：选择集与数据': './app/01、D3基础：选择集与数据/Index.ts'
         },
         name: '01、D3基础：选择集与数据',
-        chunks: ['01、D3基础：选择集与数据', 'vendor'],         // 这个地方的chunks 就是自己的代码加上公用的代码
+        chunks: ['01、D3基础：选择集与数据', 'vendor', 'common'],         // 这个地方的chunks 就是自己的代码加上公用的代码
     }),
 ];
 
