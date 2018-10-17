@@ -6,9 +6,12 @@ const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
 const baseConfig = {
+    entry: {
+        vendor: ['d3']
+    },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'js/[name].[chunkhash].js'
+        filename: 'js/[name].[chunkhash:5].js'
     },
 
     module: {
@@ -53,9 +56,11 @@ const baseConfig = {
         new CleanWebpack(path.resolve(__dirname, 'dist')),
 
         new webpack.optimize.CommonsChunkPlugin({               // 提取三方生成的代码, 包括模块代码
-            name: 'd3',
+            names: ['vendor'],
             minChunks: Infinity
-        })
+        }),
+
+        new webpack.optimize.UglifyJsPlugin()
     ]
 };
 
@@ -86,8 +91,17 @@ const pages = [
             main: './app/Main.ts'
         },
         name: 'Main',
-        chunks: ['main', 'd3'],         // 这个地方的chunks 就是自己的代码加上公用的代码
-    })
+        chunks: ['main', 'vendor'],         // 这个地方的chunks 就是自己的代码加上公用的代码
+    }),
+
+    generatePage({
+        title: '01、D3基础：选择集与数据',
+        entry: {
+            '01、D3基础：选择集与数据': './app/01、D3基础：选择集与数据/Index.ts'
+        },
+        name: '01、D3基础：选择集与数据',
+        chunks: ['01、D3基础：选择集与数据', 'vendor'],         // 这个地方的chunks 就是自己的代码加上公用的代码
+    }),
 ];
 
 module.exports = merge([baseConfig].concat(pages));

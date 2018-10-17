@@ -4,7 +4,7 @@
  * create time 2018-10-15 23:29
  */
 import Main from "./Main.js";
-// import {select} from 'd3-selection'
+import {descending, select} from 'd3'
 
 class Index {
     protected d3;
@@ -296,7 +296,7 @@ class Index {
         let width: number = 400;
         let height: number = 400;
 
-        let svg = this.d3.select('body').append('svg');
+        let svg = select('body').append('svg');
         svg.attr('width', width);
         svg.attr('height', width);
 
@@ -318,7 +318,7 @@ class Index {
             .data(dataset)
             .enter()
             .append('rect')
-            .sort(this.d3.descending)
+            .sort(descending)
             .attr('fill', 'SlateBlue')
             .attr('x', function (d, i) {
                 return padding.left + i * rectStep;

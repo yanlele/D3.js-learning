@@ -7,8 +7,13 @@
 class Main {
     protected d3;
     constructor() {
+        console.log(123);
+
         this.d3 =  (<any>window).d3;
     }
 }
+
+let main:Main = new Main();
+
 
 export default Main;
