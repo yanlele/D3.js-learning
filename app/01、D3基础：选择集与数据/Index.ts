@@ -4,11 +4,11 @@
  * create time 2018-10-15 23:29
  */
 
-import {ascending, descending} from "d3-array";
-import {select} from "d3-selection";
+import {ascending, descending, extent, max, mean, min, sum} from "d3-array";
+import {select, selectAll} from "d3-selection";
 
 class Index {
-    protected d3;
+
     protected persons: Array<any> = [
         {
             id: 6,
@@ -25,11 +25,11 @@ class Index {
     ];
 
     constructor() {
-        this.d3 = (<any>window).d3;
+
     }
 
     demo4() {
-        let p = this.d3.select('body').selectAll('p');
+        let p = select('body').selectAll('p');
         p.datum('Thunder').text(function (d, i) {
             return d + ' ' + i;
         })
@@ -37,7 +37,7 @@ class Index {
 
     /*数据相关*/
     demo5() {
-        let p = this.d3.select('body').selectAll('p');
+        let p = select('body').selectAll('p');
         p.datum('Thunder')
             .text(function (d, i) {
                 return d + ' ' + i;
@@ -50,7 +50,7 @@ class Index {
 
     /*绑定顺序问题*/
     demo6() {
-        let p = this.d3.select('body').selectAll('p');
+        let p = select('body').selectAll('p');
         let persons: Array<any> = [
             {
                 id: 6,
@@ -79,7 +79,7 @@ class Index {
     /*update/enter/exit*/
     demo7() {
         let dataset: Array<number> = [10, 20, 30];
-        let p = this.d3.select('body').selectAll('p');
+        let p = select('body').selectAll('p');
 
         let update = p.data(dataset);
         let enter = update.enter();
@@ -100,7 +100,7 @@ class Index {
     /*filter*/
     demo8() {
         let dataset: Array<number> = [10, 20, 30];
-        let p = this.d3.select('body').selectAll('p');
+        let p = select('body').selectAll('p');
 
         let update = p.data(dataset);
         let enter = update.enter();
@@ -108,11 +108,7 @@ class Index {
 
         update
             .filter(function (d, i) {
-                if (d > 0) {
-                    return true
-                } else {
-                    return false
-                }
+                return d > 0;
             })
             .text(function (d) {
                 return d;
@@ -128,7 +124,7 @@ class Index {
 
     /*遍历*/
     demo9() {
-        let persons: Array<object> = [
+        let persons: Array<any> = [
             {
                 id: 1001,
                 name: '张三'
@@ -139,7 +135,7 @@ class Index {
             }
         ];
 
-        let p = this.d3.select('body').selectAll('p');
+        let p = select('body').selectAll('p');
 
         p
             .data(persons)
@@ -157,36 +153,36 @@ class Index {
             // 这里做selection 的相关操作
         }
 
-        this.d3.selectAll('p').call(myfun);
+        selectAll('p').call(myfun);
     }
 
     /*求值的示例*/
     demo11() {
         let number: Array<number> = [30, 20, 10, 50, 40];
-        let min: number = this.d3.min(number);
-        let max: number = this.d3.max(number);
-        let extent: Array<number> = this.d3.extent(number);
-        console.log(min);
-        console.log(max);
-        console.log(extent);
+        let minNumber: number = min(number);
+        let maxNumber: number = max(number);
+        let extentArray: Array<number> = extent(number);
+        console.log(minNumber);
+        console.log(maxNumber);
+        console.log(extentArray);
 
 
-        let minAcc: number = this.d3.min(number, function (d) {
+        let minAcc: number = min(number, function (d) {
             return d * 3
         });
-        let maxAcc: number = this.d3.max(number, function (d) {
+        let maxAcc: number = max(number, function (d) {
             return d - 5
         });
         console.log(minAcc);
         console.log(maxAcc);
 
         let numbers: Array<number> = [69, 11, undefined, 53, 27, 82, 65, 34, NaN];
-        let sum: number = this.d3.sum(numbers, function (d) {
+        let sumNumber: number = sum(numbers, function (d) {
             return d / 3
         });
-        let mean: number = this.d3.mean(numbers);
-        console.log(sum);
-        console.log(mean);
+        let meanNumber: number = mean(numbers);
+        console.log(sumNumber);
+        console.log(meanNumber);
     }
 
     /*生成与操作*/
