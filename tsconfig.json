@@ -10,7 +10,7 @@
         "allowJs": true,
         "moduleResolution": "node",
         "sourceMap": true,
-        "outDir": "dist",
+        "outDir": "dist-ts",
         "baseUrl": ".",
         "types" : ["node"],
         "lib": ["es2017", "dom", "es2016"]
