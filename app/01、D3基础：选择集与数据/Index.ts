@@ -332,7 +332,7 @@ class Index {
 }
 
 let index: Index = new Index();
-index.demo15();
+index.demo13();
 
 export default Index
 
