@@ -15,6 +15,10 @@ const baseConfig = {
         filename: 'js/[name].[chunkhash:5].js'
     },
     devtool: 'cheap-module-source-map',
+
+    resolve: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    },
     module: {
         rules: [
             {
@@ -65,13 +69,13 @@ const baseConfig = {
     ]
 };
 
-const generatePage = function({
-                                  title = '',
-                                  entry = '',
-                                  template = './app/index.html',
-                                  name = '',
-                                  chunks = []
-                              } = {}) {
+const generatePage = function ({
+                                   title = '',
+                                   entry = '',
+                                   template = './app/index.html',
+                                   name = '',
+                                   chunks = []
+                               } = {}) {
     return {
         entry,
         plugins: [

@@ -7,6 +7,7 @@
 import {ascending, descending, extent, max, mean, min, range, sum} from "d3-array";
 import {select, selectAll} from "d3-selection";
 import {map} from "d3-collection";
+import UpdateData from "./08、更新数据/UpdateData";
 
 class Index {
 
@@ -351,8 +352,9 @@ class Index {
     }
 }
 
-let index: Index = new Index();
-index.demo14();
+// let index: Index = new Index();
+// index.demo14();
+UpdateData.draw();
 
 export default Index
 
