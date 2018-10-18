@@ -1,5 +1,5 @@
 import {scaleLinear} from "d3-scale";
-import {line} from "d3-shape";
+import {line, lineRadial} from "d3-shape";
 
 class Index {
     /*比例尺*/
@@ -28,6 +28,18 @@ class Index {
         // 理想化定义域
         linear.domain([0.12300000, 0.4888888]).nice();
         console.log(linear.domain());                  // [0.1, 0.5]
+
+        // 对于ticks() 和 tickFormat() 的使用
+        linear = scaleLinear().domain([-20, 20]).range([0, 100]);
+        let ticks: Array<any> = linear.ticks(5);
+        console.log('ticks: ', ticks);          //  [-20, -10, 0, 10, 20]
+
+        let tickFormat = linear.tickFormat(5, '+');
+
+        ticks.map(function(item, index) {
+            ticks[index] = tickFormat(ticks[index]);
+        });
+        console.log(ticks);         // ["-2e+1", "-1e+1", "+0", "+1e+1", "+2e+1"]
     }
 }
 

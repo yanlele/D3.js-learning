@@ -48,7 +48,24 @@ console.log(linear(13.33));                    // 67
 // 理想化定义域
 linear.domain([0.12300000, 0.4888888]).nice();
 console.log(linear.domain());                  // [0.1, 0.5]
+
+// 对于ticks() 和 tickFormat() 的使用
+linear = scaleLinear().domain([-20, 20]).range([0, 100]);
+let ticks: Array<any> = linear.ticks(5);
+console.log('ticks: ', ticks);          //  [-20, -10, 0, 10, 20]
+
+let tickFormat = linear.tickFormat(5, '+');
+
+ticks.map(function(item, index) {
+    ticks[index] = tickFormat(ticks[index]);
+});
+console.log(ticks);         // ["-2e+1", "-1e+1", "+0", "+1e+1", "+2e+1"]
 ```
+其中tickFormat() 第二个参数格式通常有： +  %  $ 等
+
+其他说明：                   
+domain() 和 range() 至少放入两个数，但是可以放入多个数，条件是放入数据的数量要相等，可以切分为多个线性情况。这种情况自己试验。
+
 
 
 
