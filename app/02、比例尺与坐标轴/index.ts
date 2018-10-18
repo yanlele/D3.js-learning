@@ -36,10 +36,15 @@ class Index {
 
         let tickFormat = linear.tickFormat(5, '+');
 
-        ticks.map(function(item, index) {
+        ticks.map(function (item, index) {
             ticks[index] = tickFormat(ticks[index]);
         });
         console.log(ticks);         // ["-2e+1", "-1e+1", "+0", "+1e+1", "+2e+1"]
+    }
+
+    /*指数标尺和对数标尺: scalePow() | scaleLog()*/
+    demo3() {
+
     }
 }
 
