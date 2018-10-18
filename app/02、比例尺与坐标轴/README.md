@@ -137,6 +137,42 @@ class Method {
 }
 ```
 
+用量子比例尺来做一个实际的使用： 画五个圆， 半径越来越小，颜色越来越深
+```typescript
+
+import {ScaleQuantize, scaleQuantize} from "d3-scale";
+import Method from "./Method";
+import {select} from "d3-selection";
+import {descending} from "d3-array";
+
+let quantize: ScaleQuantize<number> = scaleQuantize().domain([0, 50]).range([5, 4, 3, 2, 1]);
+
+// 定义一个圆的半径
+let r: Array<number> = [45, 35, 25, 15, 5];
+
+// 添加svg
+let svg = select('body').append('svg')
+    .attr('width', 400)
+    .attr('height', 400);
+
+// 添加圆
+svg.selectAll('circle')
+    .data(r)
+    .enter()
+    .append('circle')
+    .sort(descending)
+    .attr('cx', function (d, i) {
+        return 50 + i * 30;
+    })
+    .attr('cy', 50)
+    .attr('r', function(d) {
+        return d
+    })
+    .attr('fill', function (d) {
+        return Method.getColorCode(quantize(d))
+    })
+```
+
 
 
 

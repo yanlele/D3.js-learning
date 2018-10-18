@@ -15,6 +15,17 @@ class Method {
             default: return 'white';
         }
     }
+
+    static getColorCode(number:number) {
+        switch (number) {
+            case 1: return '#888';
+            case 2: return '#666';
+            case 3: return '#444';
+            case 4: return '#222';
+            case 5: return '#000';
+            default: return '#000';
+        }
+    }
 }
 
 export default Method;

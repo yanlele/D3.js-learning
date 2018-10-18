@@ -1,5 +1,7 @@
-import {scaleLinear, scalePow, scaleQuantize} from "d3-scale";
+import {scaleLinear, scalePow, ScaleQuantize, scaleQuantize} from "d3-scale";
 import Method from "./Method";
+import {select} from "d3-selection";
+import {descending} from "d3-array";
 
 class Index {
     /*比例尺*/
@@ -69,16 +71,46 @@ class Index {
 
     /*量子比例尺*/
     demo4() {
-        let quantize = scaleQuantize().domain([0, 10]).range([1, 2, 3, 4, 5]);
+        let quantize: ScaleQuantize<number> = scaleQuantize().domain([0, 10]).range([1, 2, 3, 4, 5]);
         console.log(Method.getColor(quantize(1)));                  // red
         console.log(Method.getColor(quantize(3)));                  // green
         console.log(Method.getColor(quantize(5.999)));              // blue
         console.log(Method.getColor(quantize(6)));                  // yellow
     }
+
+    /*量子比例尺的使用实例*/
+    demo5() {
+        let quantize: ScaleQuantize<number> = scaleQuantize().domain([0, 50]).range([5, 4, 3, 2, 1]);
+
+        // 定义一个圆的半径
+        let r: Array<number> = [45, 35, 25, 15, 5];
+
+        // 添加svg
+        let svg = select('body').append('svg')
+            .attr('width', 400)
+            .attr('height', 400);
+
+        // 添加圆
+        svg.selectAll('circle')
+            .data(r)
+            .enter()
+            .append('circle')
+            .sort(descending)
+            .attr('cx', function (d, i) {
+                return 50 + i * 30;
+            })
+            .attr('cy', 50)
+            .attr('r', function(d) {
+                return d
+            })
+            .attr('fill', function (d) {
+                return Method.getColorCode(quantize(d))
+            })
+    }
 }
 
 let index: Index = new Index();
-index.demo4();
+index.demo5();
 
 
 export default Index;
