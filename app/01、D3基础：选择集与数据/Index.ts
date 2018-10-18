@@ -3,11 +3,13 @@
  * connect me 331393627@qq.com
  * create time 2018-10-15 23:29
  */
-import Main from "./Main.js";
-// import {select} from 'd3-selection'
+
+import {ascending, descending, extent, max, mean, min, range, sum} from "d3-array";
+import {select, selectAll} from "d3-selection";
+import {map} from "d3-collection";
 
 class Index {
-    protected d3;
+
     protected persons: Array<any> = [
         {
             id: 6,
@@ -24,11 +26,11 @@ class Index {
     ];
 
     constructor() {
-        this.d3 = (<any>window).d3;
+
     }
 
     demo4() {
-        let p = this.d3.select('body').selectAll('p');
+        let p = select('body').selectAll('p');
         p.datum('Thunder').text(function (d, i) {
             return d + ' ' + i;
         })
@@ -36,7 +38,7 @@ class Index {
 
     /*数据相关*/
     demo5() {
-        let p = this.d3.select('body').selectAll('p');
+        let p = select('body').selectAll('p');
         p.datum('Thunder')
             .text(function (d, i) {
                 return d + ' ' + i;
@@ -49,7 +51,7 @@ class Index {
 
     /*绑定顺序问题*/
     demo6() {
-        let p = this.d3.select('body').selectAll('p');
+        let p = select('body').selectAll('p');
         let persons: Array<any> = [
             {
                 id: 6,
@@ -78,7 +80,7 @@ class Index {
     /*update/enter/exit*/
     demo7() {
         let dataset: Array<number> = [10, 20, 30];
-        let p = this.d3.select('body').selectAll('p');
+        let p = select('body').selectAll('p');
 
         let update = p.data(dataset);
         let enter = update.enter();
@@ -99,7 +101,7 @@ class Index {
     /*filter*/
     demo8() {
         let dataset: Array<number> = [10, 20, 30];
-        let p = this.d3.select('body').selectAll('p');
+        let p = select('body').selectAll('p');
 
         let update = p.data(dataset);
         let enter = update.enter();
@@ -107,11 +109,7 @@ class Index {
 
         update
             .filter(function (d, i) {
-                if (d > 0) {
-                    return true
-                } else {
-                    return false
-                }
+                return d > 0;
             })
             .text(function (d) {
                 return d;
@@ -127,7 +125,7 @@ class Index {
 
     /*遍历*/
     demo9() {
-        let persons: Array<object> = [
+        let persons: Array<any> = [
             {
                 id: 1001,
                 name: '张三'
@@ -138,7 +136,7 @@ class Index {
             }
         ];
 
-        let p = this.d3.select('body').selectAll('p');
+        let p = select('body').selectAll('p');
 
         p
             .data(persons)
@@ -156,69 +154,69 @@ class Index {
             // 这里做selection 的相关操作
         }
 
-        this.d3.selectAll('p').call(myfun);
+        selectAll('p').call(myfun);
     }
 
     /*求值的示例*/
     demo11() {
         let number: Array<number> = [30, 20, 10, 50, 40];
-        let min: number = this.d3.min(number);
-        let max: number = this.d3.max(number);
-        let extent: Array<number> = this.d3.extent(number);
-        console.log(min);
-        console.log(max);
-        console.log(extent);
+        let minNumber: number = min(number);
+        let maxNumber: number = max(number);
+        let extentArray: Array<number> = extent(number);
+        console.log(minNumber);
+        console.log(maxNumber);
+        console.log(extentArray);
 
 
-        let minAcc: number = this.d3.min(number, function (d) {
+        let minAcc: number = min(number, function (d) {
             return d * 3
         });
-        let maxAcc: number = this.d3.max(number, function (d) {
+        let maxAcc: number = max(number, function (d) {
             return d - 5
         });
         console.log(minAcc);
         console.log(maxAcc);
 
         let numbers: Array<number> = [69, 11, undefined, 53, 27, 82, 65, 34, NaN];
-        let sum: number = this.d3.sum(numbers, function (d) {
+        let sumNumber: number = sum(numbers, function (d) {
             return d / 3
         });
-        let mean: number = this.d3.mean(numbers);
-        console.log(sum);
-        console.log(mean);
+        let meanNumber: number = mean(numbers);
+        console.log(sumNumber);
+        console.log(meanNumber);
     }
 
     /*生成与操作*/
     demo12() {
-        let a: Array<number> = this.d3.range(10);
+        let a: Array<number> = range(10);
         console.log(a); // 输出 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     }
 
     /*map*/
     demo13() {
         // 以数组对象persons作为数据源，设定id为主键
-        let map = this.d3.map(this.persons, function (d) {
+        let myMap = map(this.persons, function (d) {
             return d.id;
         });
 
-        console.log(map.has(3));    // true
-        console.log(map.has(4));    // false
-        console.log(map.get(3));    // {id: 3, name: "王五"}
-        console.log(map.get(5));    // undefined
-        map.set(12, {id: 12, name: '王麻子'});
-        map.set(3, {id: 3, name: '王小二'});
-        map.remove(6);
-        console.log(map.keys());
-        console.log(map.values());
-        console.log(map.entries());
+        console.log(myMap.has('3'));    // true
+        console.log(myMap.has('4'));    // false
+        console.log(myMap.get('3'));    // {id: 3, name: "王五"}
+        console.log(myMap.get('5'));    // undefined
+        myMap.set('12', {id: 12, name: '王麻子'});
+        myMap.set('3', {id: 3, name: '王小二'});
+        myMap.remove('6');
+        console.log(myMap.keys());
+        console.log(myMap.values());
+        console.log(myMap.entries());
         console.log('------------');
 
-        map.each(function (value, key) {
+        myMap.each(function (value, key) {
             console.log(key);
             console.log(value);
         });
-        console.log(map.empty());
-        console.log(map.size());
+        console.log(myMap.empty());
+        console.log(myMap.size());
     }
 
     /*柱形图*/
@@ -230,7 +228,7 @@ class Index {
         let width: number = 400;
         let height: number = 400;
 
-        let svg = this.d3.select('body').append('svg');
+        let svg = select('body').append('svg');
         svg.attr('width', width)
             .attr('height', height);
 
@@ -296,7 +294,7 @@ class Index {
         let width: number = 400;
         let height: number = 400;
 
-        let svg = this.d3.select('body').append('svg');
+        let svg = select('body').append('svg');
         svg.attr('width', width);
         svg.attr('height', width);
 
@@ -314,26 +312,27 @@ class Index {
         // 矩形所餐具的宽度， 不包括空白， 单位像素
         let rectWidth: number = 30;
 
-        // 通过dataset给SVG 添加矩形和文字。
-        let rect = svg.selectAll('rect');
-        rect.data(dataset)
+        let rect = svg.selectAll('rect')
+            .data(dataset)
             .enter()
-            .attr('fill', 'red')
-            .attr('x', function(d, i) {
+            .append('rect')
+            .sort(descending)
+            .attr('fill', 'SlateBlue')
+            .attr('x', function (d, i) {
                 return padding.left + i * rectStep;
             })
-            .attr('y', function (d) {
-                return height - d - padding.bottom
+            .attr('y', function(d) {
+                return height - d -padding.bottom
             })
             .attr('width', rectWidth)
-            .attr('height', function (d) {
-                return d;
+            .attr('height', function(d) {
+                return d
             })
     }
 }
 
 let index: Index = new Index();
-index.demo14();
+index.demo13();
 
 export default Index
 
