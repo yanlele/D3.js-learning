@@ -1,4 +1,5 @@
-import {scaleLinear, scalePow} from "d3-scale";
+import {scaleLinear, scalePow, scaleQuantize} from "d3-scale";
+import Method from "./Method";
 
 class Index {
     /*比例尺*/
@@ -65,10 +66,19 @@ class Index {
             .range([0, 90]);
         console.log(pow(1.5))           // 11.25
     }
+
+    /*量子比例尺*/
+    demo4() {
+        let quantize = scaleQuantize().domain([0, 10]).range([1, 2, 3, 4, 5]);
+        console.log(Method.getColor(quantize(1)));                  // red
+        console.log(Method.getColor(quantize(3)));                  // green
+        console.log(Method.getColor(quantize(5.999)));              // blue
+        console.log(Method.getColor(quantize(6)));                  // yellow
+    }
 }
 
 let index: Index = new Index();
-index.demo3();
+index.demo4();
 
 
 export default Index;

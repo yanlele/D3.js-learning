@@ -103,6 +103,42 @@ console.log(pow(1.5))           // 11.25
 ```
 
 
+#### 量子比例尺和分位比例尺: scaleQuantize | scaleQuantile
+
+**量子比例尺**
+
+定义域连续，值域离散。例如：              
+定义域： [0, 10]                
+值域： ['red', 'green', 'blue', 'yellow', 'black']
+
+这样定义域被分为5段，每一段对应一个值，前开后闭的方式对应的。 示例如下：
+```typescript
+import {scaleQuantize} from "d3-scale";
+let quantize = scaleQuantize().domain([0, 10]).range([1, 2, 3, 4, 5]);
+console.log(Method.getColor(quantize(1)));                  // red
+console.log(Method.getColor(quantize(3)));                  // green
+console.log(Method.getColor(quantize(5.999)));              // blue
+console.log(Method.getColor(quantize(6)));                  // yellow
+```
+这个地方需要说明的是，由于ts的强类语言限制，range([])数组里面只能是number 类型，但是我们要匹配字符串，这个时候，就可以利用其它的辅助函数，更加灵活的来实现这个东西。                 
+例如下面我们就定义了一个Method类，有一个getColor的静态函数来处理这个问题。
+```typescript
+class Method {
+    static getColor(number: number) {
+        switch (number) {
+            case 1: return 'red';
+            case 2: return 'green';
+            case 3: return 'blue';
+            case 4: return 'yellow';
+            case 5: return 'black';
+            default: return 'white';
+        }
+    }
+}
+```
+
+
+
 
 
 
