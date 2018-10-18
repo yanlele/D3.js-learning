@@ -77,6 +77,8 @@ class UpdateData {
     /*动态添加数据*/
     static myAdd() {
         this.dataSet.push(Math.floor(Math.random() * 100));
+        this.dataSet.push(Math.floor(Math.random() * 100));
+        this.dataSet.push(Math.floor(Math.random() * 100));
         this.draw();
     }
 }
