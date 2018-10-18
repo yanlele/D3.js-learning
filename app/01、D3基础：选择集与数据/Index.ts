@@ -355,6 +355,8 @@ class Index {
 // let index: Index = new Index();
 // index.demo14();
 UpdateData.draw();
+UpdateData.mySort();
+UpdateData.myAdd();
 
 export default Index
 

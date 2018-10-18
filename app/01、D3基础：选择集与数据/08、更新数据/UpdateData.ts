@@ -3,15 +3,14 @@
  * create time 2018-10-18 12:11
  */
 import {select, Selection} from "d3-selection";
-import {descending} from "d3-array";
+import {ascending, descending} from "d3-array";
 
 class UpdateData {
+    // 矩形的高度
     static dataSet: Array<number> = [50, 43, 120, 87, 99, 167, 142];
 
     /*实时更新数据*/
-    static draw() {
-        // 矩形的高度
-        console.log(this.name);
+    static draw(dataSet = this.dataSet) {
         // 创建svg 画布的宽高
         let width: number = 400;
         let height: number = 400;
@@ -35,7 +34,7 @@ class UpdateData {
         let rectWidth: number = 30;
 
         let updateRect = svg.selectAll('rect')
-            .data(this.dataSet);
+            .data(dataSet);
         let enterRect = updateRect.enter();
         let exitRect = updateRect.exit();
 
@@ -69,8 +68,16 @@ class UpdateData {
         exitRect.remove();
     }
 
-    mySort() {
+    /*排序*/
+    static mySort() {
+        this.dataSet.sort(ascending);
+        this.draw();
+    }
 
+    /*动态添加数据*/
+    static myAdd() {
+        this.dataSet.push(Math.floor(Math.random() * 100));
+        this.draw();
     }
 }
 
