@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpack = require('clean-webpack-plugin');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
+const fse = require('fs-extra');
 
 const baseConfig = {
     entry: {
@@ -89,6 +90,24 @@ const generatePage = function ({
     }
 };
 
+const appPaths = fse.readdirSync(path.resolve(__dirname, 'app'));
+let appItemPath = '';
+let myPages = [];
+appPaths.map(function (item) {
+    appItemPath = path.resolve(__dirname, 'app', item, 'index.ts');
+    if(fse.pathExistsSync(appItemPath)) {
+        myPages.push(generatePage({
+            title: item,
+            entry: {
+                [item]: `./app/${item}/index.ts`
+            },
+            name: item,
+            chunks: [item, 'vendor', 'common']
+        }))
+    }
+});
+
+
 const pages = [
     generatePage({
         title: 'Main',
@@ -102,11 +121,11 @@ const pages = [
     generatePage({
         title: '01、D3基础：选择集与数据',
         entry: {
-            '01、D3基础：选择集与数据': './app/01、D3基础：选择集与数据/Index.ts'
+            '01、D3基础：选择集与数据': './app/01、D3基础：选择集与数据/index.ts'
         },
         name: '01、D3基础：选择集与数据',
         chunks: ['01、D3基础：选择集与数据', 'vendor', 'common'],         // 这个地方的chunks 就是自己的代码加上公用的代码
     }),
 ];
 
-module.exports = merge([baseConfig].concat(pages));
+module.exports = merge([baseConfig].concat(myPages));
