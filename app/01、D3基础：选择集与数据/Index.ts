@@ -327,6 +327,26 @@ class Index {
             .attr('width', rectWidth)
             .attr('height', function(d) {
                 return d
+            });
+
+        let text = svg.selectAll('text')
+            .data(dataset)
+            .enter()
+            .attr('fill', 'white')
+            .attr('font-size', '14px')
+            .attr('text-anchor', 'middle')
+            .attr('x', function(d, i ) {
+                return padding.left + i * rectStep;
+            })
+            .attr('y', function(d) {
+                return height - d - padding.bottom
+            })
+            .attr('dy', '1em')
+            .attr('dx', function(d) {
+                return rectWidth/2
+            })
+            .text(function (d) {
+                return d
             })
     }
 }
