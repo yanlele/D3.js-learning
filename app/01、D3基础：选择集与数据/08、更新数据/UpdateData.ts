@@ -6,11 +6,12 @@ import {select, Selection} from "d3-selection";
 import {descending} from "d3-array";
 
 class UpdateData {
+    static dataSet: Array<number> = [50, 43, 120, 87, 99, 167, 142];
+
     /*实时更新数据*/
     static draw() {
         // 矩形的高度
-        let dataset: Array<number> = [50, 43, 120, 87, 99, 167, 142];
-
+        console.log(this.name);
         // 创建svg 画布的宽高
         let width: number = 400;
         let height: number = 400;
@@ -34,7 +35,7 @@ class UpdateData {
         let rectWidth: number = 30;
 
         let updateRect = svg.selectAll('rect')
-            .data(dataset);
+            .data(this.dataSet);
         let enterRect = updateRect.enter();
         let exitRect = updateRect.exit();
 
@@ -54,7 +55,6 @@ class UpdateData {
         // enter处理办法
         enterRect
             .append('rect')
-            .sort(descending)
             .attr('fill', 'SlateBlue')
             .attr('x', function (d, i) {
                 return padding.left + i * rectStep;
@@ -67,6 +67,9 @@ class UpdateData {
                 return d
             });
         exitRect.remove();
+    }
+
+    mySort() {
 
     }
 }
