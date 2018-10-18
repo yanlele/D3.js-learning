@@ -72,9 +72,34 @@ scalePow() | scaleLog() 这两个标尺和上面的线性标尺拥有的api是�
 但是指数标尺多了一个属性 **exponent()** 用于指定指数。
 对数标尺对了一个 **base()** 用于指定对数
 
-指数的示例： 只是是指以x为低，y次幂的函数
-```typescript
+**额外补充：**
+什么是对数：              
+![2-01](./img/2-01.png)             
 
+指数的示例： 只是是指以x为低，y次幂的函数， 这下面这个例子要非常仔细的看。
+```typescript
+import {scalePow} from "d3-scale";
+let pow = scalePow().exponent(3);
+console.log(pow(2));            // 8
+console.log(pow(3));            // 27
+
+pow.exponent(0.5);
+console.log(pow(2));            // 1.4142135623730951
+console.log(pow(3));            // 1.7320508075688772
+
+// 指数标尺下的定义域和值域
+/*
+* 计算结果为11.25 结果分析如下
+* 指数标尺使得定义域相对的可以说是扩展为了[0, 3*3*3] = [0, 27]
+* 相对于pow(1.5) 就是 3.375 
+* 相当于 对应的线性比例尺的结果
+* let linear = scaleLinear().domain([0, 27]).range([0, 90]);
+* console.log(linear(3.375));     // 11.25
+* */
+pow.exponent(3)
+    .domain([0, 3])
+    .range([0, 90]);
+console.log(pow(1.5))           // 11.25
 ```
 
 
