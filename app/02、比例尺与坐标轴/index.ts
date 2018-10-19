@@ -176,6 +176,19 @@ class Index {
     demo10() {
         let bands = scaleBand().domain(['1', '2', '3', '4', '5']).range([0, 100]);
         console.log(bands.range());         // [0, 100]
+        console.log(bands.bandwidth());     // 20
+        console.log(bands.step());          // 20
+
+        bands.paddingInner(0.5)
+            .paddingOuter(0.2);
+        console.log(bands.range());         // [0, 100]
+        console.log(bands.bandwidth());     // 10.204081632653061
+        console.log(bands.step());          // 20.408163265306122
+        console.log(bands('1'));            // 4.081632653061227
+        console.log(bands('2'));            // 24.48979591836735
+        console.log(bands('3'));            // 44.89795918367347
+        console.log(bands('4'));            // 65.3061224489796
+        console.log(bands('5'));            // 85.71428571428572
     }
 }
 

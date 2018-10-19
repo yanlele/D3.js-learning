@@ -277,6 +277,33 @@ band(value) | 给定输入域中的一个值，返回从输出范围派生的相
 band.paddingInner([padding]) | 如果指定了内边距，则将内边距设置为指定的值，该值必须在范围[0,1]内。如果未指定填充，则返回默认为0的当前内部填充。内部填充决定为带之间的空白空间保留的范围的比率。
 band.paddingOuter([padding]) | 如果指定了padding，则将外层的padding设置为指定的值，该值必须在范围[0,1]内。如果未指定填充，则返回默认为0的当前外部填充。外边距决定在第一个边距之前和最后一个边距之后为空白空间保留的范围的比率。
 band.padding([padding]) | 将内边距和外边距设置为相同边距值的一种简便方法。如果未指定填充，则返回内部填充。
+band.bandwidth() | 返回每个频带的宽度。
+band.step() | 返回相邻频带起始点之间的距离。
+
+实例请看demo10:                 
+```typescript
+let bands = scaleBand().domain(['1', '2', '3', '4', '5']).range([0, 100]);
+console.log(bands.range());         // [0, 100]
+console.log(bands.bandwidth());     // 20
+console.log(bands.step());          // 20
+
+bands.paddingInner(0.5)
+    .paddingOuter(0.2);
+console.log(bands.range());         // [0, 100]
+console.log(bands.bandwidth());     // 10.204081632653061
+console.log(bands.step());          // 20.408163265306122
+console.log(bands('1'));            // 4.081632653061227
+console.log(bands('2'));            // 24.48979591836735
+console.log(bands('3'));            // 44.89795918367347
+console.log(bands('4'));            // 65.3061224489796
+console.log(bands('5'));            // 85.71428571428572
+```
+
+**颜色比例尺**
+
+api | 说明
+:- | :-   
+
 
 
 
