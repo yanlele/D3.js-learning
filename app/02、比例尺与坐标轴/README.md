@@ -303,6 +303,22 @@ console.log(bands('5'));            // 85.71428571428572
 
 api | 说明
 :- | :-   
+d3.schemeCategory10 | 
+d3.schemeAccent | 
+d3.schemeDark2 | 
+d3.schemePaired | 
+d3.schemePastel1 | 
+d3.schemePastel2 |
+d3.schemeSet1 |
+d3.schemeSet2 |
+d3.schemeSet3 |
+
+啥都不说，直接上代码， 请看demo11:               
+```typescript
+
+```
+
+
 
 
 

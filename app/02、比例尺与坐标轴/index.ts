@@ -8,6 +8,7 @@ import {
 import Method from "./Method";
 import {select} from "d3-selection";
 import {descending, range} from "d3-array";
+import {schemeCategory10} from "d3-scale-chromatic";
 
 class Index {
     /*比例尺*/
@@ -190,10 +191,22 @@ class Index {
         console.log(bands('4'));            // 65.3061224489796
         console.log(bands('5'));            // 85.71428571428572
     }
+
+    /*颜色比例尺*/
+    demo11() {
+        let color: ReadonlyArray<string> = schemeCategory10;
+        console.log(color[1]);              // #ff7f0e
+        console.log(color[2]);              // #2ca02c
+    }
+
+    /*颜色比例尺的使用*/
+    demo12() {
+
+    }
 }
 
 let index: Index = new Index();
-index.demo10();
+index.demo11();
 
 
 export default Index;
