@@ -1,5 +1,6 @@
 import {
-    scaleLinear, ScaleOrdinal, scaleOrdinal, scalePow, ScaleQuantile, scaleQuantile, ScaleQuantize, scaleQuantize,
+    scaleLinear, ScaleOrdinal, scaleOrdinal, scalePoint, scalePow, ScaleQuantile, scaleQuantile, ScaleQuantize,
+    scaleQuantize,
     ScaleThreshold,
     scaleThreshold
 } from "d3-scale";
@@ -152,10 +153,27 @@ class Index {
         console.log(ordinal('5'));              // 50
         console.log(ordinal('8'));              // 10
     }
+
+    /*对于scalePoint() 的理解*/
+    demo9() {
+        let point = scalePoint().domain(['1', '2', '3', '4', '5']).range([0, 100]);
+        console.log(point.range());         // [0, 100]
+        console.log(point('1'));            // 0
+        console.log(point('3'));            // 50
+        console.log(point('5'));            // 100
+
+        point.padding(5);
+        console.log(point.range());         // [0, 100]
+        console.log(point('1'));            // 16.666666666666664
+        console.log(point('2'));            // 33.33333333333333
+        console.log(point('3'));            // 50
+        console.log(point('4'));            // 66.66666666666666
+        console.log(point('5'));            // 83.33333333333334
+    }
 }
 
 let index: Index = new Index();
-index.demo8();
+index.demo9();
 
 
 export default Index;

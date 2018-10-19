@@ -221,8 +221,8 @@ scaleOrdinal() | 构建一个序数比例尺
 ordinal(x) | 通过定义域获取值域
 ordinal.domain([values]) | 设定或者获取定义域
 ordinal.range([values]) | 设定或者获取值域
-ordinal.rangePoints(interval [, padding]) | 设定值域。接受一个连续的区间，根据定义域中离散值的数量将其分段。
-ordinal.rangeRoundPoints(interval [, padding]) | 跟rangePoints() 是一样的，但是结果会取整数。
+scalePoint.range(interval) 、scalePoint.padding([padding]) | 设定值域。接受一个连续的区间，根据定义域中离散值的数量将其分段。
+scalePoint.range(interval ) | 跟rangePoints() 是一样的，但是结果会取整数。
 ordinal.rangeBands(interval, [padding [, outerPadding]]) | 和rangePoints()一样，分段方法不同。
 ordinal.rangeRoundBands(interval, [padding [, outerPadding]]) | 和rangeBands() 一样，但是结果会取整数。
 ordinal.rangeBand() | 返回使用rangeBrands() 设定之后的每一段宽度
@@ -239,6 +239,29 @@ console.log(ordinal('5'));              // 50
 console.log(ordinal('8'));              // 10
 ```
 定义域5个数字，对应值域5个，如果超出的输出为10。
+
+**对于scalePoint() 的理解**
+要理解这个东西，就要看看下面这个图：                  
+![2-02](./img/2-02.png)                                       
+这里的range就是rangePoint() 的第一个参数interval的值，是一个范围， 比如[0, 100]; padding是第二个参数；step 是根据定义域的数量计算得到的一个值。上图圆圈代表点， 就是计算得到的离散值。
+```typescript
+let point = scalePoint().domain(['1', '2', '3', '4', '5']).range([0, 100]);
+console.log(point.range());         // [0, 100]
+console.log(point('1'));            // 0
+console.log(point('3'));            // 50
+console.log(point('5'));            // 100
+
+point.padding(5);
+console.log(point.range());         // [0, 100]
+console.log(point('1'));            // 16.666666666666664
+console.log(point('2'));            // 33.33333333333333
+console.log(point('3'));            // 50
+console.log(point('4'));            // 66.66666666666666
+console.log(point('5'));            // 83.33333333333334
+```
+
+
+
 
 
 
