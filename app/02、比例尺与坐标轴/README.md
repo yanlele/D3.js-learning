@@ -173,9 +173,42 @@ svg.selectAll('circle')
     })
 ```
 
+**分位比例尺**
+分位比例尺和量子比例尺非常像， 区别： **量子比例尺的分断值只与定义域的开始值和结束值有关**，中间无论有多少其它数值都没有影响。**分位比例尺的分段值与定义域中存在的数值都有关**。
+简而言之，分段比例尺每一段都对应所有的离散值域数。               
+实例如下：
+```typescript
+import {ScaleQuantile, scaleQuantile, ScaleQuantize, scaleQuantize} from "d3-scale";
 
+// 量子比例尺
+let quantize: ScaleQuantize<number> = scaleQuantize().domain([0, 10]).range([1,100]); // scaleQuantize().domain([]) 只允许给定两个值
 
+// 分位比例尺
+let quantile: ScaleQuantile<number> = scaleQuantile().domain([0,2,4,10]).range([1, 100]);
+console.log(quantize(3));               // 1
+console.log(quantile(3));               // 100
 
+console.log(quantize(4.99));            // 1
+console.log(quantize(5));               // 100
+console.log(quantile(2.99));            // 1
+console.log(quantile(3));               // 100
+```
 
+#### 阈值比例尺 scaleThreshold
+通过设定阈值， 将联系的定义域映射到离散的值域中去。                  
+```typescript
+let threshold: ScaleThreshold<number, number> = scaleThreshold().domain([10, 20, 30]).range(range(1, 5));
+console.log(Method.getColor(threshold(5)));                 // 1 - range
+console.log(Method.getColor(threshold(15)));                // 2 - green
+console.log(Method.getColor(threshold(25)));                // 3 - blue
+console.log(Method.getColor(threshold(35)));                // 4 - yellow
+
+console.log(threshold.invertExtent(1));                 // [undefined, 10]
+console.log(threshold.invertExtent(2));                 // [10, 20]
+console.log(threshold.invertExtent(3));                 // [20, 30]
+console.log(threshold.invertExtent(4));                 // [30, undefined]
+```
+定义了三个阈值： 10、20、30 ； **空间被三个阈值分为了四段，分别对应： [-∞, 10], (10, 20], (20, 30], (30, ∞] 这样的四段数据， 就对应的range()里面的四个值。**                    
+这里阈值比例尺还可以使用一个api ： **invertExtent()**通过值域求出定义域范围。
 
 

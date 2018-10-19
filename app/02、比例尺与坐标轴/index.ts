@@ -1,7 +1,10 @@
-import {scaleLinear, scalePow, ScaleQuantize, scaleQuantize} from "d3-scale";
+import {
+    scaleLinear, scalePow, ScaleQuantile, scaleQuantile, ScaleQuantize, scaleQuantize, ScaleThreshold,
+    scaleThreshold
+} from "d3-scale";
 import Method from "./Method";
 import {select} from "d3-selection";
-import {descending} from "d3-array";
+import {descending, range} from "d3-array";
 
 class Index {
     /*比例尺*/
@@ -100,17 +103,47 @@ class Index {
                 return 50 + i * 30;
             })
             .attr('cy', 50)
-            .attr('r', function(d) {
+            .attr('r', function (d) {
                 return d
             })
             .attr('fill', function (d) {
                 return Method.getColorCode(quantize(d))
             })
     }
+
+    /*分位比例尺*/
+    demo6() {
+        // 量子比例尺
+        let quantize: ScaleQuantize<number> = scaleQuantize().domain([0, 10]).range([1,100]); // scaleQuantize().domain([]) 只允许给定两个值
+
+        // 分位比例尺
+        let quantile: ScaleQuantile<number> = scaleQuantile().domain([0,2,4,10]).range([1, 100]);
+        console.log(quantize(3));               // 1
+        console.log(quantile(3));               // 100
+
+        console.log(quantize(4.99));            // 1
+        console.log(quantize(5));               // 100
+        console.log(quantile(2.99));            // 1
+        console.log(quantile(3));               // 100
+    }
+
+    /*阈值比例尺 scaleThreshold*/
+    demo7() {
+        let threshold: ScaleThreshold<number, number> = scaleThreshold().domain([10, 20, 30]).range(range(1, 5));
+        console.log(Method.getColor(threshold(5)));                 // 1 - range
+        console.log(Method.getColor(threshold(15)));                // 2 - green
+        console.log(Method.getColor(threshold(25)));                // 3 - blue
+        console.log(Method.getColor(threshold(35)));                // 4 - yellow
+
+        console.log(threshold.invertExtent(1));                 // [undefined, 10]
+        console.log(threshold.invertExtent(2));                 // [10, 20]
+        console.log(threshold.invertExtent(3));                 // [20, 30]
+        console.log(threshold.invertExtent(4));                 // [30, undefined]
+    }
 }
 
 let index: Index = new Index();
-index.demo5();
+index.demo7();
 
 
 export default Index;
