@@ -1,5 +1,5 @@
 import {
-    scaleLinear, scalePow, ScaleQuantile, scaleQuantile, ScaleQuantize, scaleQuantize, ScaleThreshold,
+    scaleLinear, scaleOrdinal, scalePow, ScaleQuantile, scaleQuantile, ScaleQuantize, scaleQuantize, ScaleThreshold,
     scaleThreshold
 } from "d3-scale";
 import Method from "./Method";
@@ -139,6 +139,10 @@ class Index {
         console.log(threshold.invertExtent(2));                 // [10, 20]
         console.log(threshold.invertExtent(3));                 // [20, 30]
         console.log(threshold.invertExtent(4));                 // [30, undefined]
+    }
+
+    /*序数比例尺 scaleOrdinal*/
+    demo8() {
     }
 }
 

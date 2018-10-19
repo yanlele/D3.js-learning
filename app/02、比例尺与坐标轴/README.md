@@ -212,3 +212,19 @@ console.log(threshold.invertExtent(4));                 // [30, undefined]
 这里阈值比例尺还可以使用一个api ： **invertExtent()**通过值域求出定义域范围。
 
 
+### <div id="class02-02">02、序数比例尺 scaleOrdinal </div>
+序数比例尺是定义域和值域都是离散的。
+
+api | 说明
+:- | :-
+scaleOrdinal() | 构建一个序数比例尺
+ordinal(x) | 通过定义域获取值域
+ordinal.domain([values]) | 设定或者获取定义域
+ordinal.range([values]) | 设定或者获取值域
+ordinal.rangePoints(interval [, padding]) | 设定值域。接受一个连续的区间，根据定义域中离散值的数量将其分段。
+ordinal.rangeRoundPoints(interval [, padding]) | 跟rangePoints() 是一样的，但是结果会取整数。
+ordinal.rangeBands(interval, [padding [, outerPadding]]) | 和rangePoints()一样，分段方法不同。
+ordinal.rangeRoundBands(interval, [padding [, outerPadding]]) | 和rangeBands() 一样，但是结果会取整数。
+ordinal.rangeBand() | 返回使用rangeBrands() 设定之后的每一段宽度
+ordinal.rangeExtend() | 返回数组，数组中存放值域的最大值和最小值。
+
