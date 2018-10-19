@@ -1,5 +1,6 @@
 import {
-    scaleLinear, scaleOrdinal, scalePow, ScaleQuantile, scaleQuantile, ScaleQuantize, scaleQuantize, ScaleThreshold,
+    scaleLinear, ScaleOrdinal, scaleOrdinal, scalePow, ScaleQuantile, scaleQuantile, ScaleQuantize, scaleQuantize,
+    ScaleThreshold,
     scaleThreshold
 } from "d3-scale";
 import Method from "./Method";
@@ -114,10 +115,10 @@ class Index {
     /*分位比例尺*/
     demo6() {
         // 量子比例尺
-        let quantize: ScaleQuantize<number> = scaleQuantize().domain([0, 10]).range([1,100]); // scaleQuantize().domain([]) 只允许给定两个值
+        let quantize: ScaleQuantize<number> = scaleQuantize().domain([0, 10]).range([1, 100]); // scaleQuantize().domain([]) 只允许给定两个值
 
         // 分位比例尺
-        let quantile: ScaleQuantile<number> = scaleQuantile().domain([0,2,4,10]).range([1, 100]);
+        let quantile: ScaleQuantile<number> = scaleQuantile().domain([0, 2, 4, 10]).range([1, 100]);
         console.log(quantize(3));               // 1
         console.log(quantile(3));               // 100
 
@@ -141,13 +142,20 @@ class Index {
         console.log(threshold.invertExtent(4));                 // [30, undefined]
     }
 
-    /*序数比例尺 scaleOrdinal*/
+    /*序数比例尺 scaleOrdinal 的一个简单的使用*/
     demo8() {
+        let ordinal = scaleOrdinal().domain(['1', '2', '3', '4', '5']).range([10, 20, 30, 40, 50]);
+        console.log(ordinal('1'));              // 10
+        console.log(ordinal('2'));              // 20
+        console.log(ordinal('3'));              // 30
+        console.log(ordinal('4'));              // 40
+        console.log(ordinal('5'));              // 50
+        console.log(ordinal('8'));              // 10
     }
 }
 
 let index: Index = new Index();
-index.demo7();
+index.demo8();
 
 
 export default Index;

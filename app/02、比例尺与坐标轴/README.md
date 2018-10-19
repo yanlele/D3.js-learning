@@ -228,3 +228,18 @@ ordinal.rangeRoundBands(interval, [padding [, outerPadding]]) | 和rangeBands() 
 ordinal.rangeBand() | 返回使用rangeBrands() 设定之后的每一段宽度
 ordinal.rangeExtend() | 返回数组，数组中存放值域的最大值和最小值。
 
+**简单的一一对应的例子：**
+```typescript
+let ordinal = scaleOrdinal().domain(['1', '2', '3', '4', '5']).range([10, 20, 30, 40, 50]);
+console.log(ordinal('1'));              // 10
+console.log(ordinal('2'));              // 20
+console.log(ordinal('3'));              // 30
+console.log(ordinal('4'));              // 40
+console.log(ordinal('5'));              // 50
+console.log(ordinal('8'));              // 10
+```
+定义域5个数字，对应值域5个，如果超出的输出为10。
+
+
+
+
