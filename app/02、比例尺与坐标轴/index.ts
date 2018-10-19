@@ -6,7 +6,7 @@ import {
     scaleThreshold
 } from "d3-scale";
 import Method from "./Method";
-import {select} from "d3-selection";
+import {select, Selection} from "d3-selection";
 import {descending, range} from "d3-array";
 import {schemeCategory10} from "d3-scale-chromatic";
 
@@ -201,12 +201,35 @@ class Index {
 
     /*颜色比例尺的使用*/
     demo12() {
+        let width: number = 600;
+        let height: number = 600;
+        let dataSet: Array<number> = range(5);
 
+        // 定义色彩
+        let color: ReadonlyArray<string> = schemeCategory10;
+
+        let svg = select('body').append('svg');
+        svg.attr('width', width);
+        svg.attr('height', height);
+
+        // 绘制圆形
+        let circle = svg.selectAll('circle')
+            .data(dataSet)
+            .enter()
+            .append('circle')
+            .attr('cx', function(d, i ) {
+                return  100 + i * 80;
+            })
+            .attr('cy', 100)
+            .attr('r', 30)
+            .attr('fill', function (d, i) {
+                return color[i];
+            })
     }
 }
 
 let index: Index = new Index();
-index.demo11();
+index.demo12();
 
 
 export default Index;

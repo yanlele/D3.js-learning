@@ -315,7 +315,30 @@ d3.schemeSet3 |
 
 啥都不说，直接上代码， 请看demo11:               
 ```typescript
+let width: number = 600;
+let height: number = 600;
+let dataSet: Array<number> = range(5);
 
+// 定义色彩
+let color: ReadonlyArray<string> = schemeCategory10;
+
+let svg = select('body').append('svg');
+svg.attr('width', width);
+svg.attr('height', height);
+
+// 绘制圆形
+let circle = svg.selectAll('circle')
+    .data(dataSet)
+    .enter()
+    .append('circle')
+    .attr('cx', function(d, i ) {
+        return  100 + i * 80;
+    })
+    .attr('cy', 100)
+    .attr('r', 30)
+    .attr('fill', function (d, i) {
+        return color[i];
+    })
 ```
 
 
