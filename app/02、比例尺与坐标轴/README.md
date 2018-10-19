@@ -221,12 +221,7 @@ scaleOrdinal() | 构建一个序数比例尺
 ordinal(x) | 通过定义域获取值域
 ordinal.domain([values]) | 设定或者获取定义域
 ordinal.range([values]) | 设定或者获取值域
-scalePoint.range(interval) 、scalePoint.padding([padding]) | 设定值域。接受一个连续的区间，根据定义域中离散值的数量将其分段。
-scalePoint.range(interval ) | 跟rangePoints() 是一样的，但是结果会取整数。
-ordinal.rangeBands(interval, [padding [, outerPadding]]) | 和rangePoints()一样，分段方法不同。
-ordinal.rangeRoundBands(interval, [padding [, outerPadding]]) | 和rangeBands() 一样，但是结果会取整数。
-ordinal.rangeBand() | 返回使用rangeBrands() 设定之后的每一段宽度
-ordinal.rangeExtend() | 返回数组，数组中存放值域的最大值和最小值。
+
 
 **简单的一一对应的例子：**
 ```typescript
@@ -240,10 +235,20 @@ console.log(ordinal('8'));              // 10
 ```
 定义域5个数字，对应值域5个，如果超出的输出为10。
 
-**对于scalePoint() 的理解**
+
+**对于scalePoint() 的理解**     
+
+api | 说明
+:- | :-   
+scalePoint.range(interval) 、scalePoint.padding([padding]) | 设定值域。接受一个连续的区间，根据定义域中离散值的数量将其分段。
+scalePoint.range(interval ) | 跟rangePoints() 是一样的，但是结果会取整数。
+point.step() | 返回相邻点开始点之间的距离。
+
+                  
 要理解这个东西，就要看看下面这个图：                  
 ![2-02](./img/2-02.png)                                       
-这里的range就是rangePoint() 的第一个参数interval的值，是一个范围， 比如[0, 100]; padding是第二个参数；step 是根据定义域的数量计算得到的一个值。上图圆圈代表点， 就是计算得到的离散值。
+这里的range就是rangePoint() 的第一个参数interval的值，是一个范围， 比如[0, 100]; padding是第二个参数；step 是根据定义域的数量计算得到的一个值。上图圆圈代表点， 就是计算得到的离散值。                
+请看demo9:                
 ```typescript
 let point = scalePoint().domain(['1', '2', '3', '4', '5']).range([0, 100]);
 console.log(point.range());         // [0, 100]
@@ -260,6 +265,18 @@ console.log(point('4'));            // 66.66666666666666
 console.log(point('5'));            // 83.33333333333334
 ```
 
+
+**对于 scaleBand() 的理解**                  
+
+要理解这个东西，就要看看下面这个图：  
+![2-03](./img/2-03.png)                     
+
+api | 说明
+:- | :-   
+band(value) | 给定输入域中的一个值，返回从输出范围派生的相应频带的开始。如果给定的值不在范围内，则返回未定义的值。
+band.paddingInner([padding]) | 如果指定了内边距，则将内边距设置为指定的值，该值必须在范围[0,1]内。如果未指定填充，则返回默认为0的当前内部填充。内部填充决定为带之间的空白空间保留的范围的比率。
+band.paddingOuter([padding]) | 如果指定了padding，则将外层的padding设置为指定的值，该值必须在范围[0,1]内。如果未指定填充，则返回默认为0的当前外部填充。外边距决定在第一个边距之前和最后一个边距之后为空白空间保留的范围的比率。
+band.padding([padding]) | 将内边距和外边距设置为相同边距值的一种简便方法。如果未指定填充，则返回内部填充。
 
 
 

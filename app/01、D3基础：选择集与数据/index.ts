@@ -32,7 +32,7 @@ class Index {
 
     demo4() {
         let p = select('body').selectAll('p');
-        p.datum('Thunder').text(function (d, i) {
+        p.datum('Thunder').append('p').text(function (d, i) {
             return d + ' ' + i;
         })
     }
@@ -313,11 +313,12 @@ class Index {
         // 矩形所餐具的宽度， 不包括空白， 单位像素
         let rectWidth: number = 30;
 
-        let rect = svg.selectAll('rect')
-            .data(dataset)
-            .enter()
-            .append('rect')
-            .sort(descending)
+        let updateRect = svg.selectAll('rect')
+            .data(dataset);
+        let enterRect = updateRect.enter();
+        let exitRect = updateRect.exit();
+
+        updateRect
             .attr('fill', 'SlateBlue')
             .attr('x', function (d, i) {
                 return padding.left + i * rectStep;
@@ -330,30 +331,26 @@ class Index {
                 return d
             });
 
-        let text = svg.selectAll('text')
-            .data(dataset)
-            .enter()
-            .attr('fill', 'white')
-            .attr('font-size', '14px')
-            .attr('text-anchor', 'middle')
-            .attr('x', function(d, i ) {
+        // enter处理办法
+        enterRect
+            .append('rect')
+            .attr('fill', 'SlateBlue')
+            .attr('x', function (d, i) {
                 return padding.left + i * rectStep;
             })
             .attr('y', function(d) {
-                return height - d - padding.bottom
+                return height - d -padding.bottom
             })
-            .attr('dy', '1em')
-            .attr('dx', function(d) {
-                return rectWidth/2
-            })
-            .text(function (d) {
+            .attr('width', rectWidth)
+            .attr('height', function(d) {
                 return d
-            })
+            });
+        exitRect.remove();
     }
 }
 
 // let index: Index = new Index();
-// index.demo14();
+// index.demo15();
 
 UpdateData.draw();
 UpdateData.mySort();

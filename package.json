@@ -19,9 +19,9 @@
   },
   "homepage": "https://github.com/yanlele/D3.js-learning#readme",
   "dependencies": {
-    "@types/d3": "4",
+    "@types/d3": "5",
     "@types/node": "8",
-    "d3": "4"
+    "d3": "^5.7.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

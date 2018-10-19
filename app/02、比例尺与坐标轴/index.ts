@@ -1,4 +1,5 @@
 import {
+    scaleBand,
     scaleLinear, ScaleOrdinal, scaleOrdinal, scalePoint, scalePow, ScaleQuantile, scaleQuantile, ScaleQuantize,
     scaleQuantize,
     ScaleThreshold,
@@ -170,10 +171,16 @@ class Index {
         console.log(point('4'));            // 66.66666666666666
         console.log(point('5'));            // 83.33333333333334
     }
+
+    /*对于scaleBand() 的理解*/
+    demo10() {
+        let bands = scaleBand().domain(['1', '2', '3', '4', '5']).range([0, 100]);
+        console.log(bands.range());         // [0, 100]
+    }
 }
 
 let index: Index = new Index();
-index.demo9();
+index.demo10();
 
 
 export default Index;
