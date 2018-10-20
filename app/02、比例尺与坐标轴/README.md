@@ -341,6 +341,25 @@ let circle = svg.selectAll('circle')
     })
 ```
 
+### <div id="class02-03">03、坐标轴</div>
+
+api | 说明
+:- | :-  
+d3.axisTop(scale) | 为给定的刻度构造一个新的面向上的轴生成器，带空的刻度参数，刻度大小为6，填充为3。在这个方向上，刻度画在水平域路径之上。
+d3.axisRight(scale) | 为给定的刻度构造一个新的面向右的轴生成器，带空的刻度参数，刻度大小为6，填充为3。在这个方向上，刻度被画到垂直域路径的右边。
+d3.axisBottom(scale) | 为给定的刻度构造一个新的面向底部的轴生成器，带有空的刻度参数，刻度大小为6，填充为3。在这个方向上，刻度画在水平域路径下面。
+d3.axisLeft(scale) | 为给定的刻度构造一个新的面向左的轴生成器，带空的刻度参数，刻度大小为6，填充为3。在这个方向上，刻度被画在垂直域路径的左边。
+axis(context) | 将轴呈现给给定的上下文，它可以是SVG容器(SVG或G元素)的选择，也可以是相应的转换。
+axis.ticks([count[, specifier]]) 、 axis.ticks([interval[, specifier]]) | 参数的含义取决于轴的刻度类型:最常见的是，参数是建议的刻度数(或时间刻度的时间间隔)，以及可选的格式说明符，用于自定义刻度值的格式化方式。要显式地设置滴答值，请使用axis.tickValues。要显式设置滴答格式，请使用axis.tickFormat。
+axis.tickArguments([arguments]) | 使用方法基本上和上面是一样的。
+axis.tickValues([values]) | 设定或者获取坐标的指定刻度
+axis.tickFormat([format]) | 设定或者获取坐标的单位
+axis.tickSize([size]) | 如果指定了大小，将内部和外部刻度大小设置为指定的值，并返回轴。如果没有指定大小，返回当前的内刻度大小，默认为6。
+axis.tickSizeInner([size]) | 设定或者获取坐标轴内部度的长度。内部度指的是非两端的刻度。
+axis.tickSizeOuter([size]) | 设定或者获取外部度。 外部度值的是两端的刻度。
+
+
+
 
 
 
