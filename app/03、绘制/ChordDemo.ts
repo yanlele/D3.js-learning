@@ -126,7 +126,7 @@ class ChordDemo {
 
         // 给之前定义的g这个元素添加样式并绑定数据用来画弦图的弦。
         g.append("g")
-            .attr("class", "ribbons")
+            .style('fill-opacity', '0.67')
             .selectAll("path")
             .data(function(chords) { return chords; })
             .enter().append("path")
