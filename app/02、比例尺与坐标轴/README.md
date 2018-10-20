@@ -383,6 +383,7 @@ gAxis.call(axis);
 
 #### 刻度
 通常为 方向、间隔、长度、文字格式等。
+请看demo14:               
 ```typescript
 let width: number = 600, height: number = 600;
 let svg = select('body').append('svg')
@@ -422,6 +423,7 @@ rAxis2.call(rightAxis2);
 
 
 #### 其他各种比例尺的坐标轴
+请看demo15: 
 ```typescript
 let width: number = 600, height: number = 600;
 let svg = select('body').append('svg')
@@ -457,7 +459,64 @@ logBottom.call(logBottomAxis);
 ![2-05](./img/2-05.png)
 
 
+### <div id="class02-04">04、散点图</div>
+请看demo16:       
+```typescript
+let width: number = 600, height: number = 600;
+let svg = select('body').append('svg')
+    .attr('height', height)
+    .attr('width', width);
 
+// 圆心数据
+let center: Array<Array<number>> = range(10).map(function(item, index) {
+    return [Method.randomFrom(1, 9)/ 10, Method.randomFrom(1, 9)/ 10];
+});
+
+// x轴
+let xScale = scaleLinear().domain([0, 1.2 * max(center, function(d) {
+    return d[0]
+})]).range([0, 500]);
+
+// y轴
+let yScale = scaleLinear().domain([0, 1.2 * max(center, function (d) {
+    return d[1];
+})]).range([0, 500]);
+
+// 外边框
+let padding = {
+    top: 30,
+    right: 30,
+    left: 30,
+    bottom: 30
+};
+
+// 绘制圆
+let circle = svg.selectAll('circle')
+    .data(center)
+    .enter()
+    .append('circle')
+    .attr('fill', 'black')
+    .attr('cx', function (d) {
+        return padding.left + xScale(d[0])
+    })
+    .attr('cy', function (d) {
+        return height - padding.bottom - yScale(d[1])
+    })
+    .attr('r', 5);
+
+// 绘制坐标轴
+let bottomAxis = axisBottom(xScale);
+yScale.range([500, 0]);             // 逆转Y轴刻度
+let leftAxis = axisLeft(yScale);
+
+let linearBottom = svg.append('g')
+    .attr('transform', `translate(${padding.left}, ${height-padding.bottom})`);         // 平移到（80，80）
+let linearLeft = svg.append('g')
+    .attr('transform', `translate(${padding.left}, ${height - padding.bottom - 500})`);
+linearBottom.call(bottomAxis);
+linearLeft.call(leftAxis);
+```        
+![0-06](./img/2-06.png)
 
 
 

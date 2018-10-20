@@ -7,7 +7,7 @@ import {
 } from "d3-scale";
 import Method from "./Method";
 import {select, Selection} from "d3-selection";
-import {descending, range} from "d3-array";
+import {descending, range, max} from "d3-array";
 import {schemeCategory10} from "d3-scale-chromatic";
 import {axisBottom, axisLeft, axisRight} from "d3-axis";
 import {format} from "d3-format";
@@ -319,10 +319,67 @@ class Index {
         powBottom.call(powBottomAxis);
         logBottom.call(logBottomAxis);
     }
+
+    /*散点图*/
+    demo16() {
+        let width: number = 600, height: number = 600;
+        let svg = select('body').append('svg')
+            .attr('height', height)
+            .attr('width', width);
+
+        // 圆心数据
+        let center: Array<Array<number>> = range(10).map(function(item, index) {
+            return [Method.randomFrom(1, 9)/ 10, Method.randomFrom(1, 9)/ 10];
+        });
+
+        // x轴
+        let xScale = scaleLinear().domain([0, 1.2 * max(center, function(d) {
+            return d[0]
+        })]).range([0, 500]);
+
+        // y轴
+        let yScale = scaleLinear().domain([0, 1.2 * max(center, function (d) {
+            return d[1];
+        })]).range([0, 500]);
+
+        // 外边框
+        let padding = {
+            top: 30,
+            right: 30,
+            left: 30,
+            bottom: 30
+        };
+
+        // 绘制圆
+        let circle = svg.selectAll('circle')
+            .data(center)
+            .enter()
+            .append('circle')
+            .attr('fill', 'black')
+            .attr('cx', function (d) {
+                return padding.left + xScale(d[0])
+            })
+            .attr('cy', function (d) {
+                return height - padding.bottom - yScale(d[1])
+            })
+            .attr('r', 5);
+
+        // 绘制坐标轴
+        let bottomAxis = axisBottom(xScale);
+        yScale.range([500, 0]);             // 逆转Y轴刻度
+        let leftAxis = axisLeft(yScale);
+
+        let linearBottom = svg.append('g')
+            .attr('transform', `translate(${padding.left}, ${height-padding.bottom})`);         // 平移到（80，80）
+        let linearLeft = svg.append('g')
+            .attr('transform', `translate(${padding.left}, ${height - padding.bottom - 500})`);
+        linearBottom.call(bottomAxis);
+        linearLeft.call(leftAxis);
+    }
 }
 
 let index: Index = new Index();
-index.demo15();
+index.demo16();
 
 
 export default Index;

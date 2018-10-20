@@ -26,6 +26,11 @@ class Method {
             default: return '#000';
         }
     }
+
+    // 随机生成数据
+    static randomFrom(lowerValue: number, upperValue: number) {
+        return Math.floor(Math.random() * (upperValue - lowerValue + 1) + lowerValue);
+    }
 }
 
 export default Method;
