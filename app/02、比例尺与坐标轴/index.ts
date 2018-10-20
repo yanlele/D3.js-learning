@@ -1,14 +1,17 @@
 import {
     scaleBand,
-    scaleLinear, ScaleOrdinal, scaleOrdinal, scalePoint, scalePow, ScaleQuantile, scaleQuantile, ScaleQuantize,
+    scaleLinear, scaleOrdinal, scalePoint, scalePow, ScaleQuantile, scaleQuantile, ScaleQuantize,
     scaleQuantize,
     ScaleThreshold,
-    scaleThreshold
+    scaleThreshold,
 } from "d3-scale";
 import Method from "./Method";
 import {select, Selection} from "d3-selection";
 import {descending, range} from "d3-array";
 import {schemeCategory10} from "d3-scale-chromatic";
+import {axisBottom, axisRight} from "d3-axis";
+import {format} from "d3-format";
+import {timeYear} from "d3-time";
 
 class Index {
     /*比例尺*/
@@ -217,8 +220,8 @@ class Index {
             .data(dataSet)
             .enter()
             .append('circle')
-            .attr('cx', function(d, i ) {
-                return  100 + i * 80;
+            .attr('cx', function (d, i) {
+                return 100 + i * 80;
             })
             .attr('cy', 100)
             .attr('r', 30)
@@ -226,10 +229,30 @@ class Index {
                 return color[i];
             })
     }
+
+    /*坐标轴的基本使用*/
+    demo13() {
+        let width: number = 600, height: number = 600;
+        let svg = select('body').append('svg')
+            .attr('height', height)
+            .attr('width', width);
+
+        // 用于坐标轴的线性比例尺
+        let xScale = scaleLinear().domain([0, 10]).range([0, 300]);
+
+        // 坐标轴
+        let axis = axisBottom(xScale);
+
+        // 在svg中添加一个包含坐标各个元素的g元素
+        let gAxis = svg.append('g')
+            .attr('transform', `translate(80, 80)`);         // 平移到（80，80）
+
+        gAxis.call(axis);
+    }
 }
 
 let index: Index = new Index();
-index.demo12();
+index.demo13();
 
 
 export default Index;

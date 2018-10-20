@@ -359,6 +359,34 @@ axis.tickSizeInner([size]) | 设定或者获取坐标轴内部度的长度。内
 axis.tickSizeOuter([size]) | 设定或者获取外部度。 外部度值的是两端的刻度。
 
 
+#### 绘制方法
+绘制方法一般来说，第一步绘制svg, 第二步绘制比例尺， 第三步制定坐标，第四步吧坐标给g元素回调
+请看demo13:
+```typescript
+let width:number = 600, height: number = 600;
+let svg = select('body').append('svg')
+    .attr('height', height)
+    .attr('width', width);
+
+// 用于坐标轴的线性比例尺
+let xScale = scaleLinear().domain([0,10]).range([0, 300]);
+
+// 坐标轴
+let axis = axisBottom(xScale);
+
+// 在svg中添加一个包含坐标各个元素的g元素
+let gAxis = svg.append('g')
+    .attr('transform', `translate(80, 80)`);         // 平移到（80，80）
+
+gAxis.call(axis);
+```
+
+#### 刻度
+通常为 方向、间隔、长度、文字格式等。
+```typescript
+
+```
+
 
 
 
