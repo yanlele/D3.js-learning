@@ -421,6 +421,42 @@ rAxis2.call(rightAxis2);
 ![2-04](./img/2-04.png)                 
 
 
+#### 其他各种比例尺的坐标轴
+```typescript
+let width: number = 600, height: number = 600;
+let svg = select('body').append('svg')
+    .attr('height', height)
+    .attr('width', width);
+
+// 用于坐标轴的线性比例尺
+let linear = scaleLinear().domain([0, 10]).range([0, 500]);
+let pow = scalePow().exponent(2).domain([0,10]).range([0,500]);
+let log = scaleLog().domain([0.01, 10]).range([0, 500]);
+
+
+// 坐标轴
+let linearBottomAxis = axisBottom(linear);
+let powBottomAxis = axisBottom(pow);
+let logBottomAxis = axisBottom(log);
+
+
+// 在svg中添加一个包含坐标各个元素的g元素
+let linearBottom = svg.append('g')
+    .attr('transform', `translate(80, 80)`);         // 平移到（80，80）
+
+let powBottom = svg.append('g')
+    .attr('transform', `translate(80, 120)`);         // 平移到（80，80）
+
+let logBottom = svg.append('g')
+    .attr('transform', `translate(80, 160)`);         // 平移到（80，80）
+
+linearBottom.call(linearBottomAxis);
+powBottom.call(powBottomAxis);
+logBottom.call(logBottomAxis);
+```
+![2-05](./img/2-05.png)
+
+
 
 
 
