@@ -169,4 +169,64 @@ this.svg.append('path')
     .attr('fill', schemeCategory10[3])
 ```
 
+添加一个复杂的使用示例， 绘制饼状图， 请见demo7:
+```typescript
+let dataSet: DefaultArcObject[] = [
+    {
+        startAngle: 0,
+        endAngle: Math.PI * .6,
+        innerRadius: 0,
+        outerRadius: 100
+    },
+    {
+        startAngle: Math.PI * .6,
+        endAngle: Math.PI,
+        innerRadius: 0,
+        outerRadius: 100
+    },
+    {
+        startAngle: Math.PI,
+        endAngle: Math.PI * 1.7,
+        innerRadius: 0,
+        outerRadius: 100
+    },
+    {
+        startAngle: Math.PI * 1.7,
+        endAngle: Math.PI * 2,
+        innerRadius: 0,
+        outerRadius: 100
+    },
+];
+
+let arcPath = arc();
+this.svg.selectAll('path')
+    .data(dataSet)
+    .enter()
+    .append('path')
+    .attr('d', function (d: DefaultArcObject) {
+        return arcPath(d);
+    })
+    .attr('transform', 'translate(250, 250)')
+    .attr('stroke', 'black')
+    .attr('stroke-width', '2px')
+    .attr('fill', function (d:DefaultArcObject, i: number) {
+        return schemeCategory10[i]
+    });
+
+// 添加文字
+this.svg.selectAll('text')
+    .data(dataSet)
+    .enter()
+    .append('text')
+    .attr('transform', function (d: DefaultArcObject) {
+        return `translate(250, 250) translate(${arcPath.centroid(d)})`
+    })
+    .attr('text-anchor', 'middle')
+    .attr('fill', 'white')
+    .attr('font-size', '18px')
+    .text(function(d: DefaultArcObject) {
+        return Math.floor((d.endAngle - d.startAngle) * 180 / Math.PI) + '°'
+    })
+```
+
 

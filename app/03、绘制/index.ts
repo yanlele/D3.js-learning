@@ -130,9 +130,69 @@ class Index {
             .attr('stroke-width', '3px')
             .attr('fill', schemeCategory10[3])
     }
+
+    /*复杂的弧形生成器示例*/
+    demo7() {
+        let dataSet: DefaultArcObject[] = [
+            {
+                startAngle: 0,
+                endAngle: Math.PI * .6,
+                innerRadius: 0,
+                outerRadius: 100
+            },
+            {
+                startAngle: Math.PI * .6,
+                endAngle: Math.PI,
+                innerRadius: 0,
+                outerRadius: 100
+            },
+            {
+                startAngle: Math.PI,
+                endAngle: Math.PI * 1.7,
+                innerRadius: 0,
+                outerRadius: 100
+            },
+            {
+                startAngle: Math.PI * 1.7,
+                endAngle: Math.PI * 2,
+                innerRadius: 0,
+                outerRadius: 100
+            },
+        ];
+
+        let arcPath = arc();
+        this.svg.selectAll('path')
+            .data(dataSet)
+            .enter()
+            .append('path')
+            .attr('d', function (d: DefaultArcObject) {
+                return arcPath(d);
+            })
+            .attr('transform', 'translate(250, 250)')
+            .attr('stroke', 'black')
+            .attr('stroke-width', '2px')
+            .attr('fill', function (d:DefaultArcObject, i: number) {
+                return schemeCategory10[i]
+            });
+
+        // 添加文字
+        this.svg.selectAll('text')
+            .data(dataSet)
+            .enter()
+            .append('text')
+            .attr('transform', function (d: DefaultArcObject) {
+                return `translate(250, 250) translate(${arcPath.centroid(d)})`
+            })
+            .attr('text-anchor', 'middle')
+            .attr('fill', 'white')
+            .attr('font-size', '18px')
+            .text(function(d: DefaultArcObject) {
+                return Math.floor((d.endAngle - d.startAngle) * 180 / Math.PI) + '°'
+            });
+    }
 }
 
 let index: Index = new Index();
-index.demo6();
+index.demo7();
 
 export default Index;
