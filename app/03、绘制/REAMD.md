@@ -254,6 +254,7 @@ chord.sortGroups([compare]) | 设置或获取分组的排序规则。
 chord.sortSubgroups([compare]) | 设置或获取子分组的排序规则
 chord.sortChords([compare]) | 设置或获取弦的排序规则
 
+请见示例类：[ChordDemo](./ChordDemo.ts)
 
 #### ribbon
 
