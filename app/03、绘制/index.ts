@@ -6,7 +6,7 @@
 import {rgb} from "d3-color";
 import {interpolate} from "d3-interpolate";
 import {select} from "d3-selection";
-import {area, curveBasis, curveCardinal, curveStep, Line, line} from "d3-shape";
+import {arc, area, curveBasis, curveCardinal, curveStep, Line, line} from "d3-shape";
 import {schemeCategory10} from "d3-scale-chromatic";
 
 class Index {
@@ -97,6 +97,10 @@ class Index {
             .attr('stroke', 'block')
             .attr('stroke-width', '3px')
             .attr('fill', schemeCategory10[0])
+    }
+
+    /*弧形成器*/
+    demo5() {
     }
 }
 

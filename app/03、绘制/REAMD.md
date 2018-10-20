@@ -111,5 +111,29 @@ this.svg.append('path')
 ```
 
 
+### <div class="class03-04">04、弧形成器: arc</div>
 
+api | 说明
+:- | :- 
+d3.arc() | 使用默认的设置创建一个新的 arc 生成器。
+arc(arguments…) | 根据指定的 arguments 生成 arc。arguments 是任意的; 它们只是简单地传递到 arc 生成器的访问器函数的对象。
+arc.centroid(arguments…) | 计算由给定 arguments 生成的 generated的中间点 [x, y]. arguments 是任意的，它们会被传递给 arc 生成器的访问器。为了与生成的弧保持一致，访问器必须是确定的。例如，相同的参数返回相同的值。中间点被定义为 (startAngle + endAngle) / 2 和 (innerRadius + outerRadius) / 2。
+arc.innerRadius([radius]) | 如果指定了 radius 则将**内半径设置**为指定的函数或数值并返回当前 arc 生成器。如果没有指定 radius 则返回当前的内半径访问器
+arc.outerRadius([radius]) | 如果指定了 radius 则将**外半径设置**为指定的函数或数值并返回当前 arc 生成器。如果没有指定 radius 则返回当前的外半径访问器
+arc.cornerRadius([radius]) | 如果指定了 radius 则将**拐角半径设置**为指定的函数或数值并返回当前 arc 生成器。
+arc.startAngle([angle]) | 如果指定了 angle 则将**起始角度设置**为指定的函数或数值并返回当前 arc 生成器。如果没有指定 angle 则返回当前的起始角度访问器
+arc.endAngle([angle]) | 如果指定了 angle 则将**终止角度设置**为指定的函数或数值并返回当前 arc 生成器。如果没有指定 angle 则返回当前的终止角度访问器
+arc.padAngle([angle]) | 如果指定了 angle 则将**间隙角度设置**为指定的函数或数值，并返回当前 arc 生成器。如果 angle 没有指定则返回当前间隙角度访问器
+arc.padRadius([radius]) | 如果指定了 radius 则将间隔半径设置为指定的函数或数值并返回 arc 生成器。如果没有指定 radius 则返回当前的间隔半径访问器，默认为 null
+
+arc(arguments…) 使用示范
+```typescript
+var arc = d3.arc();
+arc({
+  innerRadius: 0,
+  outerRadius: 100,
+  startAngle: 0,
+  endAngle: Math.PI / 2
+}); // "M0,-100A100,100,0,0,1,100,0L0,0Z"
+```
 
