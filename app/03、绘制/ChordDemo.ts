@@ -110,6 +110,7 @@ class ChordDemo {
 
         // 绘制弦图外围的刻度线
         groupTick.append("line")
+            .attr('stroke', '#000')
             .attr("x2", 6);
 
         // 定义刻度线上的文字
@@ -129,7 +130,7 @@ class ChordDemo {
             .selectAll("path")
             .data(function(chords) { return chords; })
             .enter().append("path")
-            .attr("d", ribbon)
+            .attr("d", ribbonMain)
             // 弦的填充色是目标点的索引值确定的
             .style("fill", (d) => {
                 return GetColor[d.target.index];
