@@ -384,8 +384,43 @@ gAxis.call(axis);
 #### 刻度
 通常为 方向、间隔、长度、文字格式等。
 ```typescript
+let width: number = 600, height: number = 600;
+let svg = select('body').append('svg')
+    .attr('height', height)
+    .attr('width', width);
 
+// 用于坐标轴的线性比例尺
+let xScale = scaleLinear().domain([0, 10]).range([0, 300]);
+
+// 坐标轴
+let leftAxis = axisLeft(xScale).ticks(5, '.1f');
+let leftAxis2 = axisBottom(xScale).ticks(5).tickSizeInner(1).tickSizeOuter(5);
+let rightAxis = axisRight(xScale).ticks([5], '.1f');
+let rightAxis2 = axisRight(xScale).tickValues([3, 4, 5, 6, 7]).tickFormat(format("$.1f"));
+
+
+// 在svg中添加一个包含坐标各个元素的g元素
+let lAxis = svg.append('g')
+    .attr('transform', `translate(80, 80)`);         // 平移到（80，80）
+
+let rAxis = svg.append('g')
+    .attr('transform', `translate(100, 80)`);         // 平移到（80，80）
+
+let rAxis2 = svg.append('g')
+    .attr('transform', `translate(140, 80)`);         // 平移到（80，80）
+
+let lAxis2 = svg.append('g')
+    .attr('transform', `translate(180, 80)`);
+
+lAxis.call(leftAxis);
+lAxis2.call(leftAxis2);
+rAxis.call(rightAxis);
+rAxis2.call(rightAxis2);
 ```
+绘制效果如下：                 
+![2-04](./img/2-04.png)                 
+
+
 
 
 
