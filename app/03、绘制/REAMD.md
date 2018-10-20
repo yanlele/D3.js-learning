@@ -229,4 +229,114 @@ this.svg.selectAll('text')
     })
 ```
 
+### <div id="class03-05">05、符号生成器: symbol</div>
+
+api | 说明
+:- | :- 
+symbol(datum [, index]) | 返回自定数据的路径字符串
+symbol.type([type]) | 设定过着获取符号类型
+symbol.size([size]) | 设定或者获取符号的大小，单位是像素的平方。 比如设定为100， 则是一个宽10， 高 10 的符号。
+symbolTypes | 支持的符号类型
+
+
+**略过，以后如果需要用到的时候再来看看**
+
+
+### <div id="class03-06">06、弦生成器</div>
+#### chord
+
+api | 说明
+:- | :- 
+d3.chord() | 使用默认的设置创建一个新的弦图布局
+chord(matrix) | 对 matrix 进行计算，计算出矩阵数据对应的弦图布局数据以备画图。matrix 必须为方阵。matrix[i][j] 表示第 i 个节点到第 j 个节点的流量。matrix[i][j]不能为负数。
+chord.padAngle([angle]) | 设置或获取相邻分组之间的间隔，默认为 0
+chord.sortGroups([compare]) | 设置或获取分组的排序规则。
+chord.sortSubgroups([compare]) | 设置或获取子分组的排序规则
+chord.sortChords([compare]) | 设置或获取弦的排序规则
+
+
+#### ribbon
+
+api | 说明
+:- | :- 
+d3.ribbon() | 使用默认的设置创建一个新的ribbon生成器
+ribbon(arguments…) | 根据指定的数据生成一个ribbon路径
+ribbon.source([source]) | 设置或获取source访问器
+ribbon.target([target]) | 设置或获取targete访问器
+ribbon.radius([radius]) | 设置或获取半径访问器
+ribbon.startAngle([angle]) | 设置或获取起始角度访问器， 12点钟方向为0度，以弧度为单位
+ribbon.endAngle([angle]) | 设置或获取终止角度访问器
+
+ribbon 请见demo9, 使用方式1：
+```typescript
+let dataSet: Ribbon = {
+    source: {
+        startAngle: 0.2,
+        endAngle: Math.PI *0.3,
+        radius: 100
+    },
+    target: {
+        startAngle: Math.PI,
+        endAngle: Math.PI * 1.6,
+        radius: 100
+    }
+};
+// 创建一个简单的弦生成器
+let ribbonIndex = ribbon();
+
+// 创建路径
+this.svg.append('path')
+    .attr('d', ribbonIndex(dataSet))
+    .attr('transform', 'translate(200, 200)')
+    .attr('fill', schemeCategory10[1])
+    .attr('stroke', schemeCategory10[0])
+    .attr('stroke-width', '2px')
+```
+
+ribbon 请见demo10， 使用方式2： 
+```typescript
+let ribbonIndex = ribbon()
+    .source(function (d: Ribbon): RibbonSubgroup {
+        return {
+            startAngle: 0.2,
+            endAngle: Math.PI *0.3,
+            radius: 100
+        }
+    })
+    .target(function (d: Ribbon): RibbonSubgroup {
+        return {
+            startAngle: Math.PI,
+            endAngle: Math.PI * 1.6,
+            radius: 100
+        }
+    })
+    .radius(100);
+
+this.svg.append('path')
+    .attr('d', ribbonIndex)
+    .attr('transform', 'translate(200, 200)')
+    .attr('stroke', schemeCategory10[8])
+    .attr('stroke-width', '2px')
+    .attr('fill', schemeCategory10[9])
+```
+
+#### 说明：
+**1、chord(matrix)**                         
+
+chord(matrix) 的返回值是一组 chords ，chord 表示两个节点 i 和 j 之间的流量大小，为对象类型，包含以下属性:                  
+- source - 该弦的源子分组对象                
+- target - 该弦的目标子分组对象               
+每一个 source 和 target 子分组都有以下数属性:                 
+
+- startAngle - 起始角度                 
+- endAngle - 终止角度               
+- value - matrix[i][j] 的值                           
+- index - 索引 i              
+ -subindex - 索引 j                   
+
+弦图数组也包含了另一个表示分组的属性 chords.groups, chords.groups表示计算后的分组数组，每个分组包含以下属性:               
+- startAngle - 起始角度             
+- endAngle - 终止角度           
+- value - 从节点 i 出去的总量               
+- index - 节点索引 i                
 

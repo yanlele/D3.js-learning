@@ -6,8 +6,12 @@
 import {rgb} from "d3-color";
 import {interpolate} from "d3-interpolate";
 import {select} from "d3-selection";
-import {Arc, arc, area, curveBasis, curveCardinal, curveStep, DefaultArcObject, Line, line} from "d3-shape";
+import {
+    Arc, arc, area, curveBasis, curveCardinal, curveStep, DefaultArcObject, Line, line, symbol,
+    symbols
+} from "d3-shape";
 import {schemeCategory10} from "d3-scale-chromatic";
+import {chord, Ribbon, ribbon, RibbonSubgroup} from "d3-chord";
 
 class Index {
     private svg;
@@ -190,9 +194,68 @@ class Index {
                 return Math.floor((d.endAngle - d.startAngle) * 180 / Math.PI) + '°'
             });
     }
+
+    /*符号生成器: symbol*/
+    demo8() {
+        // 略过，以后如果需要用到的时候再来看看
+    }
+
+    /*弦生成器： ribbon 使用方法1*/
+    demo9() {
+        let dataSet: Ribbon = {
+            source: {
+                startAngle: 0.2,
+                endAngle: Math.PI *0.3,
+                radius: 100
+            },
+            target: {
+                startAngle: Math.PI,
+                endAngle: Math.PI * 1.6,
+                radius: 100
+            }
+        };
+        // 创建一个简单的弦生成器
+        let ribbonIndex = ribbon();
+
+        // 创建路径
+        this.svg.append('path')
+            .attr('d', ribbonIndex(dataSet))
+            .attr('transform', 'translate(200, 200)')
+            .attr('fill', schemeCategory10[1])
+            .attr('stroke', schemeCategory10[0])
+            .attr('stroke-width', '2px')
+    }
+
+    /*弦生成器： ribbon 使用方法2*/
+    demo10() {
+        // 创建一个简单的弦生成器
+        let ribbonIndex = ribbon()
+            .source(function (d: Ribbon): RibbonSubgroup {
+                return {
+                    startAngle: 0.2,
+                    endAngle: Math.PI *0.3,
+                    radius: 100
+                }
+            })
+            .target(function (d: Ribbon): RibbonSubgroup {
+                return {
+                    startAngle: Math.PI,
+                    endAngle: Math.PI * 1.6,
+                    radius: 100
+                }
+            })
+            .radius(100);
+
+        this.svg.append('path')
+            .attr('d', ribbonIndex)
+            .attr('transform', 'translate(200, 200)')
+            .attr('stroke', schemeCategory10[8])
+            .attr('stroke-width', '2px')
+            .attr('fill', schemeCategory10[9])
+    }
 }
 
 let index: Index = new Index();
-index.demo7();
+index.demo10();
 
 export default Index;
