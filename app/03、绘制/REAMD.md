@@ -137,3 +137,36 @@ arc({
 }); // "M0,-100A100,100,0,0,1,100,0L0,0Z"
 ```
 
+基本使用方式1， 请见demo5:
+```typescript
+let dataSet: DefaultArcObject = {
+    startAngle: 0,
+    endAngle: Math.PI * .75,
+    innerRadius: 50,
+    outerRadius: 100
+};
+// 创建弧形生成器
+let arcPath = arc();
+// 添加路径
+this.svg.append('path')
+    .attr('d', arcPath(dataSet))
+    .attr('transform', `translate(250, 250)`)
+    .attr('stroke', schemeCategory10[0])
+    .attr('stroke-width', '3px')
+    .attr('fill', schemeCategory10[1])
+```
+
+基本使用方式2， 请见demo6:
+```typescript
+// 创建弧形生成器
+let arcPath = arc().innerRadius(50).outerRadius(100).startAngle(0).endAngle(Math.PI *.75);
+// 添加路径
+this.svg.append('path')
+    .attr('d', arcPath)
+    .attr('transform', `translate(250, 250)`)
+    .attr('stroke', schemeCategory10[2])
+    .attr('stroke-width', '3px')
+    .attr('fill', schemeCategory10[3])
+```
+
+

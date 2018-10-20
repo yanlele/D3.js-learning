@@ -6,7 +6,7 @@
 import {rgb} from "d3-color";
 import {interpolate} from "d3-interpolate";
 import {select} from "d3-selection";
-import {arc, area, curveBasis, curveCardinal, curveStep, Line, line} from "d3-shape";
+import {Arc, arc, area, curveBasis, curveCardinal, curveStep, DefaultArcObject, Line, line} from "d3-shape";
 import {schemeCategory10} from "d3-scale-chromatic";
 
 class Index {
@@ -101,10 +101,38 @@ class Index {
 
     /*弧形成器*/
     demo5() {
+        let dataSet: DefaultArcObject = {
+            startAngle: 0,
+            endAngle: Math.PI * .75,
+            innerRadius: 50,
+            outerRadius: 100
+        };
+        // 创建弧形生成器
+        let arcPath = arc();
+        // 添加路径
+        this.svg.append('path')
+            .attr('d', arcPath(dataSet))
+            .attr('transform', `translate(250, 250)`)
+            .attr('stroke', schemeCategory10[0])
+            .attr('stroke-width', '3px')
+            .attr('fill', schemeCategory10[1])
+    }
+
+    /*弧形生成器的第二种用法*/
+    demo6() {
+        // 创建弧形生成器
+        let arcPath = arc().innerRadius(50).outerRadius(100).startAngle(0).endAngle(Math.PI *.75);
+        // 添加路径
+        this.svg.append('path')
+            .attr('d', arcPath)
+            .attr('transform', `translate(250, 250)`)
+            .attr('stroke', schemeCategory10[2])
+            .attr('stroke-width', '3px')
+            .attr('fill', schemeCategory10[3])
     }
 }
 
 let index: Index = new Index();
-index.demo4();
+index.demo6();
 
 export default Index;
