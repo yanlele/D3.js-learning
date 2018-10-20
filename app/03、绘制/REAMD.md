@@ -82,4 +82,34 @@ this.svg.append('path')
 ```
 
 
+### <div id="class03-03">03、区域生成器 area</div>
+
+**基础api 和 线段生成器是一模一样的**。但是多了几个api
+
+分别为: **x0()、x1()、y0()、y1() 分别代表的是X轴方向基底和基顶、y轴方向基底与基顶；**
+
+请看demo4:            
+```typescript
+let dataSet: [number, number][] = [[80, 80], [120, 120], [130, 130], [70, 70], [60, 60], [90, 90]];
+// 创建一个区域生成器
+let areaPath = area()
+    .x((d: [number, number], i: number) => {
+        return 50 + i * 60;
+    })
+    .y0((d: [number, number], i: number) => {
+        return this.height / 2;
+    })
+    .y1((d: [number, number], i: number) => {
+        return this.height / 2 - d[1];
+    });
+
+this.svg.append('path')
+    .attr('d', areaPath(dataSet))
+    .attr('stroke', 'block')
+    .attr('stroke-width', '3px')
+    .attr('fill', schemeCategory10[0])
+```
+
+
+
 

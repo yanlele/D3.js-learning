@@ -6,16 +6,24 @@
 import {rgb} from "d3-color";
 import {interpolate} from "d3-interpolate";
 import {select} from "d3-selection";
-import {curveBasis, curveCardinal, curveStep, Line, line} from "d3-shape";
+import {area, curveBasis, curveCardinal, curveStep, Line, line} from "d3-shape";
+import {schemeCategory10} from "d3-scale-chromatic";
 
 class Index {
     private svg;
+    private height: number;
+    private width: number;
+    private points: [number, number][];
 
     constructor() {
         let width: number = 600, height: number = 600;
         this.svg = select('body').append('svg')
             .attr('height', height)
             .attr('width', width);
+
+        this.height = 600;
+        this.width = 600;
+        this.points = [[80, 80], [120, 120], [160, 160], [200, 200], [240, 240], [280, 280]]
     }
 
     /*插值*/
@@ -68,9 +76,31 @@ class Index {
             .attr('fill', 'none')
     }
 
+    /*区域生成器 area*/
+    demo4() {
+        let dataSet: [number, number][] = [[80, 80], [120, 120], [130, 130], [70, 70], [60, 60], [90, 90]];
+
+        // 创建一个区域生成器
+        let areaPath = area()
+            .x((d: [number, number], i: number) => {
+                return 50 + i * 60;
+            })
+            .y0((d: [number, number], i: number) => {
+                return this.height / 2;
+            })
+            .y1((d: [number, number], i: number) => {
+                return this.height / 2 - d[1];
+            });
+
+        this.svg.append('path')
+            .attr('d', areaPath(dataSet))
+            .attr('stroke', 'block')
+            .attr('stroke-width', '3px')
+            .attr('fill', schemeCategory10[0])
+    }
 }
 
 let index: Index = new Index();
-index.demo3();
+index.demo4();
 
 export default Index;
