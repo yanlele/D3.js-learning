@@ -12,6 +12,8 @@ import {
 } from "d3-shape";
 import {schemeCategory10} from "d3-scale-chromatic";
 import {chord, Ribbon, ribbon, RibbonSubgroup} from "d3-chord";
+import {range} from "d3-array";
+import ChordDemo from "./ChordDemo";
 
 class Index {
     private svg;
@@ -28,6 +30,11 @@ class Index {
         this.height = 600;
         this.width = 600;
         this.points = [[80, 80], [120, 120], [160, 160], [200, 200], [240, 240], [280, 280]]
+    }
+
+    test() {
+        console.log('------------test------------------');
+        console.log(range(4))
     }
 
     /*插值*/
@@ -255,7 +262,13 @@ class Index {
     }
 }
 
-let index: Index = new Index();
-index.demo10();
+// let index: Index = new Index();
+// index.demo10();
+// index.test();
+
+
+let chordDemo:ChordDemo = new ChordDemo()
+chordDemo.main();
+
 
 export default Index;
