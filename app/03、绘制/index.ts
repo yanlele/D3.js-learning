@@ -14,6 +14,7 @@ import {schemeCategory10} from "d3-scale-chromatic";
 import {chord, Ribbon, ribbon, RibbonSubgroup} from "d3-chord";
 import {range} from "d3-array";
 import ChordDemo from "./ChordDemo";
+import Test from "./Test";
 
 class Index {
     private svg;
@@ -267,8 +268,10 @@ class Index {
 // index.test();
 
 
-let chordDemo:ChordDemo = new ChordDemo()
-chordDemo.main();
+// let chordDemo:ChordDemo = new ChordDemo();
+// chordDemo.main();
+
+Test.main()
 
 
 export default Index;

@@ -104,7 +104,7 @@ class ChordDemo {
             .enter()
             .append('g')
             .attr('class', 'group-tick')
-            .attr('transform', function (d) {
+            .attr('transform',  (d) => {
                 return "rotate(" + (d.angle * 180 / Math.PI - 90) + ") translate(" + outerRadius + ",0)";
             });
 
