@@ -341,3 +341,7 @@ chord(matrix) 的返回值是一组 chords ，chord 表示两个节点 i 和 j �
 - value - 从节点 i 出去的总量               
 - index - 节点索引 i                
 
+
+### <div id=class03-07>07、对角线生成器</div>
+version 5 把这个玩意儿删除了
+
