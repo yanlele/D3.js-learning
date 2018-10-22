@@ -12,9 +12,12 @@ import {
 } from "d3-shape";
 import {schemeCategory10} from "d3-scale-chromatic";
 import {chord, Ribbon, ribbon, RibbonSubgroup} from "d3-chord";
-import {range} from "d3-array";
+import {max, range} from "d3-array";
 import ChordDemo from "./ChordDemo";
 import Test from "./Test";
+import {scaleLinear} from "d3-scale";
+import {axisBottom, axisLeft} from "d3-axis";
+import {format} from "d3-format";
 
 class Index {
     private svg;
@@ -133,7 +136,7 @@ class Index {
     /*弧形生成器的第二种用法*/
     demo6() {
         // 创建弧形生成器
-        let arcPath = arc().innerRadius(50).outerRadius(100).startAngle(0).endAngle(Math.PI *.75);
+        let arcPath = arc().innerRadius(50).outerRadius(100).startAngle(0).endAngle(Math.PI * .75);
         // 添加路径
         this.svg.append('path')
             .attr('d', arcPath)
@@ -183,7 +186,7 @@ class Index {
             .attr('transform', 'translate(250, 250)')
             .attr('stroke', 'black')
             .attr('stroke-width', '2px')
-            .attr('fill', function (d:DefaultArcObject, i: number) {
+            .attr('fill', function (d: DefaultArcObject, i: number) {
                 return schemeCategory10[i]
             });
 
@@ -198,7 +201,7 @@ class Index {
             .attr('text-anchor', 'middle')
             .attr('fill', 'white')
             .attr('font-size', '18px')
-            .text(function(d: DefaultArcObject) {
+            .text(function (d: DefaultArcObject) {
                 return Math.floor((d.endAngle - d.startAngle) * 180 / Math.PI) + '°'
             });
     }
@@ -213,7 +216,7 @@ class Index {
         let dataSet: Ribbon = {
             source: {
                 startAngle: 0.2,
-                endAngle: Math.PI *0.3,
+                endAngle: Math.PI * 0.3,
                 radius: 100
             },
             target: {
@@ -241,7 +244,7 @@ class Index {
             .source(function (d: Ribbon): RibbonSubgroup {
                 return {
                     startAngle: 0.2,
-                    endAngle: Math.PI *0.3,
+                    endAngle: Math.PI * 0.3,
                     radius: 100
                 }
             })
@@ -261,17 +264,99 @@ class Index {
             .attr('stroke-width', '2px')
             .attr('fill', schemeCategory10[9])
     }
+
+    /*绘制折现线图*/
+    demo11() {
+        // 基础数据
+        let dataSet: {country: string, gdp:[number, number][]}[] = [
+            {
+                country: "china",
+                gdp: [[2000, 11920], [2001, 13170], [2002, 14550],
+                    [2003, 16500], [2004, 19440], [2005, 22870],
+                    [2006, 27930], [2007, 35040], [2008, 45470],
+                    [2009, 51050], [2010, 59490], [2011, 73140],
+                    [2012, 83860], [2013, 103550],]
+            },
+            {
+                country: "japan",
+                gdp: [[2000, 47310], [2001, 41590], [2002, 39800],
+                    [2003, 43020], [2004, 46550], [2005, 45710],
+                    [2006, 43560], [2007, 43560], [2008, 48490],
+                    [2009, 50350], [2010, 54950], [2011, 59050],
+                    [2012, 59370], [2013, 48980],]
+            }
+        ];
+
+        // 外边框
+        let padding: any = {top: 50, right: 50, bottom: 50, left: 50};
+
+        // 计算GDP的最大值
+        let gdpMax: number = 0;
+        let currentGdp;
+        for (let i = 0; i < dataSet.length; i++) {
+            currentGdp = max(dataSet[i].gdp, function (d) {
+                return d[1]
+            });
+            if (currentGdp > gdpMax) {
+                gdpMax = currentGdp;
+            }
+        }
+
+        // 定义比例尺
+        let xScale = scaleLinear().domain([2000, 2013]).range([0, this.width - padding.left - padding.right]);
+
+        // 定义y轴比例尺
+        let yScale = scaleLinear().domain([0, gdpMax * 1.1]).range([this.height - padding.top - padding.bottom, 0]);
+
+        // 线性生成器
+        let linePath = line()
+            .x(function (d) {
+                return xScale(d[0])
+            })
+            .y(function (d) {
+                return yScale(d[1])
+            });
+
+        // 添加路径
+        this.svg.selectAll('path')
+            .data(dataSet)
+            .enter()
+            .append('path')
+            .attr('transform', `translate(${padding.left}, ${padding.top})`)
+            .attr('d', function (d: {country: string, gdp:[number, number][]}) {
+                return linePath(d.gdp)
+            })
+            .attr('fill', 'none')
+            .attr('stroke-width', '3px')
+            .attr('stroke', function (d: {country: string, gdp:[number, number][]}, i:number) {
+                return schemeCategory10[i];
+            });
+
+        // x 轴
+        let xAxis = axisBottom(xScale).ticks(5).tickFormat(format('d'));
+
+        // y轴
+        let yAxis = axisLeft(yScale);
+
+        // 添加轴线
+        this.svg.append('g')
+            .attr('transform', `translate(${padding.left}, ${this.height - padding.bottom})`)
+            .call(xAxis);
+        this.svg.append('g')
+            .attr('transform', `translate(${padding.left}, ${padding.top})`)
+            .call(yAxis);
+    }
 }
 
-// let index: Index = new Index();
-// index.demo10();
+let index: Index = new Index();
+index.demo11();
 // index.test();
 
 
 // let chordDemo:ChordDemo = new ChordDemo();
 // chordDemo.main();
 
-Test.main()
+// Test.main()
 
 
 export default Index;
