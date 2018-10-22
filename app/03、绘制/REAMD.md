@@ -59,7 +59,6 @@ var lines: [number, number][] = [[80, 80], [200, 100], [200, 200], [100, 200], [
 
 // 创建一个线段生成器
 let linePath = line().x(function (d: [number, number]): number {
-
     return d[0];
 }).curve(curveBasis);
 this.svg.append('path')

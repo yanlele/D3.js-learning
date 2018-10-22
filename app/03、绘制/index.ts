@@ -303,7 +303,7 @@ class Index {
         }
 
         // 定义比例尺
-        let xScale = scaleLinear().domain([2000, 2013]).range([0, this.width - padding.left - padding.right]);
+        let xScale = scaleLinear().domain([2000, 2014]).range([0, this.width - padding.left - padding.right ]);
 
         // 定义y轴比例尺
         let yScale = scaleLinear().domain([0, gdpMax * 1.1]).range([this.height - padding.top - padding.bottom, 0]);
