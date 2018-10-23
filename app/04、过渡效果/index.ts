@@ -75,10 +75,40 @@ class Index {
             .delay(1000)
             .style('fill', schemeCategory10[1])
     }
+
+    /*文字的过渡*/
+    demo5() {
+        let rect = this.svg
+            .append('rect')
+            .style('fill', schemeCategory10[0])
+            .attr('width', 100)
+            .attr('height', 30)
+            .attr('x', 10)
+            .attr('y', 10);
+
+        let text = this.svg
+            .append('text')
+            .attr('stroke', 'white')
+            .attr('y', 15)
+            .attr('x', 100)
+            .attr('dy', '1em')
+            .attr('text-anchor', 'end');
+
+        let textTrans = text
+            .transition()
+            .duration(2000)
+            .tween('text', function () {
+                return function (t) {
+                     text.text(Math.floor( t * 300))
+                         .attr('x', Math.floor(100 + t * 300));
+                     rect.attr('width', Math.floor(100 + t * 300))
+                }
+            })
+    }
 }
 
 let index = new Index();
-index.demo4();
+index.demo5();
 
 
 export default Index;

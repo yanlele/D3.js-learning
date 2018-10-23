@@ -113,3 +113,33 @@ api | 说明
 transition.text(value) | 过度开始的时候，将文字设置为value 的值。
 transition.tween(name[, factory]) | factory必须是一个返回函数的函数。 将属性 name 按照函数factory 进行过渡
 
+demo5：
+```typescript
+let rect = this.svg
+    .append('rect')
+    .style('fill', schemeCategory10[0])
+    .attr('width', 100)
+    .attr('height', 30)
+    .attr('x', 10)
+    .attr('y', 10);
+
+let text = this.svg
+    .append('text')
+    .attr('stroke', 'white')
+    .attr('y', 15)
+    .attr('x', 100)
+    .attr('dy', '1em')
+    .attr('text-anchor', 'end');
+
+let textTrans = text
+    .transition()
+    .duration(2000)
+    .tween('text', function () {
+        return function (t) {
+             text.text(Math.floor( t * 300))
+                 .attr('x', Math.floor(100 + t * 300));
+             rect.attr('width', Math.floor(100 + t * 300))
+        }
+    })
+```
+
