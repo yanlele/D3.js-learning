@@ -62,10 +62,23 @@ class Index {
                 }
             })
     }
+
+    /*transition.style(name, value[, priority]) 使用*/
+    demo4() {
+        this.svg.append('rect')
+            .style('fill', schemeCategory10[0])
+            .attr('width', 100)
+            .attr('height', 30)
+            .attr('x', 10)
+            .attr('y', 10)
+            .transition()
+            .delay(1000)
+            .style('fill', schemeCategory10[1])
+    }
 }
 
 let index = new Index();
-index.demo3();
+index.demo4();
 
 
 export default Index;

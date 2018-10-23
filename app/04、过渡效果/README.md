@@ -82,3 +82,23 @@ this.svg.append('rect')
 ```
 其中attrTween() 第一个参数是一个属性名，第二个参数是是一个无名函数， d 是被绑定的数据， i 是数据索引， a 是变化到最后的元素selection。
 返回值也是一个函数，t的取值范围是 [0,1], 0 开始变化， 1 变化结束。 
+
+
+api | 说明
+:- | :- 
+transition.style(name, value[, priority]) | 将css 样式的 name 属性过度到目标值。priority 表示优先级。 只有null, important 两个值。                   
+transition.styleTween(name[, factory[, priority]])) | 与 attrTween() 类似。
+
+demo4: 基本使用
+```typescript
+this.svg.append('rect')
+    .style('fill', schemeCategory10[0])
+    .attr('width', 100)
+    .attr('height', 30)
+    .attr('x', 10)
+    .attr('y', 10)
+    .transition()
+    .delay(1000)
+    .style('fill', schemeCategory10[1])
+```
+
