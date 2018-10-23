@@ -11,7 +11,7 @@ api | 说明
 selection.transition([name]) | 在指定的 selection 上返回指定的 name 的过渡。如果没有指定 name 则会使用 null。新的过渡仅仅与其他相同名字的过渡相排斥。
 transition.delay([value]) | 对于每个选中的元素，将当前元素的过渡的延时设置为指定的 value(毫秒)。
 transition.duration([value]) | 对于每个选中的元素，设置过渡时长为指定的 value(毫秒)。
-transition.ease([value]) | 为所有选中的元素指定过渡的 easing function(缓动函数)。
+transition.ease([value]) | 为所有选中的元素指定过渡的 [easing function(缓动函数)。](https://github.com/xswei/d3-ease)
 
 demo1:          
 ```typescript
@@ -32,5 +32,15 @@ this.svg.append('rect')
 
 demo2:
 ```typescript
-
+this.svg.append('rect')
+    .attr('fill', schemeCategory10[1])
+    .attr('height', 100)
+    .attr('width', 100)
+    .attr('x', 10)
+    .attr('y', 10)
+    .transition()
+    .delay(500)
+    .duration(3000)
+    .ease(easeBounceIn)
+    .attr('width', 300)
 ```
