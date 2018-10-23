@@ -7,7 +7,7 @@
             "/node_modules/@type",
             "typings/modules"
         ],
-        "allowJs": true,
+        "allowJs": false,
         "moduleResolution": "node",
         "sourceMap": true,
         "outDir": "dist-ts",
