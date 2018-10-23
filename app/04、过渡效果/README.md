@@ -2,7 +2,7 @@
 
 ### <div id="class04-01">01、过渡</div>
  
-#### 创建过渡
+#### 1.1、创建过渡
 
 创建过渡有两种方式： transition 和 selection.transition
 
@@ -45,7 +45,7 @@ this.svg.append('rect')
     .attr('width', 300)
 ```
 
-#### 过度的属性
+#### 1.2、过度的属性
 
 **属性过度**
 
