@@ -143,3 +143,16 @@ let textTrans = text
     })
 ```
 
+
+**remove**
+
+api | 说明
+:- | :- 
+transition.remove() | 过渡结束之后， 删除被选择的元素
+
+例如：
+```typescript
+rect.transaction()
+    .attr('width', 300)
+    .remove();
+```
