@@ -47,6 +47,8 @@ this.svg.append('rect')
 
 #### 过度的属性
 
+**属性过度**
+
 api | 说明
 :- | :- 
 transition.attr(name, value) | 将属性name过度到目标值value。value可是是一个函数。
@@ -84,6 +86,8 @@ this.svg.append('rect')
 返回值也是一个函数，t的取值范围是 [0,1], 0 开始变化， 1 变化结束。 
 
 
+**样式过度**
+
 api | 说明
 :- | :- 
 transition.style(name, value[, priority]) | 将css 样式的 name 属性过度到目标值。priority 表示优先级。 只有null, important 两个值。                   
@@ -101,4 +105,11 @@ this.svg.append('rect')
     .delay(1000)
     .style('fill', schemeCategory10[1])
 ```
+
+**文字过度**
+
+api | 说明
+:- | :- 
+transition.text(value) | 过度开始的时候，将文字设置为value 的值。
+transition.tween(name[, factory]) | factory必须是一个返回函数的函数。 将属性 name 按照函数factory 进行过渡
 
