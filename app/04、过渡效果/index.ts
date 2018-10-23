@@ -18,6 +18,7 @@ class Index {
             .attr('width', this.width);
     }
 
+    /*最简单过度函数*/
     demo1() {
         this.svg.append('rect')
             .attr('fill', schemeCategory10[0])
@@ -30,6 +31,7 @@ class Index {
             .attr('width', 300)
     }
 
+    /*稍微复杂点儿的过度实例*/
     demo2() {
         this.svg.append('rect')
             .attr('fill', schemeCategory10[1])
@@ -43,10 +45,27 @@ class Index {
             .ease(easeBounceIn)
             .attr('width', 300)
     }
+
+    /*transition.attrTween(name[, factory]) 的理解*/
+    demo3() {
+        this.svg.append('rect')
+            .attr('fill', schemeCategory10[2])
+            .attr('width', 100)
+            .attr('height', 30)
+            .attr('x', 10)
+            .attr('y', 10)
+            .transition()
+            .duration(2000)
+            .attrTween('width', function (d: any, i: number, a: any) {
+                return function (t: number) {
+                    return t * 300 + 100
+                }
+            })
+    }
 }
 
 let index = new Index();
-index.demo2();
+index.demo3();
 
 
 export default Index;

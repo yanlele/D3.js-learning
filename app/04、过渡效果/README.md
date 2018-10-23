@@ -44,3 +44,41 @@ this.svg.append('rect')
     .ease(easeBounceIn)
     .attr('width', 300)
 ```
+
+#### 过度的属性
+
+api | 说明
+:- | :- 
+transition.attr(name, value) | 将属性name过度到目标值value。value可是是一个函数。
+transition.attrTween(name[, factory]) | 将属性 name 使用插值函数 tween() 进行过度。
+
+**说明**
+对于
+transition.attr(name, value) 很好理解，看一下下面这个例子，秒懂：
+```typescript
+this.svg.append('rect')
+    .attr('fill', schemeCategory10[1])
+    .attr('height', 100)
+    .attr('width', 100)
+    .transition()
+    .attr('width', 300)
+```
+
+对于 transition.attrTween(name[, factory]) 的理解：
+```typescript
+this.svg.append('rect')
+    .attr('fill', schemeCategory10[2])
+    .attr('width', 100)
+    .attr('height', 30)
+    .attr('x', 10)
+    .attr('y', 10)
+    .transition()
+    .duration(2000)
+    .attrTween('width', function (d: any, i: number, a: any) {
+        return function (t: number) {
+            return t * 300 + 100
+        }
+    })
+```
+其中attrTween() 第一个参数是一个属性名，第二个参数是是一个无名函数， d 是被绑定的数据， i 是数据索引， a 是变化到最后的元素selection。
+返回值也是一个函数，t的取值范围是 [0,1], 0 开始变化， 1 变化结束。 
