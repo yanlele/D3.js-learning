@@ -4,7 +4,6 @@
  */
 
 class Index {
-
     main() {
 
     }
