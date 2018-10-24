@@ -214,7 +214,7 @@ g.transition()
 api | 说明
 :- | :- 
 transition.each(function) | 为过渡中的每个选中的元素调用指定的 function，并传递当前元素 d 以及索引 i，函数内部 this 指向当前 DOM 元素。这个方法可以被用来为每个选中的元素调用任意代码，并且创建了一个能访问当前元素父节点和子节点数据的上下文。等价于 selection.each。
-transition.call | 为当前过渡指定一次指定的函数.
+transition.call(function[, arguments…]) | 为当前过渡指定一次指定的函数.
 
 dmoe7:              
 ```typescript
@@ -247,4 +247,25 @@ g.transition()
     })
     .attr('width', 300);
 ```
+
+
+demo8: 
+```typescript
+let xScale = scaleLinear().domain([0, 10]).range([0, 300]);
+
+let xAxis = axisBottom(xScale);
+
+let g = this.svg.append('g');
+
+g.attr('class', 'axis')
+    .attr('transform', 'translate(50, 200)')
+    .call(xAxis);
+
+xScale.domain([0, 50]);
+
+g.transition()
+    .duration(2000)
+    .call(xAxis)
+```
+
 

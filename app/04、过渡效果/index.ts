@@ -6,6 +6,8 @@
 import {select} from "d3-selection";
 import {schemeCategory10} from "d3-scale-chromatic";
 import {easeBounceIn} from "d3-ease";
+import {scaleLinear} from "d3-scale";
+import {axisBottom} from "d3-axis";
 
 class Index {
     private width: number = 600;
@@ -99,9 +101,9 @@ class Index {
             .duration(2000)
             .tween('text', function () {
                 return function (t) {
-                     text.text(Math.floor( t * 300))
-                         .attr('x', Math.floor(100 + t * 300));
-                     rect.attr('width', Math.floor(100 + t * 300))
+                    text.text(Math.floor(t * 300))
+                        .attr('x', Math.floor(100 + t * 300));
+                    rect.attr('width', Math.floor(100 + t * 300))
                 }
             })
     }
@@ -143,7 +145,7 @@ class Index {
         g.transition()
             .selectAll('rect')
             .filter(function (d: number, i: number) {
-                return i>=1;
+                return i >= 1;
             })
             .attr('width', 300)
     }
@@ -179,10 +181,29 @@ class Index {
             })
             .attr('width', 300);
     }
+
+    /*transition.call(function[, arguments…])*/
+    demo8() {
+        let xScale = scaleLinear().domain([0, 10]).range([0, 300]);
+
+        let xAxis = axisBottom(xScale);
+
+        let g = this.svg.append('g');
+
+        g.attr('class', 'axis')
+            .attr('transform', 'translate(50, 200)')
+            .call(xAxis);
+
+        xScale.domain([0, 50]);
+
+        g.transition()
+            .duration(2000)
+            .call(xAxis)
+    }
 }
 
 let index = new Index();
-index.demo7();
+index.demo8();
 
 
 export default Index;
