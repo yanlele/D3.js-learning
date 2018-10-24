@@ -4,6 +4,7 @@
  */
 import {select} from "d3-selection";
 import {schemeCategory10} from "d3-scale-chromatic";
+import {range} from "d3-array";
 
 class Index {
     private width: number = 600;
@@ -23,6 +24,23 @@ class Index {
     }
 
     main() {
+        let dataSet: Array<number> = range(5);
+
+        // 定义色彩
+        let color: ReadonlyArray<string> = schemeCategory10;
+
+        let circle = this.svg.selectAll('circle');
+        circle.data(dataSet)
+            .enter()
+            .append('circle')
+            .attr('cx', function (d: number) {
+                return 100 + d * 80
+            })
+            .attr('cy', 100)
+            .attr('r', 30)
+            .attr('fill', function (d: number, i: number) {
+                return color[i]
+            })
 
     }
 
