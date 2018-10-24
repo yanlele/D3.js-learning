@@ -105,10 +105,52 @@ class Index {
                 }
             })
     }
+
+    /*子元素过度*/
+    demo6() {
+        let dataSet: number[] = [100, 100, 100];
+
+        let g = this.svg.append('g');
+
+        let rect = g.selectAll('rect')
+            .data(dataSet)
+            .enter()
+            .append('rect')
+            .attr('fill', schemeCategory10[0])
+            .attr('id', function (d: number, i: number) {               // 给定给一个id　属性
+                return 'rect' + i;
+            })
+            .attr('x', 10)
+            .attr('y', function (d: number, i: number) {
+                return 10 + i * 35;
+            })
+            .attr('width', function (d: number, i: number) {
+                return d
+            })
+            .attr('height', 30);
+
+        // 第二个元素添加过度效果
+        g.transition()
+            .select('#rect1')
+            .attr('width', 300);
+
+        //　全部过度
+        g.transition()
+            .selectAll('rect')
+            .attr('width', 300);
+
+        // 过滤器
+        g.transition()
+            .selectAll('rect')
+            .filter(function (d: number, i: number) {
+                return i>=1;
+            })
+            .attr('width', 300)
+    }
 }
 
 let index = new Index();
-index.demo5();
+index.demo6();
 
 
 export default Index;

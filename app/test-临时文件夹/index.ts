@@ -5,6 +5,8 @@
 import {select} from "d3-selection";
 import {schemeCategory10} from "d3-scale-chromatic";
 import {range} from "d3-array";
+import {scaleLinear} from "d3-scale";
+import {axisBottom} from "d3-axis";
 
 class Index {
     private width: number = 600;
@@ -27,21 +29,15 @@ class Index {
         let dataSet: Array<number> = range(5);
 
         // 定义色彩
-        let color: ReadonlyArray<string> = schemeCategory10;
+        let color = schemeCategory10;
 
-        let circle = this.svg.selectAll('circle');
-        circle.data(dataSet)
-            .enter()
-            .append('circle')
-            .attr('cx', function (d: number) {
-                return 100 + d * 80
-            })
-            .attr('cy', 100)
-            .attr('r', 30)
-            .attr('fill', function (d: number, i: number) {
-                return color[i]
-            })
+        let xScale = scaleLinear().domain([1, 10]).range([0, 400])
 
+        let bottomAxis = axisBottom(xScale);
+
+        let xLine = this.svg.append('g')
+            .attr('transform', 'translate(80, 80)')
+            .call(bottomAxis);
     }
 
 

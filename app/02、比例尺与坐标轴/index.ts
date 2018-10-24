@@ -1,17 +1,13 @@
 import {
-    scaleBand,
-    scaleLinear, scaleLog, scaleOrdinal, scalePoint, scalePow, ScaleQuantile, scaleQuantile, ScaleQuantize,
-    scaleQuantize,
-    ScaleThreshold,
-    scaleThreshold,
+    scaleBand, scaleLinear, scaleLog, scaleOrdinal, scalePoint, scalePow, ScaleQuantile, scaleQuantile,
+    ScaleQuantize, scaleQuantize, ScaleThreshold, scaleThreshold,
 } from "d3-scale";
 import Method from "./Method";
-import {select, Selection} from "d3-selection";
-import {descending, range, max} from "d3-array";
+import {select} from "d3-selection";
+import {descending, max, range} from "d3-array";
 import {schemeCategory10} from "d3-scale-chromatic";
 import {axisBottom, axisLeft, axisRight} from "d3-axis";
 import {format} from "d3-format";
-import {timeYear} from "d3-time";
 
 class Index {
     /*比例尺*/

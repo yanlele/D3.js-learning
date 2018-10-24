@@ -156,3 +156,55 @@ rect.transaction()
     .attr('width', 300)
     .remove();
 ```
+
+
+#### 1.3、子元素
+
+
+api | 说明
+:- | :- 
+transition.select | 在选中的元素上指定一个过渡.
+transition.selectAll | 在指定的元素上指定一个过渡.
+transition.filter | 基于数据对元素进行过滤.
+
+demo7:          
+```typescript
+let dataSet: number[] = [100, 100, 100];
+
+let g = this.svg.append('g');
+
+let rect = g.selectAll('rect')
+    .data(dataSet)
+    .enter()
+    .append('rect')
+    .attr('fill', schemeCategory10[0])
+    .attr('id', function (d: number, i: number) {               // 给定给一个id　属性
+        return 'rect' + i;
+    })
+    .attr('x', 10)
+    .attr('y', function (d: number, i: number) {
+        return 10 + i * 35;
+    })
+    .attr('width', function (d: number, i: number) {
+        return d
+    })
+    .attr('height', 30);
+
+// 第二个元素添加过度效果
+g.transition()
+    .select('#rect1')
+    .attr('width', 300);
+
+//　全部过度
+g.transition()
+    .selectAll('rect')
+    .attr('width', 300);
+
+// 过滤器
+g.transition()
+    .selectAll('rect')
+    .filter(function (d: number, i: number) {
+        return i>=1;
+    })
+    .attr('width', 300)
+```
