@@ -8,6 +8,8 @@ import {schemeCategory10} from "d3-scale-chromatic";
 import {easeBounceIn} from "d3-ease";
 import {scaleLinear} from "d3-scale";
 import {axisBottom} from "d3-axis";
+import Method from "../02、比例尺与坐标轴/Method";
+import {range} from "d3-array";
 
 class Index {
     private width: number = 600;
@@ -199,6 +201,29 @@ class Index {
         g.transition()
             .duration(2000)
             .call(xAxis)
+    }
+
+    demo9() {
+        // 圆心数据
+        let center: number[][] = range(10).map(function(item, index) {
+            return [Method.randomFrom(1, 9)/ 10, Method.randomFrom(1, 9)/ 10];
+        });
+
+        // 外边框
+        let padding: any = {top: 30, right: 30, bottom: 30, left: 30};
+
+        // x轴
+        let xAxisWidth: number = 300;
+
+        // y轴
+        let yAxisWidth: number = 300;
+
+        //　x轴比例尺
+        let xScale = scaleLinear().domain([0, 1]).range([0, xAxisWidth]);
+        // y轴比例尺
+        let yScale = scaleLinear().domain([0, 1]).range([0, yAxisWidth]);
+
+
     }
 }
 
