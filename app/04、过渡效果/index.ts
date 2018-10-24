@@ -147,10 +147,42 @@ class Index {
             })
             .attr('width', 300)
     }
+
+    /*transition.each([type, ] function)*/
+    demo7() {
+        let dataSet: number[] = [100, 100, 100];
+
+        let g = this.svg.append('g');
+
+        let rect = g.selectAll('rect')
+            .data(dataSet)
+            .enter()
+            .append('rect')
+            .attr('fill', schemeCategory10[0])
+            .attr('id', function (d: number, i: number) {               // 给定给一个id　属性
+                return 'rect' + i;
+            })
+            .attr('x', 10)
+            .attr('y', function (d: number, i: number) {
+                return 10 + i * 35;
+            })
+            .attr('width', function (d: number, i: number) {
+                return d
+            })
+            .attr('height', 30);
+
+        g.transition()
+            .duration(2000)
+            .selectAll('rect')
+            .each(function (d: number, i: number) {
+                console.log('start')
+            })
+            .attr('width', 300);
+    }
 }
 
 let index = new Index();
-index.demo6();
+index.demo7();
 
 
 export default Index;

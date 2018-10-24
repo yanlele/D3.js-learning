@@ -167,7 +167,7 @@ transition.select | 在选中的元素上指定一个过渡.
 transition.selectAll | 在指定的元素上指定一个过渡.
 transition.filter | 基于数据对元素进行过滤.
 
-demo7:          
+demo6:          
 ```typescript
 let dataSet: number[] = [100, 100, 100];
 
@@ -208,3 +208,43 @@ g.transition()
     })
     .attr('width', 300)
 ```
+
+#### 1.4、事件监听和调用
+
+api | 说明
+:- | :- 
+transition.each(function) | 为过渡中的每个选中的元素调用指定的 function，并传递当前元素 d 以及索引 i，函数内部 this 指向当前 DOM 元素。这个方法可以被用来为每个选中的元素调用任意代码，并且创建了一个能访问当前元素父节点和子节点数据的上下文。等价于 selection.each。
+transition.call | 为当前过渡指定一次指定的函数.
+
+dmoe7:              
+```typescript
+let dataSet: number[] = [100, 100, 100];
+
+let g = this.svg.append('g');
+
+let rect = g.selectAll('rect')
+    .data(dataSet)
+    .enter()
+    .append('rect')
+    .attr('fill', schemeCategory10[0])
+    .attr('id', function (d: number, i: number) {               // 给定给一个id　属性
+        return 'rect' + i;
+    })
+    .attr('x', 10)
+    .attr('y', function (d: number, i: number) {
+        return 10 + i * 35;
+    })
+    .attr('width', function (d: number, i: number) {
+        return d
+    })
+    .attr('height', 30);
+
+g.transition()
+    .duration(2000)
+    .selectAll('rect')
+    .each(function (d: number, i: number) {
+        console.log('start')
+    })
+    .attr('width', 300);
+```
+
