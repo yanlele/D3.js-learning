@@ -12,8 +12,8 @@ import {axisBottom, axisLeft} from "d3-axis";
 
 class CircleDemo {
     // 圆心数据
-    private center: number[][] = range(10).map(function(item, index) {
-        return [Method.randomFrom(1, 9)/ 10, Method.randomFrom(1, 9)/ 10];
+    private center: number[][] = range(10).map(function (item, index) {
+        return [Method.randomFrom(1, 9) / 10, Method.randomFrom(1, 9) / 10];
     });
 
     // 外边框
@@ -38,6 +38,33 @@ class CircleDemo {
         this.svg = select('body').append('svg')
             .attr('height', this.height)
             .attr('width', this.width);
+
+        let button = select('body')
+            .selectAll('.button')
+            .data(range(3))
+            .enter()
+            .append('button')
+            .text((d:number, index: number) => {
+                if(index === 0) {
+                    return '更新'
+                } else if(index === 1) {
+                    return '添加'
+                } else if(index === 2) {
+                    return '减少'
+                }
+            })
+            .attr('id', (d: number, i: number) => {
+                return `button${i}`
+            })
+            .on('click', (d: number, index: number) => {
+                if(index === 0) {
+                    this.update()
+                } else if(index === 1) {
+                    this.add()
+                } else if(index === 2) {
+                    this.sub();
+                }
+            })
     }
 
 
@@ -52,7 +79,7 @@ class CircleDemo {
 
         circleUpdate.transition()
             .duration(1000)
-            .attr('cx',  (d: number) => {
+            .attr('cx', (d: number) => {
                 return this.padding.left + this.xScale(d[0])
             })
             .attr('cy', (d: number) => {
@@ -66,7 +93,7 @@ class CircleDemo {
             .attr('r', 7)
             .transition()
             .duration(1000)
-            .attr('cx',  (d: number) => {
+            .attr('cx', (d: number) => {
                 return this.padding.left + this.xScale(d[0])
             })
             .attr('cy', (d: number) => {
@@ -103,4 +130,26 @@ class CircleDemo {
         // 绘制完毕之后坐标轴将值域回滚回去
         this.yScale.range([0, this.yAxisWidth]);
     }
+
+    /*更新数据事件*/
+    update() {
+        for (let i: number = 0; i < this.center.length; i++) {
+            this.center[i][0] = Method.randomFrom(1, 9) / 10;       // 更新X坐标
+            this.center[i][1] = Method.randomFrom(1, 9) / 10;
+        }
+        this.drawCircle();
+    }
+
+
+    add() {
+        this.center.push([Method.randomFrom(1, 9) / 10, Method.randomFrom(1, 9) / 10]);
+        this.drawCircle();
+    }
+
+    sub() {
+        this.center.pop();
+        this.drawCircle();
+    }
 }
+
+export default CircleDemo;

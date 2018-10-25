@@ -8,6 +8,7 @@ import {descending, max, range} from "d3-array";
 import {schemeCategory10} from "d3-scale-chromatic";
 import {axisBottom, axisLeft, axisRight} from "d3-axis";
 import {format} from "d3-format";
+import CircleDemo from "../04、过渡效果/CircleDemo";
 
 class Index {
     /*比例尺*/
@@ -376,6 +377,7 @@ class Index {
 
 let index: Index = new Index();
 index.demo16();
+
 
 
 export default Index;

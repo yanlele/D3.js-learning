@@ -7,6 +7,7 @@ import {schemeCategory10} from "d3-scale-chromatic";
 import {range} from "d3-array";
 import {scaleLinear} from "d3-scale";
 import {axisBottom} from "d3-axis";
+import CircleDemo from "../04、过渡效果/CircleDemo";
 
 class Index {
     private width: number = 600;
@@ -43,8 +44,7 @@ class Index {
 
 }
 
-let index: Index = new Index();
-index.main();
+let circleDemo: CircleDemo = new CircleDemo();
 
 
 export default Index;
