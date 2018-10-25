@@ -222,9 +222,9 @@ class Index {
         let xScale = scaleLinear().domain([0, 1]).range([0, xAxisWidth]);
         // y轴比例尺
         let yScale = scaleLinear().domain([0, 1]).range([0, yAxisWidth]);
-
-
     }
+
+
 }
 
 let index = new Index();
