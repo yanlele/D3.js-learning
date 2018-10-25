@@ -3,6 +3,7 @@ import Method from "../02、比例尺与坐标轴/Method";
 import {scaleLinear} from "d3-scale";
 import {select} from "d3-selection";
 import {axisBottom, axisLeft} from "d3-axis";
+import {schemeCategory10} from "d3-scale-chromatic";
 
 /**
  * create by yanle
@@ -39,17 +40,19 @@ class CircleDemo {
             .attr('height', this.height)
             .attr('width', this.width);
 
+
+        select('body').append('br')
         let button = select('body')
             .selectAll('.button')
             .data(range(3))
             .enter()
             .append('button')
-            .text((d:number, index: number) => {
-                if(index === 0) {
+            .text((d: number, index: number) => {
+                if (index === 0) {
                     return '更新'
-                } else if(index === 1) {
+                } else if (index === 1) {
                     return '添加'
-                } else if(index === 2) {
+                } else if (index === 2) {
                     return '减少'
                 }
             })
@@ -57,14 +60,16 @@ class CircleDemo {
                 return `button${i}`
             })
             .on('click', (d: number, index: number) => {
-                if(index === 0) {
+                if (index === 0) {
                     this.update()
-                } else if(index === 1) {
+                } else if (index === 1) {
                     this.add()
-                } else if(index === 2) {
+                } else if (index === 2) {
                     this.sub();
                 }
-            })
+            });
+
+        this.drawAxis();
     }
 
 
@@ -87,7 +92,9 @@ class CircleDemo {
             });
 
         circleEnter.append('circle')
-            .attr('fill', 'black')
+            .attr('fill', (d: number) => {
+                return schemeCategory10[Math.floor(Math.random() * 10)]
+            })
             .attr('cx', this.padding.left)
             .attr('cy', this.height - this.padding.bottom)
             .attr('r', 7)
