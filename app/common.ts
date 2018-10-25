@@ -4,4 +4,3 @@
  * create time 2018-10-17 23:32
  */
 
-console.log('common')
