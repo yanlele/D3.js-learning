@@ -28,6 +28,10 @@
     - [06、弦生成器](./app/03、绘制/REAMD.md#class03-06)
     - [07、对角线生成器](./app/03、绘制/REAMD.md#class03-07)
     - [08、实现折线图](./app/03、绘制/REAMD.md#class03-08)
+    
+- [04、过渡效果](./app/04、过渡效果/README.md)
+    - [01、过渡](./app/04、过渡效果/README.md#class04-01)
+    - [02、散点图的过渡效果](./app/04、过渡效果/README.md#class04-02)
 
 
 
