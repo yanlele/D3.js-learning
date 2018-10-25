@@ -21,10 +21,10 @@ class CircleDemo {
     private padding: any = {top: 30, right: 30, bottom: 30, left: 30};
 
     // x轴
-    private xAxisWidth: number = 300;
+    private xAxisWidth: number = 500;
 
     // y轴
-    private yAxisWidth: number = 300;
+    private yAxisWidth: number = 500;
 
     //　x轴比例尺
     private xScale = scaleLinear().domain([0, 1]).range([0, this.xAxisWidth]);
@@ -70,6 +70,7 @@ class CircleDemo {
             });
 
         this.drawAxis();
+        this.drawCircle();
     }
 
 
@@ -116,11 +117,11 @@ class CircleDemo {
     // 坐标轴
     drawAxis() {
         // x轴生成器
-        let xAxis = axisBottom(this.xScale).ticks(5);
+        let xAxis = axisBottom(this.xScale).ticks(10);
 
         // y轴生成器
         this.yScale.range([this.yAxisWidth, 0]);
-        let yAxis = axisLeft(this.yScale).ticks(5);
+        let yAxis = axisLeft(this.yScale).ticks(10);
 
         // 绘制x轴
         this.svg.append('g')
