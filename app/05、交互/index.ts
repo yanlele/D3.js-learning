@@ -8,6 +8,8 @@ import {schemeCategory10} from "d3-scale-chromatic";
 import {scaleLinear} from "d3-scale";
 import {max} from "d3-array";
 import {axisBottom, axisLeft} from "d3-axis";
+import {line} from "d3-shape";
+import {transition} from "d3-transition";
 
 class Index {
     private height: number = 600;
@@ -38,7 +40,7 @@ class Index {
             .enter()
             .append('rect')
             .attr('x', (d: number, i: number) => {
-                return this.padding.left + 50 * i
+                return this.padding.left + 30 + 50 * i
             })
             .attr('y', (d: number, i: number) => {
                 return this.height - this.padding.bottom - d;
@@ -51,6 +53,24 @@ class Index {
                 return schemeCategory10[0]
             });
 
+        rect.on('mouseover',  function (d: number, i: number) {
+            select(this)
+                .transition()
+                .duration(500)
+                .attr('stroke', schemeCategory10[2])
+                .attr('stroke-width', '3px')
+                .attr('fill', schemeCategory10[1]);
+        });
+
+        rect.on('mouseout',  function (d: number, i: number) {
+            select(this)
+                .transition()
+                .duration(500)
+                .attr('stroke-width', null)
+                .attr('stroke', null)
+                .attr('fill', schemeCategory10[0]);
+        });
+
         // 比例尺
         let xScale = scaleLinear().domain([0,8]).range([0, (this.dataSet.length + 1) * 50]);
         let yScale = scaleLinear().domain([0, max(this.dataSet) + 50]).range([max(this.dataSet) + 50, 0]);
@@ -59,7 +79,14 @@ class Index {
         let xAxis = axisBottom(xScale).ticks(this.dataSet.length);
         let yAxis = axisLeft(yScale).ticks(10);
 
+        // 绘制
+        this.svg.append('g')
+            .attr('transform', `translate(${this.padding.left}, ${this.height - this.padding.bottom})`)
+            .call(xAxis);
 
+        this.svg.append('g')
+            .attr('transform', `translate(${this.padding.left}, ${this.height - this.padding.bottom - (max(this.dataSet) + 50)})`)
+            .call(yAxis);
     }
 }
 
