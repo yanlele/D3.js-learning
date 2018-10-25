@@ -2,6 +2,7 @@ import {range} from "d3-array";
 import Method from "../02、比例尺与坐标轴/Method";
 import {scaleLinear} from "d3-scale";
 import {select} from "d3-selection";
+import {axisBottom, axisLeft} from "d3-axis";
 
 /**
  * create by yanle
@@ -80,6 +81,26 @@ class CircleDemo {
 
     // 坐标轴
     drawAxis() {
+        // x轴生成器
+        let xAxis = axisBottom(this.xScale).ticks(5);
 
+        // y轴生成器
+        this.yScale.range([this.yAxisWidth, 0]);
+        let yAxis = axisLeft(this.yScale).ticks(5);
+
+        // 绘制x轴
+        this.svg.append('g')
+            .attr('class', 'axis')
+            .attr('transform', `translate(${this.padding.left}, ${this.height - this.padding.bottom})`)
+            .call(xAxis);
+
+        // 绘制y轴
+        this.svg.append('g')
+            .attr('class', 'axis')
+            .attr('transform', `translate(${this.padding.left}, ${this.height - this.padding.bottom - this.yAxisWidth})`)
+            .call(yAxis);
+
+        // 绘制完毕之后坐标轴将值域回滚回去
+        this.yScale.range([0, this.yAxisWidth]);
     }
 }
