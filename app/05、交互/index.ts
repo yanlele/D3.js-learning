@@ -53,6 +53,25 @@ class Index {
                 return schemeCategory10[0]
             });
 
+        let text = this.svg.selectAll('.text')
+            .data(this.dataSet)
+            .enter()
+            .append('text')
+            .attr('x', (d: number, i: number) => {
+                return this.padding.left + 30 + 50 * i
+            })
+            .attr('y', (d: number, i: number) => {
+                return this.height - this.padding.bottom - d;
+            })
+            .attr('dy', '1em')
+            .attr('dx', 20)
+            .attr('text-anchor', 'middle')
+            .attr('fill', 'white')
+            .attr('font-size', '16px')
+            .text(function (d: number) {
+                return d
+            });
+
         rect.on('mouseover',  function (d: number, i: number) {
             select(this)
                 .transition()
