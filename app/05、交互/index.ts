@@ -3,13 +3,11 @@
  * connect me 331393627@qq.com
  * create time 2018-10-25 21:37
  */
-import {select} from "d3-selection";
+import {event, select} from "d3-selection";
 import {schemeCategory10} from "d3-scale-chromatic";
 import {scaleLinear} from "d3-scale";
 import {max} from "d3-array";
 import {axisBottom, axisLeft} from "d3-axis";
-import {line} from "d3-shape";
-import {transition} from "d3-transition";
 
 class Index {
     private height: number = 600;
@@ -112,7 +110,7 @@ class Index {
         let characters: string[] = ['A', 'S', 'D', 'F'];
 
         // 绘制四个矩形
-        let rect = this.svg.append('.rect')
+        let rect = this.svg.selectAll('.rect')
             .data(characters)
             .enter()
             .append('rect')
@@ -124,6 +122,36 @@ class Index {
             .attr('y',this.padding.top)
             .attr('fill', schemeCategory10[0]);
 
+
+        let text = this.svg.selectAll('.text')
+            .data(characters)
+            .enter()
+            .append('text')
+            .attr('y', this.padding.top)
+            .attr('x', (d: string , i: number) => {
+                return this.padding.left + i * 70;
+            })
+            .attr('dy', '1.7em')
+            .attr('dx', 30)
+            .attr('text-anchor', 'middle')
+            .attr('fill', 'white')
+            .attr('font-size', '22px')
+            .text(function (d: string) {
+                return d;
+            });
+
+        // 添加监听
+        select('body')
+            .on('keydown', function () {
+                rect.attr('fill', function (d: string) {
+                    if(d === String.fromCharCode(event.keyCode)) {
+                        return schemeCategory10[1]
+                    }
+                })
+            })
+            .on('keyup', function () {
+                rect.attr('fill', schemeCategory10[0])
+            })
     }
 }
 
