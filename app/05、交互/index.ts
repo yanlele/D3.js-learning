@@ -190,9 +190,7 @@ class Index {
                 cy: 200,
                 r: 30
             }
-        ]
-
-
+        ];
         let dragFun = drag()
             .on('start', function (d: any) {
                 console.log('开始')
@@ -221,8 +219,6 @@ class Index {
             })
             .attr('fill', schemeCategory10[0])
             .call(dragFun);
-
-
     }
 }
 
