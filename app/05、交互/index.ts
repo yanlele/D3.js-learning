@@ -8,6 +8,7 @@ import {schemeCategory10} from "d3-scale-chromatic";
 import {scaleLinear} from "d3-scale";
 import {max} from "d3-array";
 import {axisBottom, axisLeft} from "d3-axis";
+import {drag} from "d3-drag";
 
 class Index {
     private height: number = 600;
@@ -47,7 +48,7 @@ class Index {
                 return d
             })
             .attr('width', 40)
-            .attr('fill', (d:number) => {
+            .attr('fill', (d: number) => {
                 return schemeCategory10[0]
             });
 
@@ -70,7 +71,7 @@ class Index {
                 return d
             });
 
-        rect.on('mouseover',  function (d: number, i: number) {
+        rect.on('mouseover', function (d: number, i: number) {
             select(this)
                 .transition()
                 .duration(500)
@@ -79,7 +80,7 @@ class Index {
                 .attr('fill', schemeCategory10[1]);
         });
 
-        rect.on('mouseout',  function (d: number, i: number) {
+        rect.on('mouseout', function (d: number, i: number) {
             select(this)
                 .transition()
                 .duration(500)
@@ -89,7 +90,7 @@ class Index {
         });
 
         // 比例尺
-        let xScale = scaleLinear().domain([0,8]).range([0, (this.dataSet.length + 1) * 50]);
+        let xScale = scaleLinear().domain([0, 8]).range([0, (this.dataSet.length + 1) * 50]);
         let yScale = scaleLinear().domain([0, max(this.dataSet) + 50]).range([max(this.dataSet) + 50, 0]);
 
         // 坐标轴
@@ -116,10 +117,10 @@ class Index {
             .append('rect')
             .attr('width', 60)
             .attr('height', 60)
-            .attr('x',  (d: string, i: number) => {
+            .attr('x', (d: string, i: number) => {
                 return this.padding.left + i * 70;
             })
-            .attr('y',this.padding.top)
+            .attr('y', this.padding.top)
             .attr('fill', schemeCategory10[0]);
 
 
@@ -128,7 +129,7 @@ class Index {
             .enter()
             .append('text')
             .attr('y', this.padding.top)
-            .attr('x', (d: string , i: number) => {
+            .attr('x', (d: string, i: number) => {
                 return this.padding.left + i * 70;
             })
             .attr('dy', '1.7em')
@@ -144,7 +145,7 @@ class Index {
         select('body')
             .on('keydown', function () {
                 rect.attr('fill', function (d: string) {
-                    if(d === String.fromCharCode(event.keyCode)) {
+                    if (d === String.fromCharCode(event.keyCode)) {
                         return schemeCategory10[1]
                     } else {
                         return schemeCategory10[0]
@@ -175,11 +176,58 @@ class Index {
                 select(this).attr('fill', schemeCategory10[0])
             })
     }
+
+    /*拖拽*/
+    demo4() {
+        let circles = [
+            {
+                cx: 150,
+                cy: 200,
+                r: 30
+            },
+            {
+                cx: 250,
+                cy: 200,
+                r: 30
+            }
+        ]
+
+
+        let dragFun = drag()
+            .on('start', function (d: any) {
+                console.log('开始')
+            })
+            .on('end', function (d: any) {
+                console.log('end')
+            })
+            .on('drag', function (d: any) {
+                select(this)
+                    .attr('cx', d.cx = event.x)
+                    .attr('cy', d.cy = event.y)
+            });
+
+        let circle = this.svg.selectAll('circle')
+            .data(circles)
+            .enter()
+            .append('circle')
+            .attr('cx', function (d: any) {
+                return d.cx;
+            })
+            .attr('cy', function (d: any) {
+                return d.cy;
+            })
+            .attr('r', function (d: any) {
+                return d.r
+            })
+            .attr('fill', schemeCategory10[0])
+            .call(dragFun);
+
+
+    }
 }
 
 let index: Index = new Index();
-index.demo3();
-
+index.demo4();
 
 
 export default Index;

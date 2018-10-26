@@ -196,3 +196,25 @@ let circle = this.svg.append('circle')
 event中保存了所有 D3 支持的事件种类，如果不知道事件有什么属性， 可以直接控制台看看。
 
 
+### <div id="class05-03">03、行为动作</div>
+
+api | 说明
+:- | :- 
+d3.drag | 创建一个拖拽交互.
+drag | 将拖拽交互应用于选择集上.
+drag.container([container]) | 如果指定了 container，则将拖拽行为的容器访问器设置为指定的对象或方法。如果没有指定 container ，则返回当前的容器访问器.
+drag.filter([filter]) | 忽略一些拖拽启动事件.
+drag.touchable([touchable]) | 设置触摸支持检测.
+drag.subject([subject]) | 设置被拖拽的主体.
+drag.clickDistance | 设置可触发 click 事件的阈值距离
+drag.on(typenames, [listener]) | 监听拖拽事件.
+event.on | 在当前拖拽手势中监听拖拽事件.
+d3.dragDisable | 阻止原生拖拽以及文本选择.
+d3.dragEnable | 启用原生拖拽以及文本选择.
+
+#### 说明：
+
+drag.on(typenames, [listener])                  
+start - 拖拽开始(mousedown or touchstart).              
+drag - 拖拽中 (mousemove or touchmove).                    
+end - 拖拽结束 (mouseup, touchend or touchcancel).                      
