@@ -188,3 +188,11 @@ let circle = this.svg.append('circle')
     })
 ```
 
+
+### <div id="class05-02">02、事件event</div>
+
+#### 2.1、事件种类
+
+event中保存了所有 D3 支持的事件种类，如果不知道事件有什么属性， 可以直接控制台看看。
+
+
