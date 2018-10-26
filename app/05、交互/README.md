@@ -198,6 +198,8 @@ event中保存了所有 D3 支持的事件种类，如果不知道事件有什�
 
 ### <div id="class05-03">03、行为动作</div>
 
+#### 3.1、拖拽 drag
+
 api | 说明
 :- | :- 
 d3.drag | 创建一个拖拽交互.
@@ -218,3 +220,47 @@ drag.on(typenames, [listener])
 start - 拖拽开始(mousedown or touchstart).              
 drag - 拖拽中 (mousemove or touchmove).                    
 end - 拖拽结束 (mouseup, touchend or touchcancel).                      
+
+```typescript
+let circles = [
+    {
+        cx: 150,
+        cy: 200,
+        r: 30
+    },
+    {
+        cx: 250,
+        cy: 200,
+        r: 30
+    }
+]
+
+let dragFun = drag()
+    .on('start', function (d: any) {
+        console.log('开始')
+    })
+    .on('end', function (d: any) {
+        console.log('end')
+    })
+    .on('drag', function (d: any) {
+        select(this)
+            .attr('cx', d.cx = event.x)
+            .attr('cy', d.cy = event.y)
+    });
+
+let circle = this.svg.selectAll('circle')
+    .data(circles)
+    .enter()
+    .append('circle')
+    .attr('cx', function (d: any) {
+        return d.cx;
+    })
+    .attr('cy', function (d: any) {
+        return d.cy;
+    })
+    .attr('r', function (d: any) {
+        return d.r
+    })
+    .attr('fill', schemeCategory10[0])
+    .call(dragFun);
+```
