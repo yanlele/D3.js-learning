@@ -107,10 +107,28 @@ class Index {
             .attr('transform', `translate(${this.padding.left}, ${this.height - this.padding.bottom - (max(this.dataSet) + 50)})`)
             .call(yAxis);
     }
+
+    demo2() {
+        let characters: string[] = ['A', 'S', 'D', 'F'];
+
+        // 绘制四个矩形
+        let rect = this.svg.append('.rect')
+            .data(characters)
+            .enter()
+            .append('rect')
+            .attr('width', 60)
+            .attr('height', 60)
+            .attr('x',  (d: string, i: number) => {
+                return this.padding.left + i * 70;
+            })
+            .attr('y',this.padding.top)
+            .attr('fill', schemeCategory10[0]);
+
+    }
 }
 
 let index: Index = new Index();
-index.demo1();
+index.demo2();
 
 
 
