@@ -110,5 +110,81 @@ keyup | 键盘松开
 
 demo2: 响应键盘ASDF四个键
 ```typescript
+let characters: string[] = ['A', 'S', 'D', 'F'];
 
+// 绘制四个矩形
+let rect = this.svg.selectAll('.rect')
+    .data(characters)
+    .enter()
+    .append('rect')
+    .attr('width', 60)
+    .attr('height', 60)
+    .attr('x',  (d: string, i: number) => {
+        return this.padding.left + i * 70;
+    })
+    .attr('y',this.padding.top)
+    .attr('fill', schemeCategory10[0]);
+
+
+let text = this.svg.selectAll('.text')
+    .data(characters)
+    .enter()
+    .append('text')
+    .attr('y', this.padding.top)
+    .attr('x', (d: string , i: number) => {
+        return this.padding.left + i * 70;
+    })
+    .attr('dy', '1.7em')
+    .attr('dx', 30)
+    .attr('text-anchor', 'middle')
+    .attr('fill', 'white')
+    .attr('font-size', '22px')
+    .text(function (d: string) {
+        return d;
+    });
+
+// 添加监听
+select('body')
+    .on('keydown', function () {
+        rect.attr('fill', function (d: string) {
+            if(d === String.fromCharCode(event.keyCode)) {
+                return schemeCategory10[1]
+            }else {
+                 return schemeCategory10[0]
+             }
+        })
+    })
+    .on('keyup', function () {
+        rect.attr('fill', schemeCategory10[0])
+    })
 ```
+
+#### 1.3、触屏
+
+api | 说明
+:- | :- 
+touchstart | 接触到屏幕
+touchmove | 在屏幕上移动
+touchend | 结束触屏
+touches(this) | 从触摸的对象里面获取触摸点的坐标
+
+```typescript
+let circle = this.svg.append('circle')
+    .attr('r', 50)
+    .attr('cx', 150)
+    .attr('cy', 200)
+    .attr('fill', schemeCategory10[0])
+    .on('touchstart', function () {
+        select(this).attr('fill', schemeCategory10[1])
+    })
+    .on('touchmove', function () {
+        let pos = touches(this)[0];
+
+        select(this).attr('cx', pos[0])
+            .attr('cy', pos[1]);
+    })
+    .on('touchend', function () {
+        select(this).attr('fill', schemeCategory10[0])
+    })
+```
+

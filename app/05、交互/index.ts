@@ -3,7 +3,7 @@
  * connect me 331393627@qq.com
  * create time 2018-10-25 21:37
  */
-import {event, select} from "d3-selection";
+import {event, select, touches} from "d3-selection";
 import {schemeCategory10} from "d3-scale-chromatic";
 import {scaleLinear} from "d3-scale";
 import {max} from "d3-array";
@@ -146,6 +146,8 @@ class Index {
                 rect.attr('fill', function (d: string) {
                     if(d === String.fromCharCode(event.keyCode)) {
                         return schemeCategory10[1]
+                    } else {
+                        return schemeCategory10[0]
                     }
                 })
             })
@@ -153,10 +155,30 @@ class Index {
                 rect.attr('fill', schemeCategory10[0])
             })
     }
+
+    demo3() {
+        let circle = this.svg.append('circle')
+            .attr('r', 50)
+            .attr('cx', 150)
+            .attr('cy', 200)
+            .attr('fill', schemeCategory10[0])
+            .on('touchstart', function () {
+                select(this).attr('fill', schemeCategory10[1])
+            })
+            .on('touchmove', function () {
+                let pos = touches(this)[0];
+
+                select(this).attr('cx', pos[0])
+                    .attr('cy', pos[1]);
+            })
+            .on('touchend', function () {
+                select(this).attr('fill', schemeCategory10[0])
+            })
+    }
 }
 
 let index: Index = new Index();
-index.demo2();
+index.demo3();
 
 
 
