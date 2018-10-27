@@ -15,23 +15,18 @@
 
 
 <table>
-    <tr>
-        <th>元素</th>
-        <th>说明</th>
-        <tr>属性</tr>
-    </tr>
-    <tr>
-        <td><altGlyph></td>
-        <td>允许对象性文字进行控制，来呈现特殊的字符数据</td>
-        <td>
-            x、
-            y、
-            dx、
-            dy、
-            rotate、
-            glyphRef、
-            format、
-            xlink:href
-        </td>
-    </tr>
+    <thead>
+        <tr>
+            <th style="width: 15%;">元素</th>
+            <th style="width: 20%;">说明</th>
+            <th style="width: 65%;">属性</th>
+        </tr>
+    </thead>
+    <tbody>
+       <tr>
+           <td> `<altGlyph>` </td>
+           <td>允许对象性文字进行控制</td>
+           <td>x、y、dx、dy、rotate、glyphRef、format、xlink:href</td>
+       </tr>
+    </tbody>
 </table>
