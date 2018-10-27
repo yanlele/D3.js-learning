@@ -126,6 +126,10 @@ arcs.append('text')
 
 ### <div id="class07-02">02、力导向图</div>
 
-- [示例1](./01、四版本的力导向图示例.html)
-- [示例2 - 超复杂示例](./02、D3%20力导向图示例%20-%20复杂示例/force.html)
+- [示例1 - 经典文章: D3.js的v5版本入门教程（第十四章）—— 力导向图](https://blog.csdn.net/qq_34414916/article/details/80036679)
+- [示例2 - 入门示例](./01、四版本的力导向图示例.html)
+- [示例3 - 解析文章](https://www.jianshu.com/p/8a5b7f43c381)
+- [示例3 - 超复杂示例](./02、D3%20力导向图示例%20-%20复杂示例/force.html)
+- [示例4 - 文章: 入门级文章](https://blog.csdn.net/tengxing007/article/details/59712572)
+
 
