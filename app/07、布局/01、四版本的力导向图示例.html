@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+    .links line {
+        stroke: #999;
+        stroke-opacity: 0.6;
+    }
+
+    .nodes circle {
+        stroke: #fff;
+        stroke-width: 1.5px;
+    }
+
+</style>
+<svg width="960" height="600"></svg>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+
+    // 定义一个svg画布
+    var svg = d3.select("svg"),
+        // 获取svg画布的宽度
+        width = +svg.attr("width"),
+        // 获取svg画布的高度
+        height = +svg.attr("height");
+
+    // 定义一个颜色函数
+    // d3.scaleOrdinal()函数用来定义一个序列，其中的参数d3.schemeCategory20代表序
+    // 列函数的值域，这里d3.schemeCategory20指的是由RGB十六进制字符串表示的二十种分类
+    // 颜色的数组。因此，color()函数的值域就是离散的20中颜色值
+    var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+    // 创建一个力学模拟器
+    // d3.forceSimulation()函数用来创建一个空的模拟器
+    var simulation = d3.forceSimulation()
+    // simulation.force(name,[force])函数的作用是：如果指定了力force，则为指
+    // 定的名称name分配力并返回该模拟。 如果未指定力，则返回具有指定名称的力，如果
+    // 没这样的力，则返回undefined。 （默认情况下，新的模拟没有力量。）
+    // d3.forceLink()函数用来创建一个空的link力数组
+    // d3.forceLink().id()用来指定link力数组中每个节点的id的获取方式
+        .force("link", d3.forceLink().id(function(d) { return d.id; }))
+
+        // 创建一个charge数组，forceManyBody()返回一个新的多体力数组
+        .force("charge", d3.forceManyBody())
+
+        // d3.forceCenter()用指定的x坐标和y坐标创建一个新的居中力。
+        // 如果未指定x和y，则默认为⟨0,0⟩。
+        .force("center", d3.forceCenter(width / 2, height / 2));
+
+    // 读取数据，该例子中的数据是雨果的《悲惨世界》中的人物关系信息。
+    // 通过力学模拟，人物关系相近的节点会比较接近；反之，节点会比较疏远
+    d3.json("miserables.json", function(error, graph) {
+        if (error) throw error;
+
+        // 定义人物节点之间连线的信息
+        var link = svg.append("g")
+            .attr("class", "links")
+
+            // 用line元素来绘制
+            .selectAll("line")
+            // 绑定json文件中的links数据
+            .data(graph.links)
+            .enter().append("line")
+            // 人物节点之间连接线的粗细通过连接线的value字段来计算，value越大，连接线
+            // 越粗
+            .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+        // 定义人物节点信息
+        var node = svg.append("g")
+            .attr("class", "nodes")
+            // 人物节点通过圆来绘制
+            .selectAll("circle")
+            // 为人物节点绑定nodes数据
+            .data(graph.nodes)
+            .enter().append("circle")
+            // 设置节点半径
+            .attr("r", 5)
+            // 设置节点的填充色，通过节点的group属性来计算节点的填充颜色
+            .attr("fill", function(d) { return color(d.group); })
+            // 以定义的这些人物节点为参数，调用drag()函数
+            // 绑定拖拽函数的三个钩子，即拖拽开始、拖拽中、拖拽结束
+            .call(d3.drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended));
+
+        //为人物节点绑定文字
+        node.append("title")
+            .text(function(d) { return d.id; });
+
+        // 为力模拟器绑定节点数据
+        // 会为每个节点自动添加可视化时所需的index,vx,xy,x,y五个字段信息
+        // 并且为simulation内部计时器tick监听绑定动作，来绘制图形
+        simulation
+            .nodes(graph.nodes)
+            .on("tick", ticked);// 此处在每次tick时绘制力导向图
+        // 为力模拟器绑定连接线数据
+        // 调用结束后，会为每个连接线添加可视化时所需要的index,vx,vy,x,y五个字段信息
+        simulation.force("link")
+            .links(graph.links);
+
+        // 定义simulation内部计时器tick每次结束时的动作
+        function ticked() {
+
+            // 每次tick计时到时，连接线的响应动作
+            // 设置连接线两端的节点的位置
+            link
+                .attr("x1", function(d) { return d.source.x; })
+                .attr("y1", function(d) { return d.source.y; })
+                .attr("x2", function(d) { return d.target.x; })
+                .attr("y2", function(d) { return d.target.y; });
+
+            // 每次tick计时到时，节点的响应动作
+            // 设置节点的圆心坐标
+            node
+                .attr("cx", function(d) { return d.x; })
+                .attr("cy", function(d) { return d.y; });
+        }
+    });
+
+    // 定义开始拖拽节点时的动作
+    function dragstarted(d) {
+        // restart()方法重新启动模拟器的内部计时器并返回模拟器。
+        // 与simulation.alphaTarget或simulation.alpha一起使用时，此方法可用于在交互
+        // 过程中进行“重新加热”模拟，例如在拖动节点时，在simulation.stop暂停之后恢复模
+        // 拟。
+        if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+    }
+
+    // 定义拖拽中的动作
+    function dragged(d) {
+        d.fx = d3.event.x;
+        d.fy = d3.event.y;
+    }
+
+    // 定义拖拽结束的动作
+    function dragended(d) {
+        if (!d3.event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+    }
+
+</script>
