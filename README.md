@@ -49,4 +49,4 @@
 
 ## 其他
 - [01、如何在ts中使用D3.js](./app/00、其他踩坑文档/01、如何在ts中使用D3.js.md)
-- [02、SVG基础](http://www.runoob.com/svg/svg-reference.html)
+- [02、SVG基础](./app/00、其他踩坑文档/02、svg基础.md)
