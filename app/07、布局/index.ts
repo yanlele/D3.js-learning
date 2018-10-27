@@ -6,6 +6,7 @@
 import {select} from "d3-selection";
 import {arc, pie} from "d3-shape";
 import {schemeAccent, schemeBlues, schemeCategory10, schemePaired, schemeSet1} from "d3-scale-chromatic";
+import {sum} from "d3-array";
 
 
 class Index {
@@ -53,8 +54,24 @@ class Index {
             })
             .attr('d', function (d: any) {
                 return arcMain(d);
-            })
+            });
 
+        // 添加文字
+        arcs.append('text')
+            .attr('transform', function (d: any) {
+                let x: number = arcMain.centroid(d)[0] * 1.4;
+                let y: number = arcMain.centroid(d)[1] * 1.4;
+                return `translate(${x}, ${y})`
+            })
+            .attr('text-anchor', 'middle')
+            .attr('fill', 'white')
+            .attr('font-size', 18)
+            .text(function (d: any) {
+                let percent: number = d.value / sum(dataSet, function (d: any) {
+                    return d[1];
+                }) * 100;
+                return percent.toFixed(2) + '%';
+            })
 
     }
 }
