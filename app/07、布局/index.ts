@@ -11,7 +11,7 @@ import {sum} from "d3-array";
 
 class Index {
     private width: number = 600;
-    private height: number = 600
+    private height: number = 600;
     private svg;
 
     constructor() {
