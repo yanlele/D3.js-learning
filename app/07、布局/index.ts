@@ -71,8 +71,36 @@ class Index {
                     return d[1];
                 }) * 100;
                 return percent.toFixed(2) + '%';
-            })
+            });
 
+        // 添加链接弧外文字的直线元素
+        arcs.append('line')
+            .attr('x1', function (d: any) {
+                return arcMain.centroid(d)[0] * 2;
+            })
+            .attr('y1', function (d: any) {
+                return arcMain.centroid(d)[1] * 2;
+            })
+            .attr('x2', function (d: any) {
+                return arcMain.centroid(d)[0] * 2.2;
+            })
+            .attr('y2', function (d: any) {
+                return arcMain.centroid(d)[1] * 2.2;
+            })
+            .attr('stroke', 'black');
+
+        // 添加文字
+        arcs.append('text')
+            .attr('dy', '.35em')
+            .attr('text-anchor', 'middle')
+            .attr('transform', function (d: any) {
+                let x: number = arcMain.centroid(d)[0] * 2.4;
+                let y: number = arcMain.centroid(d)[1] * 2.4;
+                return `translate(${x}, ${y})`
+            })
+            .text(function (d: any) {
+                return d.data[0];
+            })
     }
 }
 
