@@ -134,7 +134,7 @@ arcs.append('text')
 
 api | 说明
 :- | :- 
-d3.forceSimulation | 创建一个新的力学仿真.
+**d3.forceSimulation** | 创建一个新的力学仿真.
 simulation.restart | 重新启动仿真的定时器.
 simulation.stop | 停止仿真的定时器.
 simulation.tick | 进行一步仿真模拟.
@@ -144,25 +144,25 @@ simulation.alphaMin | 设置最小 alpha 阈值.
 simulation.alphaDecay | 设置 alpha 衰减率.
 simulation.alphaTarget | 设置目标 alpha 值.
 simulation.velocityDecay | 设置速度衰减率.
-simulation.force | 添加或移除一个力模型.
+**simulation.force** | 添加或移除一个力模型.
 simulation.find | 根据指定的位置找出最近的节点.
 simulation.on | 添加或移除事件监听器.
 force | 应用力模型.
 force.initialize | 根据指定的节点初始化力模型.
-d3.forceCenter | 创建一个中心作用力.
+**d3.forceCenter** | 创建一个中心作用力.
 center.x | 设置中心作用力的 x -坐标.
 center.y | 设置中心作用力的 y -坐标.
 d3.forceCollide | 创建一个圆形区域的碰撞检测力模型.
 collide.radius | 设置碰撞半径.
 collide.strength | 设置碰撞检测力模型的强度.
 collide.iterations | 设置迭代次数.
-d3.forceLink | 创建一个 link(弹簧) 作用力.
+**d3.forceLink** | 创建一个 link(弹簧) 作用力.
 link.links | 设置弹簧作用力的边.
 link.id | 设置边元素中节点的查找方式是索引还是 id 字符串.
 link.distance | 设置 link 的距离.
 link.strength | 设置 link 的强度.
 link.iterations | 设置迭代次数.
-d3.forceManyBody | 创建一个电荷作用力模型.
+**d3.forceManyBody** | 创建一个电荷作用力模型.
 manyBody.strength | 设置电荷力模型的强度.
 manyBody.theta | 设置 Barnes–Hut 算法的精度.
 manyBody.distanceMin | 限制节点之间的最小距离.

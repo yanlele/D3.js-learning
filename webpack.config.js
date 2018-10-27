@@ -15,8 +15,6 @@ const baseConfig = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'js/[name].[chunkhash:5].js'
     },
-    devtool: 'cheap-module-source-map',
-
     resolve: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
     },
@@ -53,6 +51,8 @@ const baseConfig = {
             }
         ]
     },
+
+    devtool: 'source-map',
 
     plugins: [
         new ExtractTextWebpackPlugin({

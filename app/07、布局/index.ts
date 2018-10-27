@@ -7,6 +7,7 @@ import {select} from "d3-selection";
 import {arc, pie} from "d3-shape";
 import {schemeAccent, schemeBlues, schemeCategory10, schemePaired, schemeSet1} from "d3-scale-chromatic";
 import {sum} from "d3-array";
+import Demo2 from "./Demo2";
 
 
 class Index {
@@ -104,8 +105,12 @@ class Index {
     }
 }
 
-let index: Index = new Index();
-index.demo1();
+// let index: Index = new Index();
+// index.demo1();
+
+
+let demo2: Demo2 = new Demo2();
+demo2.example();
 
 
 export default Index;
