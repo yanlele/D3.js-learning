@@ -98,7 +98,7 @@ class Demo2 {
             .data(this.edges)
             .enter()
             .append('text')
-            .text(function (d: any) {
+            .text(function (d) {
                 return d.relation
             });
 
@@ -129,7 +129,7 @@ class Demo2 {
                 let cirX = d.x;
                 let cirY = d.y;
                 return `translate(${cirX}, ${cirY})`
-            })
+            });
 
 
         // 节点和文字
