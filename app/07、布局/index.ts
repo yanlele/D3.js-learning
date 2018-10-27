@@ -110,7 +110,7 @@ class Index {
 
 
 let demo2: Demo2 = new Demo2();
-demo2.example();
+demo2.main();
 
 
 export default Index;

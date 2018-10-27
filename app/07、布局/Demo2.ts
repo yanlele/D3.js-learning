@@ -226,14 +226,14 @@ class Demo2 {
         let forceCenterMain = forceCenter().x(this.width / 2).y(this.height / 2);
 
         //新建一个力导向图
-        var forceSimulation = forceSimulation()
+        var forceSimulationMain = forceSimulation()
             .force("link", forceLinkMain)
             .force("charge", forceManyBody())
             .force("center", forceCenterMain);
 
         //初始化力导向图，也就是传入数据
         //生成节点数据
-        forceSimulation.nodes(nodes)
+        forceSimulationMain.nodes(nodes)
             .on("tick", ticked);//这个函数很重要，后面给出具体实现和说明
         //在浏览器的控制台输出
         console.log(nodes);
@@ -317,7 +317,7 @@ class Demo2 {
 
         function started(d) {
             if (!event.active) {
-                forceSimulation.alphaTarget(0.8).restart();
+                forceSimulationMain.alphaTarget(0.8).restart();
             }
             d.fx = d.x;
             d.fy = d.y;
@@ -330,7 +330,7 @@ class Demo2 {
 
         function ended(d) {
             if (!event.active) {
-                forceSimulation.alphaTarget(0);
+                forceSimulationMain.alphaTarget(0);
             }
             d.fx = null;
             d.fy = null;
