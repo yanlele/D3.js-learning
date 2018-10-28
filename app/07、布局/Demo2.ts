@@ -80,12 +80,6 @@ class Demo2 {
             .force('center', forceCenterMain)
             .on("tick", ticked)       //这个函数很重要，后面给出具体实现和说明
 
-
-
-        // 看一下数据
-        console.log('this.nodes: ', this.nodes);
-        console.log('this.edges: ', this.edges);
-
         // 绘制边
         let links = this.g.append('g')
             .selectAll('line')

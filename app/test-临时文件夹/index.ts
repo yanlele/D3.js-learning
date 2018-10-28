@@ -75,12 +75,12 @@ class Index {
 
         let forceSimulationMain = forceSimulation()
             .nodes(this.nodes)
-            .on('tick', ()=>this.ticked(links, linksText, gs))
             .force('forceLinkMain', forceLinkMain)
             .force('charge', forceManyBody())
-            .force('forceCenterMain', forceCenterMain);
+            .force('forceCenterMain', forceCenterMain)
+            .on('tick', ()=>this.ticked(links, linksText, gs))
 
-        let links = this.svg.append('g')
+        let links = g.append('g')
             .selectAll('line')
             .data(this.edges)
             .enter()
@@ -90,7 +90,7 @@ class Index {
             })
             .attr('stroke-width', 1);
 
-        let linksText = this.svg.append('g')
+        let linksText = g.append('g')
             .selectAll('text')
             .data(this.edges)
             .enter()
@@ -100,15 +100,14 @@ class Index {
             });
 
 
-        let gs = this.svg.selectAll('.circleText')
+        let gs = g.selectAll('.circleText')
             .data(this.nodes)
             .enter()
             .append('g')
             .attr('transform', function (d: any, i: number) {
-                console.log(d);
                 return `translate(${d.x}, ${d.y})`
-            }).call(
-                drag()
+            })
+            .call(drag()
                     .on('start', function (d: any) {
                         if(!event.active) {
                             forceSimulationMain.alphaTarget(0.8).restart();
@@ -122,10 +121,10 @@ class Index {
                     })
                     .on('end', function (d: any) {
                         if(!event.active) {
-                            forceSimulationMain.alphaDecay(0);
-                            d.df = null;
-                            d.dy = null
+                            forceSimulationMain.alphaTarget(0);
                         }
+                        d.fx = null;
+                        d.fy = null
                     })
             );
 
