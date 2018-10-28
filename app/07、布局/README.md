@@ -224,5 +224,56 @@ fx | 节点的固定 x-位置
 fy | 节点的固定 y-位置
 
 
+具体实例和代码请看:                  
+[demo2-一个比较全面的基础实例](./Demo2.ts)                             
+[demo3-书籍上面的一个简单实例](./Demo3.ts)
+
+
+
+### <div id="class07-03">03、弦图</div>
+用于表示一组元素之间的关系。
+
+api | 说明
+:- | :- 
+d3.chord | 创建一个新的弦图布局.
+chord | 根据指定的方阵计算布局.
+chord.padAngle | 设置相邻的分组之间的间隔
+chord.sortGroups | 定义分组排序规则
+chord.sortSubgroups | 定义分组内部子分组的排序规则
+chord.sortChords | 定义弦之间的排序规则
+d3.ribbon | 创建一个 ribbon(弦)生成器
+
+ribbon | 根据指定的数据返回一个 path 路径以表示弦.
+ribbon.source | 设置 ribbon 的源访问器.
+ribbon.target | 设置 ribbon 的目标访问器.
+ribbon.radius | 设置 ribbon 的半径.
+ribbon.startAngle | 设置 ribbon 的起始角度访问器.
+ribbon.endAngle | 设置 ribbon 的终止角度访问器.
+ribbon.context | 设置渲染上下文(canvas).
+
+**说明：**         
+
+**1、关于chord(matrix)**                       
+chord(matrix) 的返回值是一组 chords ，chord 表示两个节点 i 和 j 之间的流量大小，为对象类型，包含以下属性:                  
+
+- source - 该弦的源子分组对象                    
+- target - 该弦的目标子分组对象                       
+
+
+每一个 source 和 target 子分组都有以下数属性:                         
+
+- startAngle - 起始角度                     
+- endAngle - 终止角度                   
+- value - matrix[i][j] 的值                   
+- index - 索引 i                      
+- subindex - 索引 j                       
+- 弦数据通常传递给 d3.ribbon 来显示相互之间的流量关系。                          
+
+分组数据传递给d3.arc来绘制。
+
+
+
+
+
 
 
