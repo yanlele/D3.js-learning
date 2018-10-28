@@ -7,6 +7,7 @@ const path = require('path');
 const fse = require('fs-extra');
 
 const baseConfig = {
+    devtool: 'inline-source-map',
     entry: {
         vendor: ['d3'],
         common: './app/common.ts'
@@ -52,8 +53,6 @@ const baseConfig = {
         ]
     },
 
-    devtool: 'source-map',
-
     plugins: [
         new ExtractTextWebpackPlugin({
             filename: 'css/[name].[hash].css'
@@ -93,8 +92,10 @@ const generatePage = function ({
 const appPaths = fse.readdirSync(path.resolve(__dirname, 'app'));
 let appItemPath = '';
 let myPages = [];
+let appItemHtmlTemplate = '';
 appPaths.map(function (item) {
     appItemPath = path.resolve(__dirname, 'app', item, 'index.ts');
+    appItemHtmlTemplate = path.resolve(__dirname, 'app', item, 'index.html');
     if(fse.pathExistsSync(appItemPath)) {
         myPages.push(generatePage({
             title: item,
@@ -102,7 +103,8 @@ appPaths.map(function (item) {
                 [item]: `./app/${item}/index.ts`
             },
             name: item,
-            chunks: [item, 'vendor', 'common']
+            chunks: [item, 'vendor', 'common'],
+            template: fse.pathExistsSync(appItemHtmlTemplate) ? path.resolve(__dirname, 'app', item, 'index.html') : './app/index.html',
         }))
     }
 });
