@@ -42,12 +42,8 @@ class Demo3 {
             .nodes(this.nodes)
             .force('forceLinkMain', forceLinkMain)
             .force('charge', forceManyBody())
-            .force('forceCenterMain', forceCenterMain)
+            .force('forceCenterMain', forceCenterMain);
         // .on('tick', ()=>this.ticked(links, linksText, gs))
-
-        console.log(this.nodes);
-        console.log(this.edges);
-
 
         console.log(this.nodes);
         console.log(this.edges);
