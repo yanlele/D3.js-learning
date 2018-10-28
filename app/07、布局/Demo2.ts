@@ -75,9 +75,102 @@ class Demo2 {
 
         let forceSimulationMain = forceSimulation()
             .nodes(this.nodes)
+            .on("tick",ticked)       //这个函数很重要，后面给出具体实现和说明
             .force('link', forceLinkMain)
             .force('charge', forceManyBody())
             .force('center', forceCenterMain)
+
+
+        // 看一下数据
+        console.log('this.nodes: ', this.nodes);
+        console.log('this.edges: ', this.edges);
+
+        // 绘制边
+        let links = this.g.append('g')
+            .selectAll('line')
+            .data(this.edges)
+            .enter()
+            .append('line')
+            .attr('stroke', function (d: any, i: number) {
+                return colorScale(i.toString())
+            })
+            .attr('stroke-width', 1);
+
+        let linksText = this.g.append('g')
+            .selectAll('text')
+            .data(this.edges)
+            .enter()
+            .append('text')
+            .text(function (d: any) {
+                return d.relation
+            });
+
+        // 先建立用来放在每个节点和对应文字的分组<g>
+        let gs = this.g.selectAll('.circleText')
+            .data(this.nodes)
+            .enter()
+            .append('g')
+            .attr('transform', function (d: any, i: number) {
+                return `translate(${d.x}, ${d.y})`
+            })
+            .call(drag()
+                .on("start",started)
+                .on("drag",dragged)
+                .on("end",ended)
+            );
+
+        // 绘制节点
+        gs.append('circle')
+            .attr('r', 10)
+            .attr('fill', function (d: any, i: number) {
+                return colorScale(i.toString())
+            });
+
+        gs.append('text')
+            .attr('x', -10)
+            .attr('y', -20)
+            .attr('dy', 10)
+            .text(function (d: any) {
+                return d.name
+            });
+
+        function ticked(){
+            links
+                .attr("x1",function(d){return d.source.x;})
+                .attr("y1",function(d){return d.source.y;})
+                .attr("x2",function(d){return d.target.x;})
+                .attr("y2",function(d){return d.target.y;});
+
+            linksText
+                .attr("x",function(d){
+                    return (d.source.x+d.target.x)/2;
+                })
+                .attr("y",function(d){
+                    return (d.source.y+d.target.y)/2;
+                });
+
+            gs
+                .attr("transform",function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+        }
+
+        function started(d){
+            if(!event.active){
+                forceSimulationMain.alphaTarget(0.8).restart();
+            }
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+        function dragged(d){
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+        function ended(d){
+            if(!event.active){
+                forceSimulationMain.alphaTarget(0);
+            }
+            d.fx = null;
+            d.fy = null;
+        }
     }
 }
 
