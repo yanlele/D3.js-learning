@@ -8,7 +8,6 @@ import {formatPrefix} from "d3-format";
 import {chord, ChordGroup, ChordLayout, ribbon, Ribbon, RibbonGenerator, RibbonSubgroup} from "d3-chord";
 import {descending, range} from "d3-array";
 import {Arc, arc, DefaultArcObject} from "d3-shape";
-import {scaleOrdinal} from "d3-scale";
 import {rgb} from "d3-color";
 
 
