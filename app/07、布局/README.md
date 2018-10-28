@@ -281,6 +281,9 @@ chord(matrix) 的返回值是一组 chords ，chord 表示两个节点 i 和 j �
 
 分组数据传递给d3.arc来绘制。
 
+#### 示例                 
+- [ChordDemo](../03、绘制/ChordDemo.ts)                
+
 
 
 
