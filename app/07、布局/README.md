@@ -264,11 +264,11 @@ ribbon.context | 设置渲染上下文(canvas).
 **说明：**         
 
 **1、关于chord(matrix)**                       
+![7-01](./img/7-01.png)                         
 chord(matrix) 的返回值是一组 chords ，chord 表示两个节点 i 和 j 之间的流量大小，为对象类型，包含以下属性:                  
 
 - source - 该弦的源子分组对象                    
 - target - 该弦的目标子分组对象                       
-
 
 每一个 source 和 target 子分组都有以下数属性:                         
 
@@ -276,13 +276,23 @@ chord(matrix) 的返回值是一组 chords ，chord 表示两个节点 i 和 j �
 - endAngle - 终止角度                   
 - value - matrix[i][j] 的值                   
 - index - 索引 i                      
-- subindex - 索引 j                       
-- 弦数据通常传递给 d3.ribbon 来显示相互之间的流量关系。                          
+- subindex - 索引 j       
+                
+弦数据通常传递给 d3.ribbon 来显示相互之间的流量关系。     
+
+                     
+弦图数组也包含了另一个表示分组的属性 **chords.groups**, chords.groups表示计算后的分组数组，每个分组包含以下属性:
+
+- startAngle - 起始角度               
+- endAngle - 终止角度                           
+- value - 从节点 i 出去的总量                     
+- index - 节点索引 i                      
 
 分组数据传递给d3.arc来绘制。
 
 #### 示例                 
 - [ChordDemo](../03、绘制/ChordDemo.ts)                
+
 
 
 

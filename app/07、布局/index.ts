@@ -10,6 +10,7 @@ import {sum} from "d3-array";
 import Demo2 from "./Demo2";
 import Demo3 from "./Demo3";
 import Demo4 from "./Demo4";
+import Demo5 from "./Demo5";
 
 
 class Index {
@@ -117,7 +118,10 @@ class Index {
 // let demo3: Demo3 = new Demo3();
 // demo3.main();
 
-let demo4: Demo4 = new Demo4();
-demo4.main();
+// let demo4: Demo4 = new Demo4();
+// demo4.main();
+
+let demo5: Demo5 = new Demo5();
+demo5.main();
 
 export default Index;
