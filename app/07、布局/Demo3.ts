@@ -38,7 +38,7 @@ class Demo3 {
     private svg = select('body').append('svg').attr('width', this.width).attr('height', this.height);
 
     main() {
-        let forceLinkMain = forceLink().links(this.edges).distance(150);
+        let forceLinkMain = forceLink().links(this.edges).distance(120);
 
         let forceCenterMain = forceCenter().x(this.width / 2).y(this.height / 2);
 
@@ -101,28 +101,32 @@ class Demo3 {
         let circles = this.svg.selectAll('.forceCircle')
             .data(this.nodes)
             .enter()
-            .append('circle')
+            .append<SVGCircleElement>('circle')
             .attr('class', 'forceCircle')
             .attr('r', 20)
             .style('fill', function (d: any, i: number) {
                 return colorScale((i % 10).toString())
-            });
-
-        // 研究想一下拖拽
-        this.svg.selectAll('.forceCircle')
-            .call(drag()
+            }).call(drag()
                 .on('start', function (d: any) {
-                    console.log('开始')
-                })
-                .on('end', function (d: any) {
-                    console.log('end')
+                    if(!event.active) {
+                        forceSimulationMain.alphaTarget(0.8).restart();
+                    }
+                    d.fx = d.x;
+                    d.fy = d.y;
                 })
                 .on('drag', function (d: any) {
-                    select(this)
-                        .attr('cx', d.cx = event.x)
-                        .attr('cy', d.cy = event.y)
+                    d.fx = event.x;
+                    d.fy = event.y;
+                })
+                .on('end', function (d: any) {
+                    if(!event.active) {
+                        forceSimulationMain.alphaTarget(0);
+                    }
+                    d.fx = null;
+                    d.fy = null
                 })
             );
+
 
         let texts = this.svg.selectAll('.forceText')
             .data(this.nodes)
