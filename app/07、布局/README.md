@@ -179,4 +179,31 @@ radial.radius | 设置目标半径.
 radial.x | 设置环形作用力的目标中心 x -坐标.
 radial.y | 设置环形作用力的目标中心 y -坐标.
 
+**其他说明：**                   
+- 1、在定义表现之类的作用点的时候， 一定要记住节点永远要至少比变现多一个。                         
+```typescript
+    private nodes: { name: string }[] = [
+        {name: '1'},
+        {name: '2'},
+        {name: '3'},
+        {name: '4'},
+        {name: '5'},
+        {name: '6'},
+        {name: '7'},
+    ];
+
+    private edges: any[] = [
+        {source: 0, target: 1},
+        {source: 0, target: 2},
+        {source: 0, target: 3},
+        {source: 1, target: 4},
+        {source: 1, target: 5},
+        {source: 1, target: 6}
+    ];
+```
+如上，就有node 7 个， edges7个；                         
+
+
+
+
 
