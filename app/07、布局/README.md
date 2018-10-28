@@ -144,7 +144,7 @@ simulation.alphaMin | 设置最小 alpha 阈值.
 simulation.alphaDecay | 设置 alpha 衰减率.
 simulation.alphaTarget | 设置目标 alpha 值.
 simulation.velocityDecay | 设置速度衰减率.
-**simulation.force** | 添加或移除一个力模型.
+simulation.force | 添加或移除一个力模型.
 simulation.find | 根据指定的位置找出最近的节点.
 simulation.on | 添加或移除事件监听器.
 force | 应用力模型.
@@ -152,7 +152,7 @@ force.initialize | 根据指定的节点初始化力模型.
 **d3.forceCenter** | 创建一个中心作用力.
 center.x | 设置中心作用力的 x -坐标.
 center.y | 设置中心作用力的 y -坐标.
-d3.forceCollide | 创建一个圆形区域的碰撞检测力模型.
+**d3.forceCollide** | 创建一个圆形区域的碰撞检测力模型.
 collide.radius | 设置碰撞半径.
 collide.strength | 设置碰撞检测力模型的强度.
 collide.iterations | 设置迭代次数.
@@ -167,13 +167,13 @@ manyBody.strength | 设置电荷力模型的强度.
 manyBody.theta | 设置 Barnes–Hut 算法的精度.
 manyBody.distanceMin | 限制节点之间的最小距离.
 manyBody.distanceMax | 限制节点之间的最大距离.
-d3.forceX | 创建一个 x -方向的一维作用力.
+**d3.forceX** | 创建一个 x -方向的一维作用力.
 x.strength | 设置力强度.
 x.x | 设置目标 x -坐标.
-d3.forceY | 创建一个 y -方向的一维作用力.
+**d3.forceY** | 创建一个 y -方向的一维作用力.
 y.strength | 设置力强度.
 y.y | 设置目标 y -坐标.
-d3.forceRadial | 创建一个环形布局的作用力.
+**d3.forceRadial** | 创建一个环形布局的作用力.
 radial.strength | 设置力强度.
 radial.radius | 设置目标半径.
 radial.x | 设置环形作用力的目标中心 x -坐标.

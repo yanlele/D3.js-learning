@@ -75,10 +75,11 @@ class Demo2 {
 
         let forceSimulationMain = forceSimulation()
             .nodes(this.nodes)
-            .on("tick", ticked)       //这个函数很重要，后面给出具体实现和说明
             .force('link', forceLinkMain)
-            .force('charge', forceManyBody())
+            .force('forceManyBody', forceManyBody())
             .force('center', forceCenterMain)
+            .on("tick", ticked)       //这个函数很重要，后面给出具体实现和说明
+
 
 
         // 看一下数据
