@@ -9,6 +9,7 @@ import {schemeAccent, schemeBlues, schemeCategory10, schemePaired, schemeSet1} f
 import {sum} from "d3-array";
 import Demo2 from "./Demo2";
 import Demo3 from "./Demo3";
+import Demo4 from "./Demo4";
 
 
 class Index {
@@ -113,7 +114,10 @@ class Index {
 // let demo2: Demo2 = new Demo2();
 // demo2.main();
 
-let demo3: Demo3 = new Demo3();
-demo3.main();
+// let demo3: Demo3 = new Demo3();
+// demo3.main();
+
+let demo4: Demo4 = new Demo4();
+demo4.main();
 
 export default Index;

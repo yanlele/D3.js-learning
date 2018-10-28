@@ -136,7 +136,6 @@ class ChordDemo {
                 return GetColor[d.target.index];
             })
             .style("stroke", (d) => { return rgb(GetColor[d.target.index]).darker(); });
-
     }
 
     groupTicks(d: ChordGroup, step: number) {
