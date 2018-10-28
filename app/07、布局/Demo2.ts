@@ -75,7 +75,7 @@ class Demo2 {
 
         let forceSimulationMain = forceSimulation()
             .nodes(this.nodes)
-            .on("tick",ticked)       //这个函数很重要，后面给出具体实现和说明
+            .on("tick", ticked)       //这个函数很重要，后面给出具体实现和说明
             .force('link', forceLinkMain)
             .force('charge', forceManyBody())
             .force('center', forceCenterMain)
@@ -114,9 +114,24 @@ class Demo2 {
                 return `translate(${d.x}, ${d.y})`
             })
             .call(drag()
-                .on("start",started)
-                .on("drag",dragged)
-                .on("end",ended)
+                .on("start", function (d: any) {
+                    if (!event.active) {
+                        forceSimulationMain.alphaTarget(0.8).restart();
+                    }
+                    d.fx = d.x;
+                    d.fy = d.y;
+                })
+                .on("drag", function (d: any) {
+                    d.fx = event.x;
+                    d.fy = event.y;
+                })
+                .on("end", function (d: any) {
+                    if (!event.active) {
+                        forceSimulationMain.alphaTarget(0);
+                    }
+                    d.fx = null;
+                    d.fy = null;
+                })
             );
 
         // 绘制节点
@@ -134,42 +149,34 @@ class Demo2 {
                 return d.name
             });
 
-        function ticked(){
+
+        function ticked() {
             links
-                .attr("x1",function(d){return d.source.x;})
-                .attr("y1",function(d){return d.source.y;})
-                .attr("x2",function(d){return d.target.x;})
-                .attr("y2",function(d){return d.target.y;});
+                .attr("x1", function (d) {
+                    return d.source.x;
+                })
+                .attr("y1", function (d) {
+                    return d.source.y;
+                })
+                .attr("x2", function (d) {
+                    return d.target.x;
+                })
+                .attr("y2", function (d) {
+                    return d.target.y;
+                });
 
             linksText
-                .attr("x",function(d){
-                    return (d.source.x+d.target.x)/2;
+                .attr("x", function (d) {
+                    return (d.source.x + d.target.x) / 2;
                 })
-                .attr("y",function(d){
-                    return (d.source.y+d.target.y)/2;
+                .attr("y", function (d) {
+                    return (d.source.y + d.target.y) / 2;
                 });
 
             gs
-                .attr("transform",function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-        }
-
-        function started(d){
-            if(!event.active){
-                forceSimulationMain.alphaTarget(0.8).restart();
-            }
-            d.fx = d.x;
-            d.fy = d.y;
-        }
-        function dragged(d){
-            d.fx = event.x;
-            d.fy = event.y;
-        }
-        function ended(d){
-            if(!event.active){
-                forceSimulationMain.alphaTarget(0);
-            }
-            d.fx = null;
-            d.fy = null;
+                .attr("transform", function (d) {
+                    return "translate(" + d.x + "," + d.y + ")";
+                });
         }
     }
 }
