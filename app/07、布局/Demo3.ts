@@ -5,7 +5,7 @@
  */
 
 /*书籍上的示例，用5版本的写法*/
-import {select} from "d3-selection";
+import {event, select} from "d3-selection";
 import {forceCenter, forceLink, forceManyBody, forceSimulation} from "d3-force";
 import {scaleOrdinal} from "d3-scale";
 import {range} from "d3-array";
@@ -38,15 +38,18 @@ class Demo3 {
     private svg = select('body').append('svg').attr('width', this.width).attr('height', this.height);
 
     main() {
-        let forceLinkMain = forceLink().links(this.edges).distance(200);
+        let forceLinkMain = forceLink().links(this.edges).distance(150);
 
         let forceCenterMain = forceCenter().x(this.width / 2).y(this.height / 2);
 
         let forceSimulationMain = forceSimulation()
             .nodes(this.nodes)
             .force('forceLinkMain', forceLinkMain)
-            .force('charge', forceManyBody())
+            .force('charge', forceManyBody().strength(-25))
             .force('forceCenterMain', forceCenterMain)
+            .on('end', function () {
+                console.log('end')
+            })
             .on('tick', function () {
                 lines
                     .attr('x1', function (d: any) {
@@ -99,11 +102,27 @@ class Demo3 {
             .data(this.nodes)
             .enter()
             .append('circle')
+            .attr('class', 'forceCircle')
             .attr('r', 20)
             .style('fill', function (d: any, i: number) {
                 return colorScale((i % 10).toString())
-            })
-            .call(drag());          // 允许拖拽
+            });
+
+        // 研究想一下拖拽
+        this.svg.selectAll('.forceCircle')
+            .call(drag()
+                .on('start', function (d: any) {
+                    console.log('开始')
+                })
+                .on('end', function (d: any) {
+                    console.log('end')
+                })
+                .on('drag', function (d: any) {
+                    select(this)
+                        .attr('cx', d.cx = event.x)
+                        .attr('cy', d.cy = event.y)
+                })
+            );
 
         let texts = this.svg.selectAll('.forceText')
             .data(this.nodes)
