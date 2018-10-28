@@ -152,29 +152,29 @@ class Demo2 {
 
         function ticked() {
             links
-                .attr("x1", function (d) {
+                .attr("x1", function (d: any) {
                     return d.source.x;
                 })
-                .attr("y1", function (d) {
+                .attr("y1", function (d: any) {
                     return d.source.y;
                 })
-                .attr("x2", function (d) {
+                .attr("x2", function (d: any) {
                     return d.target.x;
                 })
-                .attr("y2", function (d) {
+                .attr("y2", function (d: any) {
                     return d.target.y;
                 });
 
             linksText
-                .attr("x", function (d) {
+                .attr("x", function (d: any) {
                     return (d.source.x + d.target.x) / 2;
                 })
-                .attr("y", function (d) {
+                .attr("y", function (d: any) {
                     return (d.source.y + d.target.y) / 2;
                 });
 
             gs
-                .attr("transform", function (d) {
+                .attr("transform", function (d: any) {
                     return "translate(" + d.x + "," + d.y + ")";
                 });
         }
