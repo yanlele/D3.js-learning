@@ -2,13 +2,14 @@
  * create by yanlele
  * create time 2018-10-24 19:23
  */
-import {select} from "d3-selection";
+import {event, select} from "d3-selection";
 import {schemeCategory10} from "d3-scale-chromatic";
 import {range} from "d3-array";
 import {scaleLinear, scaleOrdinal} from "d3-scale";
 import {axisBottom} from "d3-axis";
 import CircleDemo from "../04、过渡效果/CircleDemo";
 import {forceCenter, forceLink, forceManyBody, forceSimulation} from "d3-force";
+import {drag} from "d3-drag";
 
 interface IEdges {
     source: number;
@@ -74,11 +75,101 @@ class Index {
 
         let forceSimulationMain = forceSimulation()
             .nodes(this.nodes)
+            .on('tick', ()=>this.ticked(links, linksText, gs))
             .force('forceLinkMain', forceLinkMain)
             .force('charge', forceManyBody())
-            .force('forceCenterMain', forceCenterMain)
+            .force('forceCenterMain', forceCenterMain);
 
+        let links = this.svg.append('g')
+            .selectAll('link')
+            .data(this.edges)
+            .enter()
+            .append('link')
+            .attr('fill', function (d: any, i: number) {
+                return colorScale(i.toString())
+            })
+            .attr('stroke-width', 1);
 
+        let linksText = this.svg.append('g')
+            .selectAll('text')
+            .data(this.edges)
+            .enter()
+            .append('text')
+            .text(function (d: any, i: number) {
+                return d.relation
+            })
+            .call(
+                drag()
+                    .on('start', function (d: any) {
+                        if(!event.active) {
+                            forceSimulationMain.alphaTarget(0.8).restart();
+                        }
+                        d.fx = d.x;
+                        d.fy = d.y;
+                    })
+                    .on('drag', function (d: any) {
+                        console.log('d.fx', d.fx);
+                        console.log('d.fy', d.fy);
+                        console.log('x', event.x);
+                        console.log('y', event.y);
+                        d.fx = event.x;
+                        d.fy = event.y;
+                    })
+                    .on('end', function (d: any) {
+                        if(!event.active) {
+                            forceSimulationMain.alphaDecay(0);
+                            d.df = null;
+                            d.dy = null
+                        }
+                    })
+            );
+
+        let gs = this.svg.selectAll('.circleText')
+            .data(this.nodes)
+            .enter()
+            .append('g')
+            .attr('transform', function (d: any, i: number) {
+                return `translate(${d.x}}, ${d.y})`
+            });
+
+        gs.appned('circle')
+            .attr('r', 10)
+            .attr('fill', function (d: any, i: number) {
+                return colorScale(i.toString())
+            });
+
+        gs.append('text')
+            .text(function (d: any) {
+                return d.name
+            });
+    }
+
+    ticked(links, linksText, gs) {
+        links
+            .attr('x1', function (d: any) {
+                return d.source.x;
+            })
+            .attr('y1', function (d: any) {
+                return d.source.y;
+            })
+            .attr('x2', function (d: any) {
+                return d.target.x;
+            })
+            .attr('y2', function (d: any) {
+                return d.target.y;
+            });
+
+        linksText
+            .attr('x', function (d: any) {
+                return (d.source.x + d.target.x) / 2;
+            })
+            .attr('y', function (d: any) {
+                return (d.source.y + d.target.y) / 2;
+            });
+
+        gs.attr('transform', function (d: any) {
+            return `translate(${d.x}, ${d.y})`
+        })
     }
 }
 
