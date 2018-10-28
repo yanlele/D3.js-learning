@@ -81,11 +81,11 @@ class Index {
             .force('forceCenterMain', forceCenterMain);
 
         let links = this.svg.append('g')
-            .selectAll('link')
+            .selectAll('line')
             .data(this.edges)
             .enter()
-            .append('link')
-            .attr('fill', function (d: any, i: number) {
+            .append('line')
+            .attr('stroke', function (d: any, i: number) {
                 return colorScale(i.toString())
             })
             .attr('stroke-width', 1);
@@ -97,8 +97,17 @@ class Index {
             .append('text')
             .text(function (d: any, i: number) {
                 return d.relation
-            })
-            .call(
+            });
+
+
+        let gs = this.svg.selectAll('.circleText')
+            .data(this.nodes)
+            .enter()
+            .append('g')
+            .attr('transform', function (d: any, i: number) {
+                console.log(d);
+                return `translate(${d.x}, ${d.y})`
+            }).call(
                 drag()
                     .on('start', function (d: any) {
                         if(!event.active) {
@@ -108,10 +117,6 @@ class Index {
                         d.fy = d.y;
                     })
                     .on('drag', function (d: any) {
-                        console.log('d.fx', d.fx);
-                        console.log('d.fy', d.fy);
-                        console.log('x', event.x);
-                        console.log('y', event.y);
                         d.fx = event.x;
                         d.fy = event.y;
                     })
@@ -124,15 +129,7 @@ class Index {
                     })
             );
 
-        let gs = this.svg.selectAll('.circleText')
-            .data(this.nodes)
-            .enter()
-            .append('g')
-            .attr('transform', function (d: any, i: number) {
-                return `translate(${d.x}}, ${d.y})`
-            });
-
-        gs.appned('circle')
+        gs.append('circle')
             .attr('r', 10)
             .attr('fill', function (d: any, i: number) {
                 return colorScale(i.toString())
@@ -173,7 +170,8 @@ class Index {
     }
 }
 
-let circleDemo: CircleDemo = new CircleDemo();
-
+// let circleDemo: CircleDemo = new CircleDemo();
+let index: Index = new Index();
+index.main();
 
 export default Index;
