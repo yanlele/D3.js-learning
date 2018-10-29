@@ -304,37 +304,16 @@ api | 说明
 stratify | 根据扁平数据创建一个分层数据.
 stratify.id | 设置节点 id 访问器.
 stratify.parentId | 设置父节点 id 访问器.
----------------------------------
 **d3.cluster** | 创建一个新的集群(系统树图)布局.
 cluster | 将指定的数据布局为系统树图.
 cluster.size | 设置布局尺寸.
 cluster.nodeSize | 设计节点尺寸.
 cluster.separation | 设置两个叶节点之间的间距.
----------------------------------
 **d3.tree** | 创建一个新的整齐(同深度节点对齐)的树布局.
 tree | 将指定的层次数据布局为整齐的树布局.
 tree.size | 设置布局尺寸.
 tree.nodeSize | 设置节点尺寸.
 tree.separation | 设置两个相邻的节点之间的间距.
----------------------------------
-**d3.treemap** | 创建一个矩阵树图布局.
-treemap | 将层次数据布局为矩阵树图.
-treemap.tile | 设置矩阵树图布局的填铺方法.
-treemap.size | 设置布局尺寸.
-treemap.round | 设置输出坐标是否取整.
-treemap.padding | 设置间隔参数.
-treemap.paddingInner | 设置同级节点之间的间隔.
-treemap.paddingOuter | 设置父节点和子节点之间的间距.
-treemap.paddingTop | 设置父节点和子节点之间的顶部间距.
-treemap.paddingRight | 设置父节点和子节点之间的右侧间距.
-treemap.paddingBottom | 设置父节点和子节点之间的底部间距.
-treemap.paddingLeft | 设置父节点和子节点之间的左侧间距.
-d3.treemapBinary | 平铺为平衡二叉树.
-d3.treemapDice | 以水平划分的形式平铺.
-d3.treemapSlice | 以垂直划分的形式平铺.
-d3.treemapSliceDice | 在 slice 和 dice 之间切换.
-d3.treemapSquarify | tile using squarified rows per Bruls et. al.
-d3.treemapResquarify | 与 d3.treemapSquarify 类似, 但是更新时更稳定.
 
 
 
