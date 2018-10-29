@@ -18,6 +18,7 @@ import {
 import {ascending, max} from "d3-array";
 import {schemeCategory10} from "d3-scale-chromatic";
 import {arc, DefaultArcObject} from "d3-shape";
+import {rgb} from "d3-color";
 
 class Demo5 {
     private continent: string[] = ['亚洲', '欧洲', '非洲', '美洲', '大洋洲'];
@@ -77,6 +78,10 @@ class Demo5 {
             })
             .enter()
             .append('path')
+            .attr('stroke', function (d: ChordGroup, i:number) {
+                return rgb(schemeCategory10[d.index]).brighter();
+            })
+            .attr('stroke-width', 3)
             .style('fill', function (d: ChordGroup) {
                 return schemeCategory10[d.index];
             })
