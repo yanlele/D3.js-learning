@@ -300,12 +300,24 @@ chord(matrix) 的返回值是一组 chords ，chord 表示两个节点 i 和 j �
 
 api | 说明
 :- | :- 
-d3.tree | 创建一个新的整齐(同深度节点对齐)的树布局.
+**d3.stratify** | 创建一个新的分层操作.
+stratify | 根据扁平数据创建一个分层数据.
+stratify.id | 设置节点 id 访问器.
+stratify.parentId | 设置父节点 id 访问器.
+---------------------------------
+**d3.cluster** | 创建一个新的集群(系统树图)布局.
+cluster | 将指定的数据布局为系统树图.
+cluster.size | 设置布局尺寸.
+cluster.nodeSize | 设计节点尺寸.
+cluster.separation | 设置两个叶节点之间的间距.
+---------------------------------
+**d3.tree** | 创建一个新的整齐(同深度节点对齐)的树布局.
 tree | 将指定的层次数据布局为整齐的树布局.
 tree.size | 设置布局尺寸.
 tree.nodeSize | 设置节点尺寸.
 tree.separation | 设置两个相邻的节点之间的间距.
-d3.treemap | 创建一个矩阵树图布局.
+---------------------------------
+**d3.treemap** | 创建一个矩阵树图布局.
 treemap | 将层次数据布局为矩阵树图.
 treemap.tile | 设置矩阵树图布局的填铺方法.
 treemap.size | 设置布局尺寸.
@@ -323,6 +335,8 @@ d3.treemapSlice | 以垂直划分的形式平铺.
 d3.treemapSliceDice | 在 slice 和 dice 之间切换.
 d3.treemapSquarify | tile using squarified rows per Bruls et. al.
 d3.treemapResquarify | 与 d3.treemapSquarify 类似, 但是更新时更稳定.
+
+
 
 
 
