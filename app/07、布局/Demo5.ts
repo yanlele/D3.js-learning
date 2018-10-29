@@ -20,6 +20,9 @@ import {schemeCategory10} from "d3-scale-chromatic";
 import {arc, DefaultArcObject} from "d3-shape";
 import {rgb} from "d3-color";
 
+/*
+* 书籍上的弦图示例
+* */
 class Demo5 {
     private continent: string[] = ['亚洲', '欧洲', '非洲', '美洲', '大洋洲'];
     private population: number[][] = [
