@@ -137,9 +137,28 @@ class Demo5 {
             .enter()
             .append('path')
             .attr('d', ribbonMain)
+            .attr('class', 'innerPath')
             .attr('fill', function (d) {
                 return color[d.source.index]
+            });
+
+        gOuter.selectAll('.outerPath')
+            .on('mouseover', function (d, i) {
+                gInner.selectAll('.innerPath')
+                    .filter(function (inner) {
+                        return inner.source.index != i && inner.target.index != i;
+                    })
+                    .transition()
+                    .style('opacity', 0)
             })
+            .on('mouseout', function (d, i) {
+                gInner.selectAll('.innerPath')
+                    .filter(function (inner) {
+                        return inner.source.index != i && inner.target.index != i;
+                    })
+                    .transition()
+                    .style('opacity', 1)
+            });
     }
 }
 
