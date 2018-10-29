@@ -146,6 +146,23 @@ class Index {
             .attr('fill', schemeCategory10[3])
     }
 
+    /*弧形生成器的第二种用法*/
+    demoInsert1ToDemo6() {
+        let arcPath = arc().innerRadius(50).outerRadius(100);
+        this.svg.selectAll('.path')
+            .data([{
+                startAngle: 0,
+                endAngle: Math.PI * .75
+            }])
+            .enter()
+            .append('path')
+            .attr('d', arcPath)
+            .attr('transform', `translate(250, 250)`)
+            .attr('stroke', schemeCategory10[3])
+            .attr('stroke-width', 3)
+            .attr('fill', schemeCategory10[4])
+    }
+
     /*复杂的弧形生成器示例*/
     demo7() {
         let dataSet: DefaultArcObject[] = [
@@ -349,8 +366,8 @@ class Index {
 }
 
 let index: Index = new Index();
-index.demo11();
-// index.test();
+// index.demo11();
+index.demoInsert1ToDemo6();
 
 
 // let chordDemo:ChordDemo = new ChordDemo();

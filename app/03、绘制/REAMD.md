@@ -178,6 +178,25 @@ this.svg.append('path')
     .attr('fill', schemeCategory10[3])
 ```
 
+使用方式3， 自动注入， 请见: demoInsert1ToDemo6                   
+```typescript
+let arcPath = arc().innerRadius(50).outerRadius(100);
+this.svg.selectAll('.path')
+    .data([{
+        startAngle: 0,
+        endAngle: Math.PI * .75
+    }])
+    .enter()
+    .append('path')
+    .attr('d', arcPath)
+    .attr('transform', `translate(250, 250)`)
+    .attr('stroke', schemeCategory10[3])
+    .attr('stroke-width', 3)
+    .attr('fill', schemeCategory10[4])
+```
+
+
+
 添加一个复杂的使用示例， 绘制饼状图， 请见demo7:
 ```typescript
 let dataSet: DefaultArcObject[] = [
