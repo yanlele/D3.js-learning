@@ -4,7 +4,17 @@
  * create time 2018-10-28 20:49
  */
 import {select} from "d3-selection";
-import {chord, ChordGroup, ChordLayout, Chords, ChordSubgroup} from "d3-chord";
+import {
+    chord,
+    ChordGroup,
+    ChordLayout,
+    Chords,
+    ChordSubgroup,
+    ribbon,
+    Ribbon,
+    RibbonGenerator,
+    RibbonSubgroup
+} from "d3-chord";
 import {ascending, max} from "d3-array";
 import {schemeCategory10} from "d3-scale-chromatic";
 import {arc, DefaultArcObject} from "d3-shape";
@@ -43,7 +53,8 @@ class Demo5 {
         let gOuter = gChord.append('g');
 
         // 弦的元素
-        let gInter = gChord.append('g');
+        let gInner = gChord.append('g');
+
 
         // 颜色
         let color = schemeCategory10;
@@ -54,6 +65,10 @@ class Demo5 {
 
         // 生成弦
         let arcOuter = arc().innerRadius(innerRadius).outerRadius(outerRadius);
+
+        // 弦图生成器
+        let ribbonMain: RibbonGenerator<any, Ribbon, RibbonSubgroup> = ribbon()
+            .radius(innerRadius);
 
         // 绘制节点弧度
         gOuter.selectAll('.outerPath')
@@ -98,15 +113,25 @@ class Demo5 {
 
                 result += `translate(0, ${-1 * (outerRadius + 10)})`;
 
-                if(angle > Math.PI * 3 /4 && angle < Math.PI * 5/4) {
+                if(angle > Math.PI * 2 /4 && angle < Math.PI * 6/4) {
                     result += 'rotate(180)'
                 }
                 return result;
             })
             .text( (d: ChordGroup, i: number) => {
                 return this.continent[i];
-            })
+            });
 
+        gInner.selectAll('.innerPath')
+            .data(function (d) {
+                return d
+            })
+            .enter()
+            .append('path')
+            .attr('d', ribbonMain)
+            .attr('fill', function (d) {
+                return color[d.source.index]
+            })
     }
 }
 
