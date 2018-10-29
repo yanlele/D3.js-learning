@@ -137,28 +137,29 @@ class Demo5 {
             .enter()
             .append('path')
             .attr('d', ribbonMain)
+            .attr('stroke-width', 3)
+            .attr('stroke', function (d) {
+                return rgb(color[d.source.index]).darker()
+            })
             .attr('class', 'innerPath')
             .attr('fill', function (d) {
                 return color[d.source.index]
             });
 
         gOuter.selectAll('.outerPath')
-            .on('mouseover', function (d, i) {
+            .on('mouseover', fade(0))
+            .on('mouseout', fade(1));
+
+        function fade(opacity: number) {
+            return function (g, i) {
                 gInner.selectAll('.innerPath')
-                    .filter(function (inner) {
-                        return inner.source.index != i && inner.target.index != i;
+                    .filter(function (d) {
+                        return d.source.index != i && d.target.index != i;
                     })
                     .transition()
-                    .style('opacity', 0)
-            })
-            .on('mouseout', function (d, i) {
-                gInner.selectAll('.innerPath')
-                    .filter(function (inner) {
-                        return inner.source.index != i && inner.target.index != i;
-                    })
-                    .transition()
-                    .style('opacity', 1)
-            });
+                    .style('opacity', opacity)
+            }
+        }
     }
 }
 
