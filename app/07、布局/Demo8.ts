@@ -82,11 +82,10 @@ class Demo8 {
         let treeHeight: number = height - 50;
 
         let treeMain = tree().size([treeWidth, treeHeight]);
-        let nodes = hierarchy(this.dataSet);
-        let links = nodes.ancestors();
 
+        const nodes = hierarchy(this.dataSet);
+        treeMain(nodes);
         console.log(nodes);
-        console.log(links);
         // 创建一个线段生成器
         let linePath = line()
             .x(function (d: any): number {
@@ -103,7 +102,6 @@ class Demo8 {
             .attr('height', treeHeight)
             .append('g')
             .attr('transform', 'translate(40, 0)');
-
 
 
     }
