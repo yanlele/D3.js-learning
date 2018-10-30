@@ -13,6 +13,7 @@ import Demo4 from "./Demo4";
 import Demo5 from "./Demo5";
 import Demo6 from "./Demo6";
 import Demo7 from "./Demo7";
+import Demo8 from "./Demo8";
 
 
 class Index {
@@ -129,7 +130,10 @@ class Index {
 // let demo6: Demo6 = new Demo6();
 // demo6.main();
 
-let demo7: Demo7 = new Demo7();
-demo7.main()
+// let demo7: Demo7 = new Demo7();
+// demo7.main();
+
+let demo8: Demo8 = new Demo8();
+demo8.main();
 
 export default Index;
