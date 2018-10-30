@@ -300,6 +300,19 @@ chord(matrix) 的返回值是一组 chords ，chord 表示两个节点 i 和 j �
 
 api | 说明
 :- | :- 
+**d3.hierarchy** | **从给定的层次结构数据构造一个根节点并为各个节点指定深度等属性.**
+node.ancestors | 从当前节点开始返回其祖先节点数组.
+node.descendants | 从当前节点开始返回其后代节点数组.
+node.leaves | 返回当前节点为根节点的子树的叶节点.
+node.path | 返回从当前节点到指定目标节点的最短路径.
+node.links | 返回当前节点所在子树的所有边.
+node.sum | 评估和汇总定量值.
+node.sort | 排序所有的后代兄弟节点.
+node.count | 统计叶节点的个数.
+node.each | 广度优先遍历当前子树.
+node.eachAfter | 后续遍历当前子树.
+node.eachBefore | 前序遍历当前子树.
+node.copy | 拷贝一个当前节点为根节点的子树的副本.
 **d3.stratify** | **创建一个新的分层操作.**
 stratify | 根据扁平数据创建一个分层数据.
 stratify.id | 设置节点 id 访问器.
