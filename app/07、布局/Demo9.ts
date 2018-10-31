@@ -83,6 +83,7 @@ class Demo9 {
         svg.append('g')
             .attr('transform', `translate(0, ${height - padding.bottom})`)
             .call(axisBottom(xScale));
+
     }
 }
 

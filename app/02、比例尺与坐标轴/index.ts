@@ -235,7 +235,7 @@ class Index {
             .attr('width', width);
 
         // 用于坐标轴的线性比例尺
-        let xScale = scaleLinear().domain([0, 10]).range([0, 300]);
+        let xScale = scaleLinear().domain([0, 10]).range([0, 300])
 
         // 坐标轴
         let axis = axisBottom(xScale);
@@ -291,13 +291,13 @@ class Index {
             .attr('width', width);
 
         // 用于坐标轴的线性比例尺
-        let linear = scaleLinear().domain([0, 10]).range([0, 500]);
+        let linear = scaleLinear().domain([0, 100]).range([0, 500]);
         let pow = scalePow().exponent(2).domain([0,10]).range([0,500]);
         let log = scaleLog().domain([0.01, 10]).range([0, 500]);
 
 
         // 坐标轴
-        let linearBottomAxis = axisBottom(linear);
+        let linearBottomAxis = axisBottom(linear).ticks(10);
         let powBottomAxis = axisBottom(pow);
         let logBottomAxis = axisBottom(log);
 
@@ -376,7 +376,7 @@ class Index {
 }
 
 let index: Index = new Index();
-index.demo16();
+index.demo15();
 
 
 
