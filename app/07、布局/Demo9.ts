@@ -57,7 +57,17 @@ class Demo9 {
             .attr('height', function (d: any) {
                 return height - padding.bottom - yScale(d.length)
             })
-            .attr('fill', schemeCategory10[0]);
+            .attr('fill', schemeCategory10[0])
+            .on('mouseover', function (d:any, i:number) {
+                select(this)
+                    .transition()
+                    .attr('fill', schemeCategory10[1])
+            })
+            .on('mouseout', function (d: any, i: number) {
+                select(this)
+                    .transition()
+                    .attr('fill', schemeCategory10[0])
+            });
 
         bar.append('text')
             .attr('stroke', 'white')
