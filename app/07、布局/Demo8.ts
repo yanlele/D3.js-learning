@@ -3,7 +3,7 @@
  * create time 2018-10-30 15:21
  */
 import {hierarchy, tree} from "d3-hierarchy";
-import {line} from "d3-shape";
+import {line, linkHorizontal} from "d3-shape";
 import {select, selectAll} from "d3-selection";
 
 class Demo8 {
@@ -106,8 +106,52 @@ class Demo8 {
         // 获取边线
         let links = hierarchyData.links();
 
+
         console.log('nodes: ', nodes);
         console.log('links: ', links);
+
+        let g = svg.append('g').attr('transform', 'translate(40, 40)');
+
+        // 绘制线
+        g.selectAll('.link')
+            .data(links)
+            .enter().append('path')
+            .attr('class', 'link')
+            .style('fill', '#cccccc');
+            // .attr('d', linkHorizontal()
+            //     .x(function (d: any) {
+            //         return d.y
+            //     })
+            //     .y(function (d: any) {
+            //         return d.x
+            //     }))
+
+        g.selectAll('.node')
+            .data(nodes)
+            .enter()
+            .append('g')
+            .attr('class', 'node')
+            .attr('transform', function (d: any) {
+                console.log(d);
+                return `translate(${d.y}, ${d.x})`
+            });
+        g.selectAll('.node')
+            .append('circle')
+            .attr('r', 5)
+            .attr('fill', 'green');
+        g.selectAll('.node')
+            .append('text')
+            .attr('dy', 3)
+            .attr('x', function (d: any) {
+                return d.children ? -8 : 8;
+            })
+            .attr('text-anchor', function (d: any) {
+                return d.children ? 'end' : 'start'
+            })
+            .text(function (d: any) {
+                return d.data.name
+            })
+            .style('font-size', '11px')
     }
 }
 
