@@ -34,7 +34,7 @@ class Index {
 
         let xScale = scaleLinear().domain([0, 1]).rangeRound([0, width]);
 
-        let histogramMain = histogram().domain([0, 20]).thresholds(xScale.ticks(20));
+        let histogramMain = histogram().domain([0, 1]).thresholds(xScale.ticks(20));
 
         let bins = histogramMain(data);
         console.log(bins);
@@ -50,7 +50,7 @@ class Index {
             .append('svg')
             .attr('width', width)
             .attr('height', height)
-            .attr('transform', `translate(${padding.left}, ${padding.top})`)
+            .attr('transform', `translate(${padding.left}, ${padding.top})`);
 
         let bar = svg.selectAll('.bar')
             .data(bins)
@@ -81,7 +81,6 @@ class Index {
         svg.append('g')
             .attr('transform', `translate(0, ${height - padding.bottom})`)
             .call(axisBottom(xScale));
-
     }
 }
 
