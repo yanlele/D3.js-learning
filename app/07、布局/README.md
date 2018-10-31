@@ -343,7 +343,8 @@ node.value | 当前节点以及 descendants(后代节点) 的总计值; 可以�
 #### 示例                                     
 这个地方看一个官方实例： 非常非常非常非常的经典：
 - [Demo6: 这个例子要配合index.html+csv文件](./Demo6.ts)                   
-- [Demo7: 无限生成树图的示例](Demo7.ts)
+- [Demo7: 无限生成树图的示例](./Demo7.ts)
+- [Demo8: 简单的经典示例](./Demo8.ts)
 
 
 
