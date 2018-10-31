@@ -376,7 +376,7 @@ class Index {
 }
 
 let index: Index = new Index();
-index.demo15();
+index.demo16();
 
 
 

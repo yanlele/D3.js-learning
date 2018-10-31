@@ -6,7 +6,7 @@
 
 /*书本实例*/
 import {randomNormal} from "d3-random";
-import {Bin, histogram, HistogramGeneratorNumber} from "d3-array";
+import {Bin, histogram, HistogramGeneratorNumber, max, min, tickIncrement} from "d3-array";
 import {scaleLinear, scaleOrdinal} from "d3-scale";
 import {axisBottom, AxisScale} from "d3-axis";
 import {line} from "d3-shape";
@@ -35,11 +35,14 @@ class Demo10 {
         console.log(hisData);
 
         let xAxisWidth: number = 800,
-            xTicks = hisData.map(function (d: any) {
-                return d.x
-            });
+            yAxisWidth: number = 800,
 
-        let xScale = scaleLinear().domain(xTicks).range([xAxisWidth, 0.1]);
+            LineMain = scaleLinear().domain([rangeMax, rangeMin]).range([xAxisWidth, 0.1]),
+            yScale = scaleLinear().domain([min(hisData, function (d: any) {
+                return d.y
+            }), max(hisData, function (d: any) {
+                return d.y
+            })]).range([5, yAxisWidth]);
 
         let padding: any = {
             top: 30,
@@ -48,7 +51,7 @@ class Demo10 {
             right: 30,
         };
 
-        let axis = axisBottom(xScale);
+        let axis = axisBottom(LineMain).ticks(20);
 
         // 绘图
         let svg = select('body')
@@ -61,6 +64,26 @@ class Demo10 {
             .attr('class', 'axis')
             .attr('transform', `translate(${padding.left}, ${height - padding.bottom})`)
             .call(axis);
+
+        let gRect = svg.append('g')
+            .attr('transform', `translate(${padding.left}, ${padding.bottom})`);
+
+        gRect.selectAll('rect')
+            .data(hisData)
+            .enter()
+            .append('rect')
+            .attr('x', function (d: any, i: number) {
+                return LineMain(d.x)
+            })
+            .attr('y', function (d: any, i: number) {
+                return height - yScale(d.y)
+            })
+            .attr('width', function (d:any, i: number) {
+                return xAxisWidth;
+            })
+            .attr('height', function (d: any) {
+                return yScale(d.y)
+            })
     }
 }
 
