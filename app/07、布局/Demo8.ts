@@ -7,7 +7,7 @@ import {line} from "d3-shape";
 import {select, selectAll} from "d3-selection";
 
 class Demo8 {
-    private dataSet: any = {
+    private treeData: any = {
         "name": "中国",
         "children":
             [
@@ -81,19 +81,16 @@ class Demo8 {
         let treeWidth: number = width - 50;
         let treeHeight: number = height - 50;
 
-        let treeMain = tree().size([treeWidth, treeHeight]);
-
-        const nodes = hierarchy(this.dataSet);
-        treeMain(nodes);
-        console.log(nodes);
-        // 创建一个线段生成器
-        let linePath = line()
-            .x(function (d: any): number {
-                return d.x
-            })
-            .y(function (d: any): number {
-                return d.y;
+        let treeMain = tree()
+            .size([treeWidth, treeHeight])
+            .separation(function (a, b) {
+                return (a.parent === b.parent) ? 1 : 2
             });
+
+
+        const hierarchyData = hierarchy(this.treeData).sum(function (d) {
+            return d.value
+        });
 
         // 创建svg
         let svg = select('body')
@@ -103,7 +100,14 @@ class Demo8 {
             .append('g')
             .attr('transform', 'translate(40, 0)');
 
+        // 获取节点
+        let nodes = hierarchyData.descendants();
 
+        // 获取边线
+        let links = hierarchyData.links();
+
+        console.log('nodes: ', nodes);
+        console.log('links: ', links);
     }
 }
 
