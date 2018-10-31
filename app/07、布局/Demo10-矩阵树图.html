@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<style>
+    form{
+        font-family:"Helvetica Neue",Arical, sans-serif;
+    }
+
+    svg{
+        font: 10px sans-serif;
+    }
+</style>
+<svg width="1200" height="600"></svg>
+<form>
+
+</form>
+<script src="http://d3js.org/d3.v4.min.js"></script>
+<script>
+    var svg=d3.select("svg");
+    var width=1200,height=600;
+    var data={
+        "name":"gen",
+        "children":[
+            {
+                "name":"num1",
+                "children":[{"name":"num1-1","size":"5"},{"name":"num1-2","size":"5"}]
+            },
+            {
+                "name":"num2",
+                "size":10
+            },
+            {
+                "name":"num3",
+                "size":10
+            },
+            {
+                "name":"num4",
+                "size":10
+            },
+            {
+                "name":"num5",
+                "size":10
+            }
+        ]
+    };
+    var treemap=d3.treemap()
+        .tile(d3.treemapResquarify)
+        .size([width,height])
+        .round(true)
+        .paddingInner(10);
+
+
+
+    var hi=d3.hierarchy(data)
+        .sum(function(d){ return d.size; })
+        .sort(function(a,b){return b.value-a.value;});
+
+    treemap(hi);
+
+    var cell=svg.selectAll("g")
+        .data(hi.leaves())
+        .enter().append("g");
+
+
+    cell.append("rect")
+        .attr("x",function(d){ return d.x0; })
+        .attr("y",function(d){ return d.y0; })
+        .attr("width",function(d){ return d.x1-d.x0; })
+        .attr("height",function(d){ return d.y1-d.y0; })
+        .attr("fill",function(d) { return "#594"; })
+
+    cell.append("text")
+        .attr("x",function(d) {return d.x0;})
+        .attr("y",function(d) {return d.y0;})
+        .attr("dx","0.5em")
+        .attr("dy","1.5em")
+        .attr("fill","red")
+        .attr("font-size",30)
+        .text(function(d){   return d.data.name+":"+d.data.size;
+        } );
+
+    console.log("***************================\n");
+    console.log(cell);
+    console.log("==============next is leaves");
+    console.log(hi.leaves());
+    console.log(data);
+    console.log(hi);
+</script>
