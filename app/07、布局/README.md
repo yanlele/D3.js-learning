@@ -328,6 +328,19 @@ tree.size | 设置布局尺寸.
 tree.nodeSize | 设置节点尺寸.
 tree.separation | 设置两个相邻的节点之间的间距.
 
+#### 说明                                 
+返回的节点和每一个后代会被附加如下属性:
+
+属性 | 说明
+:- | :- 
+node.data | 关联的数据，由 constructor 指定.
+node.depth | 当前节点的深度, 根节点为 0.
+node.height | 当前节点的高度, 叶节点为 0.
+node.parent | 当前节点的父节点, 根节点为 null.
+node.children | 当前节点的孩子节点(如果有的话); 叶节点为 undefined.
+node.value | 当前节点以及 descendants(后代节点) 的总计值; 可以通过 node.sum 和 node.count 计算.
+
+#### 示例                                     
 这个地方看一个官方实例： 非常非常非常非常的经典：
 - [Demo6: 这个例子要配合index.html+csv文件](./Demo6.ts)                   
 - [Demo7: 无限生成树图的示例](Demo7.ts)
