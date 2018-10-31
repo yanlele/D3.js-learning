@@ -4,12 +4,13 @@
  */
 import {event, select} from "d3-selection";
 import {schemeCategory10} from "d3-scale-chromatic";
-import {range} from "d3-array";
+import {histogram, max, range} from "d3-array";
 import {scaleLinear, scaleOrdinal} from "d3-scale";
 import {axisBottom} from "d3-axis";
 import CircleDemo from "../04、过渡效果/CircleDemo";
 import {forceCenter, forceLink, forceManyBody, forceSimulation} from "d3-force";
 import {drag} from "d3-drag";
+import {randomBates} from "d3-random";
 
 interface IEdges {
     source: number;
@@ -19,153 +20,28 @@ interface IEdges {
 }
 
 class Index {
-    private width: number = 800;
-    private height: number = 800;
-    private svg;
-    private padding: any = {
-        top: 20,
-        bottom: 20,
-        right: 20,
-        left: 20
-    };
-
-    private nodes: { name: string }[] = [
-        {name: "湖南邵阳"},
-        {name: "山东莱州"},
-        {name: "广东阳江"},
-        {name: "山东枣庄"},
-        {name: "泽"},
-        {name: "恒"},
-        {name: "鑫"},
-        {name: "明山"},
-        {name: "班长"}
-    ];
-    private edges: IEdges[] = [
-        {source: 0, target: 4, relation: "籍贯", value: 1.3},
-        {source: 4, target: 5, relation: "舍友", value: 1},
-        {source: 4, target: 6, relation: "舍友", value: 1},
-        {source: 4, target: 7, relation: "舍友", value: 1},
-        {source: 1, target: 6, relation: "籍贯", value: 2},
-        {source: 2, target: 5, relation: "籍贯", value: 0.9},
-        {source: 3, target: 7, relation: "籍贯", value: 1},
-        {source: 5, target: 6, relation: "同学", value: 1.6},
-        {source: 6, target: 7, relation: "朋友", value: 0.7},
-        {source: 6, target: 8, relation: "职责", value: 2}
-    ];
-
-    constructor() {
-        this.svg = select('body').append('svg')
-            .attr('width', this.width)
-            .attr('height', this.height)
-    }
-
     main() {
-        let g = this.svg.append('g')
-            .attr('transform', `translate(${this.padding.left}, ${this.padding.top})`);
+        let width: number = 900;
+        let height: number = 900;
+        let padding: any = {
+            top: 30,
+            bottom: 30,
+            left: 30,
+            right: 30,
+        };
+        let data:number[] = range(1000).map(randomBates(10));
 
-        let colorScale = scaleOrdinal().domain(range(this.nodes.length).map(function (d: number, i: number) {
-            return d.toString()
-        })).range(schemeCategory10);
+        let xScale = scaleLinear().domain([0, 20]).rangeRound([0, width]);
 
-        let forceLinkMain = forceLink().links(this.edges).distance(function (d: IEdges) {
-            return d.value * 100;
-        });
+        let histogramMain = histogram().domain([0, 20]).thresholds(xScale.ticks(20));
 
-        let forceCenterMain = forceCenter().x(this.width / 2).y(this.height / 2);
+        let bins = histogramMain(data);
 
-        let forceSimulationMain = forceSimulation()
-            .nodes(this.nodes)
-            .force('forceLinkMain', forceLinkMain)
-            .force('charge', forceManyBody())
-            .force('forceCenterMain', forceCenterMain)
-            .on('tick', ()=>this.ticked(links, linksText, gs))
+        let yScale = scaleLinear().domain([0, max(bins, function (d: any) {
+            return d.length;
+        })]).range([height - padding.bottom - padding.top, 0]);
 
-        let links = g.append('g')
-            .selectAll('line')
-            .data(this.edges)
-            .enter()
-            .append('line')
-            .attr('stroke', function (d: any, i: number) {
-                return colorScale(i.toString())
-            })
-            .attr('stroke-width', 1);
-
-        let linksText = g.append('g')
-            .selectAll('text')
-            .data(this.edges)
-            .enter()
-            .append('text')
-            .text(function (d: any, i: number) {
-                return d.relation
-            });
-
-
-        let gs = g.selectAll('.circleText')
-            .data(this.nodes)
-            .enter()
-            .append('g')
-            .attr('transform', function (d: any, i: number) {
-                return `translate(${d.x}, ${d.y})`
-            })
-            .call(drag()
-                    .on('start', function (d: any) {
-                        if(!event.active) {
-                            forceSimulationMain.alphaTarget(0.8).restart();
-                        }
-                        d.fx = d.x;
-                        d.fy = d.y;
-                    })
-                    .on('drag', function (d: any) {
-                        d.fx = event.x;
-                        d.fy = event.y;
-                    })
-                    .on('end', function (d: any) {
-                        if(!event.active) {
-                            forceSimulationMain.alphaTarget(0);
-                        }
-                        d.fx = null;
-                        d.fy = null
-                    })
-            );
-
-        gs.append('circle')
-            .attr('r', 10)
-            .attr('fill', function (d: any, i: number) {
-                return colorScale(i.toString())
-            });
-
-        gs.append('text')
-            .text(function (d: any) {
-                return d.name
-            });
-    }
-
-    ticked(links, linksText, gs) {
-        links
-            .attr('x1', function (d: any) {
-                return d.source.x;
-            })
-            .attr('y1', function (d: any) {
-                return d.source.y;
-            })
-            .attr('x2', function (d: any) {
-                return d.target.x;
-            })
-            .attr('y2', function (d: any) {
-                return d.target.y;
-            });
-
-        linksText
-            .attr('x', function (d: any) {
-                return (d.source.x + d.target.x) / 2;
-            })
-            .attr('y', function (d: any) {
-                return (d.source.y + d.target.y) / 2;
-            });
-
-        gs.attr('transform', function (d: any) {
-            return `translate(${d.x}, ${d.y})`
-        })
+        // 绘图
     }
 }
 

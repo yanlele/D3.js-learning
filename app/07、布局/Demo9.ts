@@ -38,6 +38,7 @@ class Demo9 {
             })])
             .range([height - padding.bottom - padding.top, 0]);
 
+        console.log(bins);
 
         // 绘图
         let svg = select('body')
