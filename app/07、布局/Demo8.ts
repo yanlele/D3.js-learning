@@ -6,6 +6,7 @@ import {hierarchy, tree} from "d3-hierarchy";
 import {DefaultLinkObject, line, Link, linkHorizontal, linkVertical} from "d3-shape";
 import {select, selectAll} from "d3-selection";
 
+/*树图经典示例*/
 class Demo8 {
     private treeData: any = {
         "name": "中国",
