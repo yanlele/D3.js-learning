@@ -388,6 +388,16 @@ d3.treemapSliceDice | 在 slice 和 dice 之间切换.
 d3.treemapSquarify | tile using squarified rows per Bruls et. al.
 d3.treemapResquarify | 与 d3.treemapSquarify 类似, 但是更新时更稳定.
 
+#### 具体说明
+- 1、treemap(root)               
+对指定的 root hierarchy 进行布局，为 root 以及每个后代节点附加以下属性:
+
+node.x0 - 矩形的左边缘
+node.y0 - 矩形的上边缘
+node.x1 - 矩形的右边缘
+node.y1 - 矩形的下边缘
+
+在将层次数据传递给 treemap 布局之前，必须调用 root.sum。在计算布局之前还可能需要调用 root.sort 对节点进行排序。
 
 
 
