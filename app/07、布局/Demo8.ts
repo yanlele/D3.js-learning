@@ -3,7 +3,7 @@
  * create time 2018-10-30 15:21
  */
 import {hierarchy, tree} from "d3-hierarchy";
-import {line, linkHorizontal} from "d3-shape";
+import {DefaultLinkObject, line, Link, linkHorizontal, linkVertical} from "d3-shape";
 import {select, selectAll} from "d3-selection";
 
 class Demo8 {
@@ -82,14 +82,24 @@ class Demo8 {
         let treeHeight: number = height - 50;
 
         let treeMain = tree()
-            .size([treeWidth, treeHeight])
+            .size([treeHeight, treeWidth - 300])
             .separation(function (a, b) {
                 return (a.parent === b.parent) ? 1 : 2
             });
 
 
-        const hierarchyData = hierarchy(this.treeData).sum(function (d) {
-            return d.value
+        const hierarchyData = hierarchy(this.treeData);
+
+        const renderLink: Link<any, DefaultLinkObject, [number, number]> = linkHorizontal().x(function (d: any) {
+            return d.x
+        }).y(function (d: any) {
+            return d.y
+        });
+
+        const lineMain = line().x(function (d: any) {
+            return d.x
+        }).y(function (d: any) {
+            return d.y
         });
 
         // 创建svg
@@ -100,45 +110,40 @@ class Demo8 {
             .append('g')
             .attr('transform', 'translate(40, 0)');
 
-        // 获取节点
-        let nodes = hierarchyData.descendants();
-
-        // 获取边线
-        let links = hierarchyData.links();
-
-
-        console.log('nodes: ', nodes);
-        console.log('links: ', links);
-
         let g = svg.append('g').attr('transform', 'translate(40, 40)');
+
+
+        treeMain(hierarchyData);
+        const nodes = hierarchyData.descendants();
+        const links = hierarchyData.links();
+
 
         // 绘制线
         g.selectAll('.link')
             .data(links)
-            .enter().append('path')
+            .enter()
+            .append('path')
             .attr('class', 'link')
-            .style('fill', '#cccccc');
-            // .attr('d', linkHorizontal()
-            //     .x(function (d: any) {
-            //         return d.y
-            //     })
-            //     .y(function (d: any) {
-            //         return d.x
-            //     }))
+            .style('fill', '#cdafe7')
+            .attr('d', function (d: any) {
+                return lineMain(d)
+            });
 
+        // 绘制节点
         g.selectAll('.node')
             .data(nodes)
             .enter()
             .append('g')
             .attr('class', 'node')
             .attr('transform', function (d: any) {
-                console.log(d);
                 return `translate(${d.y}, ${d.x})`
             });
         g.selectAll('.node')
             .append('circle')
             .attr('r', 5)
             .attr('fill', 'green');
+
+        // 绘制文字
         g.selectAll('.node')
             .append('text')
             .attr('dy', 3)
@@ -151,7 +156,7 @@ class Demo8 {
             .text(function (d: any) {
                 return d.data.name
             })
-            .style('font-size', '11px')
+            .style('font-size', '14px')
     }
 }
 
