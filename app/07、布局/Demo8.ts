@@ -88,19 +88,18 @@ class Demo8 {
             });
 
 
-        const hierarchyData = hierarchy(this.treeData);
+        const hierarchyData = hierarchy(this.treeData).sum(function (d) {
+            return d.value
+        });
 
+        // 这样写是为了 让数据横向显示 x, y 互换
         const renderLink: Link<any, DefaultLinkObject, [number, number]> = linkHorizontal().x(function (d: any) {
-            return d.x
-        }).y(function (d: any) {
             return d.y
+        }).y(function (d: any) {
+            return d.x
         });
 
-        const lineMain = line().x(function (d: any) {
-            return d.x
-        }).y(function (d: any) {
-            return d.y
-        });
+        const lineMain = line();
 
         // 创建svg
         let svg = select('body')
@@ -124,9 +123,10 @@ class Demo8 {
             .enter()
             .append('path')
             .attr('class', 'link')
-            .style('fill', '#cdafe7')
+            .attr("fill", "none")                           // 这个是取消默认填充色
+            .attr("stroke", "#000")                         // 给与一个自己的 外框填充色
             .attr('d', function (d: any) {
-                return lineMain(d)
+                return renderLink(d)
             });
 
         // 绘制节点
@@ -135,7 +135,7 @@ class Demo8 {
             .enter()
             .append('g')
             .attr('class', 'node')
-            .attr('transform', function (d: any) {
+            .attr('transform', function (d: any) {              // 这样写是为了 让数据横向显示
                 return `translate(${d.y}, ${d.x})`
             });
         g.selectAll('.node')
@@ -156,7 +156,7 @@ class Demo8 {
             .text(function (d: any) {
                 return d.data.name
             })
-            .style('font-size', '14px')
+            .style('font-size', '18px')
     }
 }
 
