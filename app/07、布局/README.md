@@ -361,6 +361,9 @@ d3.thresholdFreedmanDiaconis | Freedman–Diaconis 阈值生成规则.
 d3.thresholdScott | Scott’s normal reference 阈值生成规则.
 d3.thresholdSturges | Sturges 阈值生成规则.
 
+#### 示例  
+- [Demo9: 简单实例](./Demo9.ts)
+
 
 
 
