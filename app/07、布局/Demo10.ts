@@ -49,7 +49,7 @@ class Demo10 {
             .tile(treemapResquarify)
             .size([width, height])
             .round(true)
-            .padding(10);
+            .paddingInner(10);
 
         let hi = hierarchy(data)
             .sum(function (d: any) {
@@ -67,18 +67,10 @@ class Demo10 {
             .append('g');
 
         cell.append('rect')
-            .attr('x', function (d: any) {
-                return d.x0
-            })
-            .attr('y', function (d: any) {
-                return d.y0
-            })
-            .attr('height', function (d: any) {
-                return d.y1 - d.y0
-            })
-            .attr('width', function (d: any) {
-                return d.x1 - d.x0
-            })
+            .attr("x",function(d:any){ return d.x0; })
+            .attr("y",function(d:any){ return d.y0; })
+            .attr("width",function(d:any){ return d.x1-d.x0; })
+            .attr("height",function(d:any){ return d.y1-d.y0; })
             .attr('fill', schemeCategory10[0]);
 
         cell.append('text')
@@ -91,8 +83,7 @@ class Demo10 {
             .attr('dy', '1.5em')
             .attr('dx', '1em')
             .attr('font-size', 18)
-            .attr('stroke', 'white')
-            .attr('fill', 'none')
+            .attr('fill', 'white')
             .text(function (d: any) {
                 return `name: ${d.data.name} - size: ${d.data.size}`
             })
