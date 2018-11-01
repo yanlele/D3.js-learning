@@ -191,4 +191,17 @@ class Demo1 extends Base {
 
 #### 形状生成器
 
+**d3.geoGraticule** | **create a graticule generator.**
+graticule | generate a MultiLineString of meridians and parallels.(产生多条经线和平行线。)
+graticule.lines | generate an array of LineStrings of meridians and parallels.(生成子午线和平行线阵列。)
+graticule.outline | generate a Polygon of the graticule’s extent.(生成分划范围的多边形。)
+graticule.extent | get or set the major & minor extents.(获取或设置主要和次要区段。)
+graticule.extentMajor | get or set the major extent.
+graticule.extentMinor | get or set the minor extent.
+graticule.step | get or set the major & minor step intervals.(获取或设置主要和次要的步距。)
+graticule.stepMajor | get or set the major step intervals.
+graticule.stepMinor | get or set the minor step intervals.
+graticule.precision | get or set the latitudinal precision.
+d3.geoGraticule10 | generate the default 10° global graticule.(全球格生成默认10°。)
+
 
