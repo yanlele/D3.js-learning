@@ -8,7 +8,7 @@ import {json} from "d3-fetch";
 import Base from "./Base";
 import {selectAll} from "d3-selection";
 
-
+/*基础使用示例*/
 class Demo1 extends Base {
     constructor() {
         super();
