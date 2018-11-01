@@ -8,6 +8,8 @@
 import {select} from "d3-selection";
 import {hierarchy, treemap, treemapResquarify} from "d3-hierarchy";
 import {schemeCategory10} from "d3-scale-chromatic";
+import {scaleOrdinal} from "d3-scale";
+import {rgb} from "d3-color";
 
 
 class Demo11 {
@@ -60,6 +62,7 @@ class Demo11 {
             });
 
         treeMapMain(hiData);
+        console.log(hiData.leaves());
 
         let nodes = svg.selectAll('g')
             .data(hiData.leaves())
