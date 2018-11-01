@@ -407,7 +407,17 @@ node.y1 - 矩形的下边缘
 - [Demo11](./Demo11.ts)
 
 
+### <div id="class07-07">07、原型打包图</div>
 
+api | 说明
+:- | :- 
+d3.pack | 创建一个新的圆形打包图.
+pack | 为指定的层次数据计算绘制打包图需要的属性.
+pack.radius | 设置半径访问器.
+pack.size | 设置布局尺寸.
+pack.padding | 设置间隙.
+d3.packSiblings | 将一组圆进行打包.
+d3.packEnclose | 计算指定圆数组的最小包裹圆.
 
 
 
