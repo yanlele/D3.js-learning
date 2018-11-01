@@ -109,25 +109,4 @@ appPaths.map(function (item) {
     }
 });
 
-
-const pages = [
-    generatePage({
-        title: 'Main',
-        entry: {
-            main: './app/Main.ts'
-        },
-        name: 'Main',
-        chunks: ['main', 'vendor', 'common'],         // 这个地方的chunks 就是自己的代码加上公用的代码
-    }),
-
-    generatePage({
-        title: '01、D3基础：选择集与数据',
-        entry: {
-            '01、D3基础：选择集与数据': './app/01、D3基础：选择集与数据/index.ts'
-        },
-        name: '01、D3基础：选择集与数据',
-        chunks: ['01、D3基础：选择集与数据', 'vendor', 'common'],         // 这个地方的chunks 就是自己的代码加上公用的代码
-    }),
-];
-
 module.exports = merge([baseConfig].concat(myPages));
