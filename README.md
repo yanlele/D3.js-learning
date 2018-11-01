@@ -41,7 +41,14 @@
 - 06、文件导入导出                 
     内容太过于简单直接略过 D3 5版本支持promise 调用
     
-- [07、布局]()
+- [07、布局](./app/07、布局/README.md)
+    - [01、饼状图](./app/07、布局/README.md#class07-01)
+    - [02、力导向图](./app/07、布局/README.md#class07-02)
+    - [03、弦图](./app/07、布局/README.md#class07-03)
+    - [04、树图](./app/07、布局/README.md#class07-04)
+    - [05、直方图](./app/07、布局/README.md#class07-05)
+    - [06、矩阵树图](./app/07、布局/README.md#class07-06)
+    - [07、原型打包图](./app/07、布局/README.md#class07-07)
 
 
 
