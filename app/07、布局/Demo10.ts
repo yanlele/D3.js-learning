@@ -5,11 +5,11 @@
  */
 
 
-/*基础示例*/
 import {select} from "d3-selection";
 import {hierarchy, treemap, treemapResquarify} from "d3-hierarchy";
 import {schemeCategory10} from "d3-scale-chromatic";
 
+/*简单矩阵树图示例*/
 class Demo10 {
     main() {
         let height: number = 600;
@@ -19,28 +19,28 @@ class Demo10 {
             .attr('width', width)
             .attr('height', height);
 
-        let data:any = {
-            "name":"gen",
-            "children":[
+        let data: any = {
+            "name": "gen",
+            "children": [
                 {
-                    "name":"num1",
-                    "children":[{"name":"num1-1","size":"5"},{"name":"num1-2","size":"5"}]
+                    "name": "num1",
+                    "children": [{"name": "num1-1", "size": "5"}, {"name": "num1-2", "size": "5"}]
                 },
                 {
-                    "name":"num2",
-                    "size":10
+                    "name": "num2",
+                    "size": 10
                 },
                 {
-                    "name":"num3",
-                    "size":10
+                    "name": "num3",
+                    "size": 10
                 },
                 {
-                    "name":"num4",
-                    "size":10
+                    "name": "num4",
+                    "size": 10
                 },
                 {
-                    "name":"num5",
-                    "size":10
+                    "name": "num5",
+                    "size": 10
                 }
             ]
         };
@@ -55,8 +55,8 @@ class Demo10 {
             .sum(function (d: any) {
                 return d.size
             })
-            .sort(function (a, b) {
-                return b.value-a.value
+            .sort(function (a: any, b: any) {
+                return b.value - a.value
             });
 
         treeMapMain(hi);
@@ -67,10 +67,18 @@ class Demo10 {
             .append('g');
 
         cell.append('rect')
-            .attr("x",function(d:any){ return d.x0; })
-            .attr("y",function(d:any){ return d.y0; })
-            .attr("width",function(d:any){ return d.x1-d.x0; })
-            .attr("height",function(d:any){ return d.y1-d.y0; })
+            .attr("x", function (d: any) {
+                return d.x0;
+            })
+            .attr("y", function (d: any) {
+                return d.y0;
+            })
+            .attr("width", function (d: any) {
+                return d.x1 - d.x0;
+            })
+            .attr("height", function (d: any) {
+                return d.y1 - d.y0;
+            })
             .attr('fill', schemeCategory10[0]);
 
         cell.append('text')
