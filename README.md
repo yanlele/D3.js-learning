@@ -49,6 +49,10 @@
     - [05、直方图](./app/07、布局/README.md#class07-05)
     - [06、矩阵树图](./app/07、布局/README.md#class07-06)
     - [07、圆形打包图](./app/07、布局/README.md#class07-07)
+    
+- [08、地图基础](./app/08、地图基础/README.md)
+
+
 
 
 
