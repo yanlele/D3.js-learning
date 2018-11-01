@@ -22,7 +22,7 @@ path.pointRadius | 设置点特征的半径.
 
 api | 说明
 :- | :- 
-projection | 将指定的球面上一点投影到平面.
+**projection** | **将指定的球面上一点投影到平面.**
 projection.invert | 逆转投影，根据平面一点反向计算球面坐标.
 projection.stream | wrap the specified stream to project geometry.
 projection.clipAngle | set the radius of the clip circle.
@@ -94,12 +94,12 @@ rotation.invert | 计算某个点在旋转之前的点.
 
 api | 说明
 :- | :- 
-d3.geoCircle | 创建一个圆生成器.
+**d3.geoCircle** | **创建一个圆生成器.**
 circle | 以分段的多边形的形式生成一个圆.
 circle.center | 以经纬度的方式指定圆心.
 circle.radius | 以度为单位指定圆的角半径.
 circle.precision | 指定分段圆的精度.
-d3.geoGraticule | create a graticule generator.
+**d3.geoGraticule** | **create a graticule generator.**
 graticule | generate a MultiLineString of meridians and parallels.
 graticule.lines | generate an array of LineStrings of meridians and parallels.
 graticule.outline | generate a Polygon of the graticule’s extent.
@@ -138,8 +138,21 @@ d3.geoTransform | define a custom geometry transform.
 
 
 ### <div id="class08-01">01、中国地图</div>
+#### 地理路径生成器
 
-先看一个简单的示例： Demo1.ts
+api | 说明
+:- | :- 
+d3.geoPath | 创建一个新的地理路径生成器.
+path | 投影并渲染指定的地理特征.
+path.area | 计算指定的二位地理特征面积.
+path.bounds | 计算指定的二位地理特征包裹框.
+path.centroid | 算指定的二位地理特征中心.
+path.measure | 算指定的二位地理特征周长.
+path.projection | 设置地理路径生成器的投影方式.
+path.context | 设置渲染上下文.
+path.pointRadius | 设置点特征的半径.
+
+- 先看一个简单的示例： Demo1.ts
 ```typescript
 class Demo1 extends Base {
     constructor() {
@@ -173,4 +186,9 @@ class Demo1 extends Base {
     }
 }
 ```
+
+- [Demo2: 点击某一省份， 显示出该省份的中心和边界框， 在控制台输出面积，中心， 边界信息](./Demo2.ts)
+
+#### 形状生成器
+
 
