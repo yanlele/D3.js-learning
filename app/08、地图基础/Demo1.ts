@@ -6,6 +6,7 @@ import {geoMercator, geoPath} from "d3-geo";
 import {schemeCategory10} from "d3-scale-chromatic";
 import {json} from "d3-fetch";
 import Base from "./Base";
+import {selectAll} from "d3-selection";
 
 
 class Demo1 extends Base {
@@ -27,9 +28,8 @@ class Demo1 extends Base {
 
         json('china.geojson')
             .then( (root: any) => {
-
                 let groups = this.svg.append('g');
-                groups.selectAll('path')
+                let paths = groups.selectAll('path')
                     .data(root.features)
                     .enter()
                     .append('path')
@@ -37,9 +37,11 @@ class Demo1 extends Base {
                     .style('fill', function (d: any, i: number) {
                         return color[i%10];
                     })
-                    .attr('d', path)
-            });
+                    .attr('d', path);
 
+
+
+            });
     }
 }
 
