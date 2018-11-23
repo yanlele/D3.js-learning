@@ -136,8 +136,8 @@ class Index {
 // let demo7: Demo7 = new Demo7();
 // demo7.main();
 
-// let demo8: Demo8 = new Demo8();
-// demo8.main();
+let demo8: Demo8 = new Demo8();
+demo8.main();
 
 // let demo9: Demo9 = new Demo9();
 // demo9.main();
@@ -145,7 +145,7 @@ class Index {
 // let demo10: Demo10 = new Demo10();
 // demo10.main();
 
-let demo11: Demo11 = new Demo11();
-demo11.main();
+// let demo11: Demo11 = new Demo11();
+// demo11.main();
 
 export default Index;

@@ -130,6 +130,23 @@ class Demo8 {
                 return renderLink(d)
             });
 
+       /* // 绘制线条上面的文字
+        g.selectAll('.lineText')
+            .data(links)
+            .enter()
+            .append('text')
+            .attr('x', function (d: any) {
+                return (d.target.y + d.source.y) / 2;
+            })
+            .attr('y', function (d: any) {
+                return (d.target.x + d.source.x) / 2;
+            })
+            .text(function (d: any) {
+                console.log(d);
+                return 'yanle';
+            });*/
+
+
         // 绘制节点
         g.selectAll('.node')
             .data(nodes)
