@@ -11,17 +11,17 @@ import UpdateData from "./08、更新数据/UpdateData";
 
 class Index {
 
-    protected persons: Array<any> = [
+    private persons: {id: string, name: string}[] = [
         {
-            id: 6,
+            id: '6',
             name: '张三'
         },
         {
-            id: 9,
+            id: '9',
             name: '李四'
         },
         {
-            id: 3,
+            id: '3',
             name: '王五'
         }
     ];
@@ -196,7 +196,7 @@ class Index {
     /*map*/
     demo13() {
         // 以数组对象persons作为数据源，设定id为主键
-        let myMap = map(this.persons, function (d) {
+        let myMap = map(this.persons, function(d) {
             return d.id;
         });
 
@@ -204,8 +204,8 @@ class Index {
         console.log(myMap.has('4'));    // false
         console.log(myMap.get('3'));    // {id: 3, name: "王五"}
         console.log(myMap.get('5'));    // undefined
-        myMap.set('12', {id: 12, name: '王麻子'});
-        myMap.set('3', {id: 3, name: '王小二'});
+        myMap.set('12', {id: '12', name: '王麻子'});
+        myMap.set('3', {id: '3', name: '王小二'});
         myMap.remove('6');
         console.log(myMap.keys());
         console.log(myMap.values());
