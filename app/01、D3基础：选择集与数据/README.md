@@ -18,7 +18,7 @@
 
 api | 说明
 :- | :-
-select | 选择多个元素
+select | 选择单个元素
 selectAll | 选择多个元素
 
 类似于jquery 的选择器理解就可以了
@@ -41,7 +41,7 @@ size() | 返回选择集个数
 api | 说明
 :- | :-
 selection.attr(name[, value]) | 获取属性
-selection.classed(name [, value]) | 获取class, 第二个参数如果要设置多个class名， 空格隔开就可以了。 第二个属性还可以是一个布尔值，表示开启与关闭， classed还可以携程对象的形式。 如果忽略第二个参数，返回的是一个布尔类型，表示是否开启。
+selection.classed(name [, value]) | 单个参数获取class是否存在, 如果要设置多个class名， 空格隔开就可以了。 第二个属性可以是一个布尔值，表示开启与关闭， 如果忽略第二个参数，返回的是一个布尔类型，表示是否开启。
 selection.style(name [, value]) | 获取样式， name 为样式名字
 selection.property(name [, value]) | 用来获取特殊的属性，比如input中的value
 selection.text([value]) | 用来获取标签的文本

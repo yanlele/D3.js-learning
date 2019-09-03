@@ -61,3 +61,6 @@
 ## 其他
 - [01、如何在ts中使用D3.js](./app/00、其他踩坑文档/01、如何在ts中使用D3.js.md)
 - [02、SVG基础](./app/00、其他踩坑文档/02、svg基础.md)
+- [D3js中attr添加class属性与classed添加属性的区别](https://blog.csdn.net/qiuhan/article/details/86240234)
+- [【 D3.js 入门系列 --- 7 】 理解 update, enter, exit 的使用](https://blog.csdn.net/lzhlzz/article/details/36869567)
+- [D3.js：Update、Enter、Exit](https://www.cnblogs.com/koto/p/5980646.html)
