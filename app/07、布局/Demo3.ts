@@ -43,6 +43,7 @@ class Demo3 {
         let forceCenterMain = forceCenter().x(this.width / 2).y(this.height / 2);
 
         let forceSimulationMain = forceSimulation()
+            // @ts-ignore
             .nodes(this.nodes)
             .force('forceLinkMain', forceLinkMain)
             .force('charge', forceManyBody().strength(-25))

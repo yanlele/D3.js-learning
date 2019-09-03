@@ -65,6 +65,7 @@ class Demo7 {
                 .attr("cy", function (d: any) {
                     return d.parent ? d.parent.py : d.py = d.y;
                 })
+                // @ts-ignore
                 .merge(node);
 
             // Add entering links in the parent’s old position.
@@ -76,6 +77,7 @@ class Demo7 {
                     const data: any = {source: o, target: o};
                     return renderLink(data);
                 })
+                // @ts-ignore
                 .merge(link);
 
             // Transition nodes and links to their new positions.

@@ -24,7 +24,7 @@ class Demo2 {
     private width = 800;
     private height = 800;
 
-    private nodes: { name: string }[] = [
+    private nodes: {name: string}[] = [
         {name: "湖南邵阳"},
         {name: "山东莱州"},
         {name: "广东阳江"},
@@ -74,6 +74,7 @@ class Demo2 {
         let forceCenterMain = forceCenter().x(this.width / 2).y(this.height / 2);
 
         let forceSimulationMain = forceSimulation()
+            // @ts-ignore
             .nodes(this.nodes)
             .force('link', forceLinkMain)
             .force('forceManyBody', forceManyBody())
