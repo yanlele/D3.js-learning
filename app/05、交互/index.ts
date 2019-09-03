@@ -223,7 +223,7 @@ class Index {
 }
 
 let index: Index = new Index();
-index.demo4();
+index.demo1();
 
 
 export default Index;
