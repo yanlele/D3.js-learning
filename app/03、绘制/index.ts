@@ -41,7 +41,7 @@ class Index {
         console.log(range(4))
     }
 
-    /*插值*/
+    /*差值*/
     demo1() {
         let a = rgb('red');
         let b = rgb('green');

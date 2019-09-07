@@ -23,7 +23,7 @@ color.hex() | 返回色彩对应的HSL
 color.toString() | 字符串形式返回颜色值
 
 
-#### 插值
+#### 差值
 
 api | 说明
 :- | :- 
