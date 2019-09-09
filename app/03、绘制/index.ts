@@ -43,10 +43,10 @@ class Index {
 
     /*差值*/
     demo1() {
-        let a = rgb('red');
-        let b = rgb('green');
+        const a = rgb('red');
+        const b = rgb('green');
 
-        let compute = interpolate(a, b);
+        const compute = interpolate(a, b);
 
         console.log(compute(0));
         console.log(compute(.2));
@@ -56,10 +56,10 @@ class Index {
 
     /*最简单的线段生成器*/
     demo2() {
-        var lines: [number, number][] = [[80, 80], [200, 100], [200, 200], [100, 200], [80, 80]];
+        const lines: [number, number][] = [[80, 80], [200, 100], [200, 200], [100, 200], [80, 80]];
 
         // 创建一个线段生成器
-        let linePath = line().x(function (d: [number, number]): number {
+        const linePath = line().x(function (d: [number, number]): number {
             return d[0];
         });
         this.svg.append('path')
@@ -69,10 +69,10 @@ class Index {
             .attr('fill', 'none')
     }
 
-    /*线段生成器*/
+    /*稍微复杂一点的线段生成器*/
     demo3() {
-        let lines: [number, number][] = [[80, 80], [120, 120], [160, 160], [200, 200], [240, 240], [280, 280]];
-        let linePath = line().x(function (d: [number, number]) {
+        const lines: [number, number][] = [[80, 80], [120, 120], [160, 160], [200, 200], [240, 240], [280, 280]];
+        const linePath = line().x(function (d: [number, number]) {
             return d[0];
         }).y(function (d: [number, number], index: number) {
             return index % 2 === 0 ? 40 : 120;
@@ -93,10 +93,10 @@ class Index {
 
     /*区域生成器 area*/
     demo4() {
-        let dataSet: [number, number][] = [[80, 80], [120, 120], [130, 130], [70, 70], [60, 60], [90, 90]];
+        const dataSet: [number, number][] = [[80, 80], [120, 120], [130, 130], [70, 70], [60, 60], [90, 90]];
 
         // 创建一个区域生成器
-        let areaPath = area()
+        const areaPath = area()
             .x((d: [number, number], i: number) => {
                 return 50 + i * 60;
             })
@@ -116,14 +116,14 @@ class Index {
 
     /*弧形成器*/
     demo5() {
-        let dataSet: DefaultArcObject = {
+        const dataSet: DefaultArcObject = {
             startAngle: 0,
             endAngle: Math.PI * .75,
             innerRadius: 50,
             outerRadius: 100
         };
         // 创建弧形生成器
-        let arcPath = arc();
+        const arcPath = arc();
         // 添加路径
         this.svg.append('path')
             .attr('d', arcPath(dataSet))
@@ -136,7 +136,7 @@ class Index {
     /*弧形生成器的第二种用法*/
     demo6() {
         // 创建弧形生成器
-        let arcPath = arc().innerRadius(50).outerRadius(100).startAngle(0).endAngle(Math.PI * .75);
+        const arcPath = arc().innerRadius(50).outerRadius(100).startAngle(0).endAngle(Math.PI * .75);
         // 添加路径
         this.svg.append('path')
             .attr('d', arcPath)
@@ -148,7 +148,7 @@ class Index {
 
     /*弧形生成器的第二种用法*/
     demoInsert1ToDemo6() {
-        let arcPath = arc().innerRadius(50).outerRadius(100);
+        const arcPath = arc().innerRadius(50).outerRadius(100);
         this.svg.selectAll('.path')
             .data([{
                 startAngle: 0,
@@ -165,7 +165,7 @@ class Index {
 
     /*复杂的弧形生成器示例*/
     demo7() {
-        let dataSet: DefaultArcObject[] = [
+        const dataSet: DefaultArcObject[] = [
             {
                 startAngle: 0,
                 endAngle: Math.PI * .6,
@@ -192,7 +192,7 @@ class Index {
             },
         ];
 
-        let arcPath = arc();
+        const arcPath = arc();
         this.svg.selectAll('path')
             .data(dataSet)
             .enter()
@@ -230,7 +230,7 @@ class Index {
 
     /*弦生成器： ribbon 使用方法1*/
     demo9() {
-        let dataSet: Ribbon = {
+        const dataSet: Ribbon = {
             source: {
                 startAngle: 0.2,
                 endAngle: Math.PI * 0.3,
@@ -243,7 +243,7 @@ class Index {
             }
         };
         // 创建一个简单的弦生成器
-        let ribbonIndex = ribbon();
+        const ribbonIndex = ribbon();
 
         // 创建路径
         this.svg.append('path')
@@ -257,7 +257,7 @@ class Index {
     /*弦生成器： ribbon 使用方法2*/
     demo10() {
         // 创建一个简单的弦生成器
-        let ribbonIndex = ribbon()
+        const ribbonIndex = ribbon()
             .source(function (d: Ribbon): RibbonSubgroup {
                 return {
                     startAngle: 0.2,
@@ -285,7 +285,7 @@ class Index {
     /*绘制折现线图*/
     demo11() {
         // 基础数据
-        let dataSet: {country: string, gdp:[number, number][]}[] = [
+        const dataSet: {country: string, gdp:[number, number][]}[] = [
             {
                 country: "china",
                 gdp: [[2000, 11920], [2001, 13170], [2002, 14550],
@@ -305,7 +305,7 @@ class Index {
         ];
 
         // 外边框
-        let padding: any = {top: 50, right: 50, bottom: 50, left: 50};
+        const padding: any = {top: 50, right: 50, bottom: 50, left: 50};
 
         // 计算GDP的最大值
         let gdpMax: number = 0;
@@ -320,13 +320,13 @@ class Index {
         }
 
         // 定义比例尺
-        let xScale = scaleLinear().domain([2000, 2014]).range([0, this.width - padding.left - padding.right ]);
+        const xScale = scaleLinear().domain([2000, 2014]).range([0, this.width - padding.left - padding.right ]);
 
         // 定义y轴比例尺
-        let yScale = scaleLinear().domain([0, gdpMax * 1.1]).range([this.height - padding.top - padding.bottom, 0]);
+        const yScale = scaleLinear().domain([0, gdpMax * 1.1]).range([this.height - padding.top - padding.bottom, 0]);
 
         // 线性生成器
-        let linePath = line()
+        const linePath = line()
             .x(function (d) {
                 return xScale(d[0])
             })
@@ -350,10 +350,10 @@ class Index {
             });
 
         // x 轴
-        let xAxis = axisBottom(xScale).ticks(5).tickFormat(format('d'));
+        const xAxis = axisBottom(xScale).ticks(5).tickFormat(format('d'));
 
         // y轴
-        let yAxis = axisLeft(yScale);
+        const yAxis = axisLeft(yScale);
 
         // 添加轴线
         this.svg.append('g')
@@ -365,12 +365,12 @@ class Index {
     }
 }
 
-let index: Index = new Index();
+const index: Index = new Index();
 // index.demo11();
 index.demoInsert1ToDemo6();
 
 
-// let chordDemo:ChordDemo = new ChordDemo();
+// const chordDemo:ChordDemo = new ChordDemo();
 // chordDemo.main();
 
 // Test.main()
